@@ -24,6 +24,10 @@ module.exports = function(grunt) {
 				grunt.log.error(err);
 				done(false);
 			}
+			if(stats.warnings)
+				stats.warnings.forEach(grunt.log.writeln.bind(grunt.log));
+			if(stats.errors)
+				stats.errors.forEach(grunt.warn);
 			if(statsTarget) {
 				var st;
 				if(typeof statsTarget === "string")
