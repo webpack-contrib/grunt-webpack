@@ -21,5 +21,8 @@
 			"type": "MIT",
 			"url": "https://github.com/sokra/grunt-webpack/blob/master/LICENSE-MIT"
 		}
+	],
+	"keywords": [
+		"gruntplugin"
 	]
 }
