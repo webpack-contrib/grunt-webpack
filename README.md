@@ -19,7 +19,7 @@ webpack: {
     src: "client/lib/index.js",
     dest: "asserts/[hash].js",
     // all other webpack options here:
-    scriptSrcPrefix: "asserts/", // i.e.
+    publicPrefix: "asserts/", // i.e.
     // one extra option for grunt-webpack
     statsTarget: "xyz", // writes the status to a variable named xyz
     // you may use it later in grunt i.e. <%= xyz.hash %>
