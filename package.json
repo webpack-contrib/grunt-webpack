@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"webpack": "0.4.x",
-		"sprintf": "0.1.x",
+		"sprintf": "0.1.x"
 	},
 	"licenses": [
 		{
