@@ -1,7 +1,7 @@
 {
 	"name": "grunt-webpack",
 	"description": "Use modules-webpack with grunt.",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"homepage": "https://github.com/sokra/grunt-webpack",
 	"author": {
 		"name": "Tobias Koppers @sokra"
@@ -14,7 +14,8 @@
 		"url": "https://github.com/sokra/grunt-webpack/issues"
 	},
 	"dependencies": {
-		"webpack": "0.4.x"
+		"webpack": "0.4.x",
+		"sprintf": "0.1.x",
 	},
 	"licenses": [
 		{
