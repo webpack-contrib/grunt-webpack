@@ -1,26 +1,26 @@
 {
 	"name": "grunt-webpack",
-	"description": "Use modules-webpack with grunt.",
-	"version": "0.2.2",
-	"homepage": "https://github.com/sokra/grunt-webpack",
+	"description": "Use webpack with grunt.",
+	"version": "0.3.0",
+	"homepage": "https://github.com/webpack/grunt-webpack",
 	"author": {
 		"name": "Tobias Koppers @sokra"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:sokra/grunt-webpack.git"
+		"url": "git@github.com:webpack/grunt-webpack.git"
 	},
 	"bugs": {
-		"url": "https://github.com/sokra/grunt-webpack/issues"
+		"url": "https://github.com/webpack/grunt-webpack/issues"
 	},
 	"dependencies": {
-		"webpack": "0.4.x",
+		"webpack": "0.6.x",
 		"sprintf": "0.1.x"
 	},
 	"licenses": [
 		{
 			"type": "MIT",
-			"url": "https://github.com/sokra/grunt-webpack/blob/master/LICENSE-MIT"
+			"url": "https://github.com/webpack/grunt-webpack/blob/master/LICENSE-MIT"
 		}
 	],
 	"keywords": [
