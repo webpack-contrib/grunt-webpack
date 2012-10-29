@@ -12,11 +12,13 @@ module.exports = function(grunt) {
 
 	var webpack = require("webpack");
 
+	var theCache = new (require("webpack/lib/Cache"))();
+
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
 
 		// Get options from this.data
-		var options = this.data;
+		var options = Object.create(this.data);
 		var input = path.join(process.cwd(), grunt.template.process(options.src));
 		var output = path.join(process.cwd(), grunt.template.process(options.dest));
 		var statsTarget = options.statsTarget;
@@ -26,6 +28,7 @@ module.exports = function(grunt) {
 		if(!options.output) options.output = path.basename(output);
 		if(!options.outputPostfix) options.outputPostfix = "." + path.basename(output);
 		if(!options.events) options.events = new (require("events").EventEmitter)();
+		if(!options.cache) options.cache = theCache;
 
 		var events = options.events;
 		var sum = 0;
@@ -44,11 +47,12 @@ module.exports = function(grunt) {
 			grunt.log.write(msg);
 			chars = msg.length;
 		}
-		events.on("task", function(name) {
+		var taskListener, taskEndListener, bundleListener;
+		events.on("task", taskListener = function(name) {
 			sum++;
 			print();
 		});
-		events.on("task-end", function(name) {
+		events.on("task-end", taskEndListener = function(name) {
 			finished++;
 			if(name) {
 				for(var i = 0; i < chars; i++)
@@ -58,7 +62,7 @@ module.exports = function(grunt) {
 			}
 			print();
 		});
-		events.on("bundle", function(name) {
+		events.on("bundle", bundleListener = function(name) {
 			sum = 0;
 			finished = 0;
 			for(var i = 0; i < chars; i++)
@@ -66,6 +70,9 @@ module.exports = function(grunt) {
 			chars = 0;
 		});
 		webpack(input, options, function(err, stats) {
+			events.removeListener("task", taskListener);
+			events.removeListener("task-end", taskEndListener);
+			events.removeListener("bundle", bundleListener);
 			if(err) {
 				grunt.log.error(err);
 				done(false);
