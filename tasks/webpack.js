@@ -10,33 +10,34 @@ var path = require("path");
 var sprintf = require("sprintf").sprintf;
 module.exports = function(grunt) {
 
+	var webpack = require("webpack");
+
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
-		var webpack = require("webpack");
-		var input = path.join(process.cwd(), this.file.src);
-		var output = path.join(process.cwd(), this.file.dest);
-		var statsTarget = this.data.statsTarget;
+		var done = this.async();
+
+		// Get options from this.data
 		var options = this.data;
+		var input = path.join(process.cwd(), grunt.template.process(options.src));
+		var output = path.join(process.cwd(), grunt.template.process(options.dest));
+		var statsTarget = options.statsTarget;
+
+		// Default values
 		if(!options.outputDirectory) options.outputDirectory = path.dirname(output);
 		if(!options.output) options.output = path.basename(output);
 		if(!options.outputPostfix) options.outputPostfix = "." + path.basename(output);
-		var done = this.async();
-
 		if(!options.events) options.events = new (require("events").EventEmitter)();
-		var events = options.events;
 
+		var events = options.events;
 		var sum = 0;
 		var finished = 0;
 		var chars = 0;
-		function c(str) {
-			return str;
-		}
 		function print() {
 			var msg = "";
 			if(sum > 0) {
-				msg += "compiling... (" + c("\033[1m\033[33m");
-				msg += sprintf("%4s", finished+"") + "/" + sprintf("%4s", sum+"");
-				msg += " " + sprintf("%4s", Math.floor(finished*100/sum)+"%");
-				msg += c("\033[39m\033[22m") + ")";
+				msg += "compiling... (";
+				msg += String(sprintf("%4s", finished+"") + "/" + sprintf("%4s", sum+"")).yellow.bold;
+				msg += String(" " + sprintf("%4s", Math.floor(finished*100/sum)+"%")).yellow.bold;
+				msg += ")";
 			}
 			for(var i = 0; i < chars; i++)
 				grunt.log.write("\b");
@@ -52,7 +53,7 @@ module.exports = function(grunt) {
 			if(name) {
 				for(var i = 0; i < chars; i++)
 					grunt.log.write("\b \b");
-				grunt.log.write(name + " " + c("\033[1m\033[32m") + "done" + c("\033[39m\033[22m") + "\n");
+				grunt.log.writeln(name + " " +  "done".green.bold);
 				chars = 0;
 			}
 			print();
