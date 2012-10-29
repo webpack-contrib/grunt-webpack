@@ -15,7 +15,8 @@
 	},
 	"dependencies": {
 		"webpack": "0.6.x",
-		"sprintf": "0.1.x"
+		"sprintf": "0.1.x",
+		"grunt-lib-contrib": "~0.3.1"
 	},
 	"licenses": [
 		{
