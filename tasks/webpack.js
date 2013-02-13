@@ -27,6 +27,10 @@ module.exports = function(grunt) {
 			options.output.path = options.output.path ?
 				path.resolve(process.cwd(), grunt.template.process(options.output.path)) :
 				process.cwd();
+			["filename", "chunkFilename", "namedChunkFilename", "publicPath", "jsonpFunction", "library"].forEach(function(attr) {
+				if(typeof options.output[attr] === "string")
+					options.output[attr] = grunt.template.process(options.output[attr]);
+			});
 		}
 
 		var cache = options.cache;
