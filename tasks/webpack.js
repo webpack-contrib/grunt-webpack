@@ -7,89 +7,75 @@
  */
 
 var path = require("path");
-var sprintf = require("sprintf").sprintf;
 module.exports = function(grunt) {
 
 	var webpack = require("webpack");
+	var CachePlugin = require("webpack/lib/CachePlugin");
+	var ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
-	var theCache = new (require("webpack/lib/Cache"))();
+	var theCachePlugin = new CachePlugin();
 
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
 
 		// Get options from this.data
 		var options = Object.create(this.data);
-		var input = path.join(process.cwd(), grunt.template.process(options.src));
-		var output = path.join(process.cwd(), grunt.template.process(options.dest));
-		var statsTarget = options.statsTarget;
+		options.context = options.context ?
+			path.resolve(process.cwd(), grunt.template.process(options.context)) :
+			process.cwd();
+		if(options.output) {
+			options.output.path = options.output.path ?
+				path.resolve(process.cwd(), grunt.template.process(options.output.path)) :
+				process.cwd();
+		}
 
-		// Default values
-		if(!options.outputDirectory) options.outputDirectory = path.dirname(output);
-		if(!options.output) options.output = path.basename(output);
-		if(!options.outputPostfix) options.outputPostfix = "." + path.basename(output);
-		if(!options.events) options.events = new (require("events").EventEmitter)();
-		if(!options.cache) options.cache = theCache;
+		var cache = options.cache;
+		options.cache = false;
+		var storeStatsTo = options.storeStatsTo;
+		var compiler = webpack(options);
 
-		var events = options.events;
-		var sum = 0;
-		var finished = 0;
+		if(cache)
+			compiler.apply(theCachePlugin);
 		var chars = 0;
-		function print() {
-			var msg = "";
-			if(sum > 0) {
-				msg += "compiling... (";
-				msg += String(sprintf("%4s", finished+"") + "/" + sprintf("%4s", sum+"")).yellow.bold;
-				msg += String(" " + sprintf("%4s", Math.floor(finished*100/sum)+"%")).yellow.bold;
-				msg += ")";
+		compiler.apply(new ProgressPlugin(function(percentage, msg) {
+			if(percentage < 1) {
+				percentage = Math.floor(percentage * 100);
+				msg = percentage + "% " + msg;
+				if(percentage < 100) msg = " " + msg;
+				if(percentage < 10) msg = " " + msg;
 			}
+			for(; chars > msg.length; chars--)
+				grunt.log.write("\b \b");
+			chars = msg.length;
 			for(var i = 0; i < chars; i++)
 				grunt.log.write("\b");
 			grunt.log.write(msg);
-			chars = msg.length;
-		}
-		var taskListener, taskEndListener, bundleListener;
-		events.on("task", taskListener = function(name) {
-			sum++;
-			print();
-		});
-		events.on("task-end", taskEndListener = function(name) {
-			finished++;
-			if(name) {
-				for(var i = 0; i < chars; i++)
-					grunt.log.write("\b \b");
-				grunt.log.writeln(name + " " +  "done".green.bold);
-				chars = 0;
-			}
-			print();
-		});
-		events.on("bundle", bundleListener = function(name) {
-			sum = 0;
-			finished = 0;
-			for(var i = 0; i < chars; i++)
-				grunt.log.write("\b \b");
-			chars = 0;
-		});
-		webpack(input, options, function(err, stats) {
-			events.removeListener("task", taskListener);
-			events.removeListener("task-end", taskEndListener);
-			events.removeListener("bundle", bundleListener);
+		}));
+
+		compiler.run(function(err, stats) {
 			if(err) {
 				grunt.log.error(err);
-				done(false);
+				return done(false);
 			}
-			if(stats.warnings)
-				stats.warnings.forEach(grunt.log.writeln.bind(grunt.log));
-			if(stats.errors)
-				stats.errors.forEach(grunt.warn);
-			if(statsTarget) {
-				var st;
-				if(typeof statsTarget === "string")
-					st = statsTarget;
-				else if(statsTarget)
-					st = statsTarget[index];
-				if(st)
-					grunt.config.set(st, stats);
+
+			grunt.log.notverbose.writeln(stats.toString({
+				colors: true,
+				hash: false,
+				timings: false,
+				assets: true,
+				chunks: false,
+				chunkModules: false,
+				modules: false,
+				children: true
+			}));
+			grunt.verbose.writeln(stats.toString({
+				colors: true
+			}));
+			if(typeof storeStatsTo === "string") {
+				grunt.config.set(storeStatsTo, stats.toJson());
 			}
+			if(options.failOnError && stats.hasErrors())
+				return done(false);
 			done();
 		});
 	});
