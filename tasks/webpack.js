@@ -19,12 +19,16 @@ module.exports = function(grunt) {
 		var done = this.async();
 
 		// Get options from this.data
-		var options = this.options({
-			context: ".",
-			output: {
-				path: "."
-			}
-		}, this.data);
+		var options = grunt.util._.merge(
+			{
+				context: ".",
+				output: {
+					path: "."
+				}
+			},
+			grunt.config([this.name, "options"]),
+			this.data
+		);
 		options.context = path.resolve(process.cwd(), options.context);
 		options.output.path = path.resolve(process.cwd(), options.output.path);
 
