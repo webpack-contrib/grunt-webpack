@@ -19,19 +19,14 @@ module.exports = function(grunt) {
 		var done = this.async();
 
 		// Get options from this.data
-		var options = Object.create(this.data);
-		options.context = options.context ?
-			path.resolve(process.cwd(), grunt.template.process(options.context)) :
-			process.cwd();
-		if(options.output) {
-			options.output.path = options.output.path ?
-				path.resolve(process.cwd(), grunt.template.process(options.output.path)) :
-				process.cwd();
-			["filename", "chunkFilename", "namedChunkFilename", "publicPath", "jsonpFunction", "library"].forEach(function(attr) {
-				if(typeof options.output[attr] === "string")
-					options.output[attr] = grunt.template.process(options.output[attr]);
-			});
-		}
+		var options = this.options({
+			context: ".",
+			output: {
+				path: "."
+			}
+		}, this.data);
+		options.context = path.resolve(process.cwd(), options.context);
+		options.output.path = path.resolve(process.cwd(), options.output.path);
 
 		var cache = options.cache;
 		options.cache = false;
