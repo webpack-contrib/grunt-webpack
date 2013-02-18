@@ -27,7 +27,10 @@ module.exports = function(grunt) {
 				}
 			},
 			grunt.config([this.name, "options"]),
-			this.data
+			this.data,
+			function(a, b) {
+				return grunt.util._.isArray(a) && grunt.util._.isArray(b) ? a.concat(b) : undefined;
+			}
 		);
 		options.context = path.resolve(process.cwd(), options.context);
 		options.output.path = path.resolve(process.cwd(), options.output.path);
