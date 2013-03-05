@@ -13,8 +13,7 @@ module.exports = function(grunt) {
 	var CachePlugin = require("webpack/lib/CachePlugin");
 	var ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
-	var theCachePlugin = new CachePlugin();
-
+	var targetCachePlugins = {};
 	var targetDependencies = {};
 
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
@@ -44,6 +43,10 @@ module.exports = function(grunt) {
 		var compiler = webpack(options);
 
 		if(cache) {
+			var theCachePlugin = targetCachePlugins[target];
+			if(!theCachePlugin) {
+				theCachePlugin = targetCachePlugins[target] = new CachePlugin();
+			}
 			compiler.apply(theCachePlugin);
 			if(targetDependencies[target]) {
 				compiler._lastCompilationFileDependencies = targetDependencies[target].file;
