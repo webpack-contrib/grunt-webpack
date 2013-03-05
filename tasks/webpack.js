@@ -15,6 +15,8 @@ module.exports = function(grunt) {
 
 	var theCachePlugin = new CachePlugin();
 
+	var targetDependencies = {};
+
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
 
@@ -35,13 +37,20 @@ module.exports = function(grunt) {
 		options.context = path.resolve(process.cwd(), options.context);
 		options.output.path = path.resolve(process.cwd(), options.output.path);
 
+		var target = this.target;
 		var cache = options.cache;
 		options.cache = false;
 		var storeStatsTo = options.storeStatsTo;
 		var compiler = webpack(options);
 
-		if(cache)
+		if(cache) {
 			compiler.apply(theCachePlugin);
+			if(targetDependencies[target]) {
+				compiler._lastCompilationFileDependencies = targetDependencies[target].file;
+				compiler._lastCompilationContextDependencies = targetDependencies[target].context;
+			}
+		}
+
 		var chars = 0;
 		compiler.apply(new ProgressPlugin(function(percentage, msg) {
 			if(percentage < 1) {
@@ -59,6 +68,12 @@ module.exports = function(grunt) {
 		}));
 
 		compiler.run(function(err, stats) {
+			if(cache) {
+				targetDependencies[target] = {
+					file: compiler._lastCompilationFileDependencies,
+					context: compiler._lastCompilationContextDependencies
+				};
+			}
 			if(err) {
 				grunt.log.error(err);
 				return done(false);
