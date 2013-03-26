@@ -1,7 +1,7 @@
 {
 	"name": "grunt-webpack",
 	"description": "Use webpack with grunt.",
-	"version": "0.9.6",
+	"version": "0.10.0",
 	"homepage": "https://github.com/webpack/grunt-webpack",
 	"author": {
 		"name": "Tobias Koppers @sokra"
@@ -14,7 +14,7 @@
 		"url": "https://github.com/webpack/grunt-webpack/issues"
 	},
 	"dependencies": {
-		"webpack": "0.9.x"
+		"webpack": "0.10.x"
 	},
 	"licenses": [
 		{
