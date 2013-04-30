@@ -40,6 +40,8 @@ module.exports = function(grunt) {
 		var cache = options.cache;
 		options.cache = false;
 		var storeStatsTo = options.storeStatsTo;
+		var statsOptions = options.stats || {};
+		delete options.stats;
 		var compiler = webpack(options);
 
 		if(cache) {
@@ -82,7 +84,7 @@ module.exports = function(grunt) {
 				return done(false);
 			}
 
-			grunt.log.notverbose.writeln(stats.toString({
+			grunt.log.notverbose.writeln(stats.toString(grunt.util._.merge({
 				colors: true,
 				hash: false,
 				timings: false,
@@ -91,10 +93,10 @@ module.exports = function(grunt) {
 				chunkModules: false,
 				modules: false,
 				children: true
-			}));
-			grunt.verbose.writeln(stats.toString({
+			}, statsOptions)));
+			grunt.verbose.writeln(stats.toString(grunt.util._.merge({
 				colors: true
-			}));
+			}, statsOptions)));
 			if(typeof storeStatsTo === "string") {
 				grunt.config.set(storeStatsTo, stats.toJson());
 			}

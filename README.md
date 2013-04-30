@@ -16,11 +16,20 @@ grunt.loadNpmTasks('grunt-webpack');
 ``` javascript
 webpack: {
   someName: {
+    // webpack options
     entry: "./client/lib/index.js",
     output: {
 	  path: "asserts/",
 	  filename: "[hash].js",
 	},
+
+	stats: {
+	  // Configure the console output
+	  colors: false,
+	  modules: true,
+	  reasons: true
+	},
+
     storeStatsTo: "xyz", // writes the status to a variable named xyz
     // you may use it later in grunt i.e. <%= xyz.hash %>
   },
