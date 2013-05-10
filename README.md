@@ -32,6 +32,9 @@ webpack: {
 
     storeStatsTo: "xyz", // writes the status to a variable named xyz
     // you may use it later in grunt i.e. <%= xyz.hash %>
+
+    failOnError: false, // don't report error to grunt if webpack find errors
+    // Use this if webpack errors are tolerable and grunt should continue
   },
   anotherName: {...}
 }

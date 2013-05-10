@@ -25,7 +25,8 @@ module.exports = function(grunt) {
 				context: ".",
 				output: {
 					path: "."
-				}
+				},
+				failOnError: true
 			},
 			grunt.config([this.name, "options"]),
 			this.data,
