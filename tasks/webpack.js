@@ -7,6 +7,7 @@
  */
 
 var path = require("path");
+var _ = require("lodash");
 module.exports = function(grunt) {
 
 	var webpack = require("webpack");
@@ -20,7 +21,12 @@ module.exports = function(grunt) {
 		var done = this.async();
 
 		// Get options from this.data
-		var options = grunt.util._.merge(
+		function getWithPlugins(ns) {
+			var obj = grunt.config(ns);
+			if(obj.plugins) obj.plugins = grunt.config.getRaw(ns.concat(["plugins"]));
+			return obj;
+		}
+		var options = _.merge(
 			{
 				context: ".",
 				output: {
@@ -28,8 +34,8 @@ module.exports = function(grunt) {
 				},
 				failOnError: true
 			},
-			grunt.config([this.name, "options"]),
-			this.data,
+			getWithPlugins([this.name, "options"]),
+			getWithPlugins([this.name, this.target]),
 			function(a, b) {
 				return grunt.util._.isArray(a) && grunt.util._.isArray(b) ? a.concat(b) : undefined;
 			}
