@@ -23,7 +23,21 @@ module.exports = function(grunt) {
 		// Get options from this.data
 		function getWithPlugins(ns) {
 			var obj = grunt.config(ns);
-			if(obj.plugins) obj.plugins = grunt.config.getRaw(ns.concat(["plugins"]));
+			if(obj.plugins) {
+				// getRaw must be used or grunt.config will clobber the types (i.e.
+				// the array won't a BannerPlugin, it will contain an Object)
+				obj.plugins = grunt.config.getRaw(ns.concat(["plugins"]));
+
+				// Re-interpolate plugin string properties as templates
+				obj.plugins.forEach(function(plugin) {
+					for (var key in plugin) {
+						plugin.hasOwnProperty(key);
+						if (typeof plugin[key] === "string") {
+							plugin[key] = grunt.template.process(plugin[key]);
+						}
+					}
+				});
+			}
 			return obj;
 		}
 		var options = _.merge(
