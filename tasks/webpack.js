@@ -28,14 +28,17 @@ module.exports = function(grunt) {
 				// the array won't a BannerPlugin, it will contain an Object)
 				obj.plugins = grunt.config.getRaw(ns.concat(["plugins"]));
 
-				// Re-interpolate plugin string properties as templates
-				obj.plugins.forEach(function(plugin) {
-					for (var key in plugin) {
-						plugin.hasOwnProperty(key);
-						if (typeof plugin[key] === "string") {
-							plugin[key] = grunt.template.process(plugin[key]);
+				// See https://github.com/webpack/grunt-webpack/pull/9
+				obj.plugins = obj.plugins.map(function(plugin) {
+					var instance = Object.create(plugin); // Operate on a copy of the plugin, since the webpack task
+					                                      // can be called multiple times for one instance of a plugin
+					for(var key in plugin) {
+						// Re-interpolate plugin string properties as templates
+						if(Object.prototype.hasOwnProperty.call(plugin, key) && typeof plugin[key] === "string") {
+							instance[key] = grunt.template.process(plugin[key]);
 						}
 					}
+					return instance;
 				});
 			}
 			return obj;
