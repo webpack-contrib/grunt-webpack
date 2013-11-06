@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
 		// Get options from this.data
 		function getWithPlugins(ns) {
-			var obj = grunt.config(ns);
+			var obj = grunt.config(ns) || {};
 			if(obj.plugins) {
 				// getRaw must be used or grunt.config will clobber the types (i.e.
 				// the array won't a BannerPlugin, it will contain an Object)
