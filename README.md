@@ -3,9 +3,9 @@
 Use [webpack](https://github.com/webpack/webpack) with grunt.
 
 ## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile](https://github.com/cowboy/grunt/blob/master/docs/getting_started.md) with: `npm install grunt-webpack`
+Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: `npm install grunt-webpack`
 
-Then add this line to your project's `grunt.js` gruntfile:
+Then add this line to your project's `Gruntfile.js` gruntfile:
 
 ```javascript
 grunt.loadNpmTasks('grunt-webpack');
@@ -45,5 +45,5 @@ webpack: {
 The `watch` option is not valid for compiling with `grunt`, you have to use the watch function of grunt.
 
 ## License
-Copyright (c) 2012-2013 Tobias Koppers @sokra
+Copyright (c) 2012-2013 Tobias Koppers @sokra  
 Licensed under the MIT license.
