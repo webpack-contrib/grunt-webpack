@@ -45,5 +45,5 @@ webpack: {
 The `watch` option is not valid for compiling with `grunt`, you have to use the watch function of grunt.
 
 ## License
-Copyright (c) 2012-2013 Tobias Koppers @sokra  
+Copyright (c) 2012-2014 Tobias Koppers @sokra  
 Licensed under the MIT license.

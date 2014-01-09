@@ -9,6 +9,7 @@
 var path = require("path");
 var _ = require("lodash");
 module.exports = function(grunt) {
+	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
 
 	var webpack = require("webpack");
 	var CachePlugin = require("webpack/lib/CachePlugin");
@@ -19,30 +20,6 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
-
-		// Get options from this.data
-		function getWithPlugins(ns) {
-			var obj = grunt.config(ns) || {};
-			if(obj.plugins) {
-				// getRaw must be used or grunt.config will clobber the types (i.e.
-				// the array won't a BannerPlugin, it will contain an Object)
-				obj.plugins = grunt.config.getRaw(ns.concat(["plugins"]));
-
-				// See https://github.com/webpack/grunt-webpack/pull/9
-				obj.plugins = obj.plugins.map(function(plugin) {
-					var instance = Object.create(plugin); // Operate on a copy of the plugin, since the webpack task
-					                                      // can be called multiple times for one instance of a plugin
-					for(var key in plugin) {
-						// Re-interpolate plugin string properties as templates
-						if(Object.prototype.hasOwnProperty.call(plugin, key) && typeof plugin[key] === "string") {
-							instance[key] = grunt.template.process(plugin[key]);
-						}
-					}
-					return instance;
-				});
-			}
-			return obj;
-		}
 		var options = _.merge(
 			{
 				context: ".",
