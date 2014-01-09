@@ -21,6 +21,7 @@ module.exports = function(grunt) {
 			{
 				port: 8080,
 				host: undefined,
+				keepAlive: false,
 				contentBase: ".",
 				webpack: {
 					context: ".",
@@ -70,6 +71,7 @@ module.exports = function(grunt) {
 
 		(new WebpackDevServer(compiler, options)).listen(options.port, options.host, function() {
 			grunt.log.writeln("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bwebpack-dev-server on port " + options.port);
+			if(!options.keepAlive) done();
 		});
 
 	});
