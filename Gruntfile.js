@@ -1,3 +1,4 @@
+var webpack = require("webpack");
 module.exports = function(grunt) {
 	grunt.loadTasks("tasks");
 	grunt.initConfig({
@@ -7,14 +8,21 @@ module.exports = function(grunt) {
 				output: {
 					path: "js",
 					filename: "bundle.js"
-				}
+				},
+				plugins: [new webpack.DefinePlugin({
+					ok: JSON.stringify("ok")
+				})]
 			}
 		},
 		"webpack-dev-server": {
 			a: {
 				webpack: {
-					entry: "./example/entry"
-				}
+					entry: "./example/entry",
+					plugins: [new webpack.DefinePlugin({
+						ok: JSON.stringify("ok")
+					})]
+				},
+				keepAlive: true
 			}
 		}
 	});
