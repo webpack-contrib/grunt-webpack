@@ -46,7 +46,8 @@ module.exports = function(grunt) {
 				return grunt.util._.isArray(a) && grunt.util._.isArray(b) ? a.concat(b) : undefined;
 			}
 		);
-		options.contentBase = path.resolve(process.cwd(), options.contentBase);
+		if(!/^(https?:)?\/\//.test(options.contentBase))
+			options.contentBase = path.resolve(process.cwd(), options.contentBase);
 		options.webpack.context = path.resolve(process.cwd(), options.webpack.context);
 		if(!/^\//.test(options.webpack.output.path))
 			options.webpack.output.path = "/" + options.webpack.output.path;
