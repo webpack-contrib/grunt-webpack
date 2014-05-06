@@ -38,7 +38,9 @@ module.exports = function(grunt) {
 		options.output.path = path.resolve(process.cwd(), options.output.path);
 
 		var target = this.target;
-		var cache = options.cache;
+		var watch = options.watch;
+		var cache = watch ? false : options.cache;
+		var keepalive = this.flags.keepalive || options.keepalive;
 		options.cache = false;
 		var storeStatsTo = options.storeStatsTo;
 		var statsOptions = options.stats || {};
@@ -73,7 +75,12 @@ module.exports = function(grunt) {
 			grunt.log.write(msg);
 		}));
 
-		compiler.run(function(err, stats) {
+		if (watch) {
+			compiler.watch(options.watchDelay || 200, handler);
+		} else {
+			compiler.run(handler);
+		}
+		function handler(err, stats) {
 			if(cache) {
 				targetDependencies[target] = {
 					file: compiler._lastCompilationFileDependencies,
@@ -101,10 +108,14 @@ module.exports = function(grunt) {
 			if(typeof storeStatsTo === "string") {
 				grunt.config.set(storeStatsTo, stats.toJson());
 			}
-			if(options.failOnError && stats.hasErrors())
+			if(options.failOnError && stats.hasErrors()) {
 				return done(false);
-			done();
-		});
+			}
+			if(!keepalive) {
+				done();
+				done = function(){};
+			}
+		}
 	});
 
 };
