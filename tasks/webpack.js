@@ -41,7 +41,8 @@ module.exports = function(grunt) {
 		var watch = options.watch;
 		var cache = watch ? false : options.cache;
 		var keepalive = this.flags.keepalive || options.keepalive;
-		options.cache = false;
+		if(cache)
+			options.cache = false;
 		var storeStatsTo = options.storeStatsTo;
 		var statsOptions = options.stats || {};
 		delete options.stats;
