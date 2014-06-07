@@ -26,6 +26,8 @@ module.exports = function(grunt) {
 				output: {
 					path: "."
 				},
+				progress: true,
+				stats: {},
 				failOnError: true
 			},
 			getWithPlugins([this.name, "options"]),
@@ -44,7 +46,8 @@ module.exports = function(grunt) {
 		if(cache)
 			options.cache = false;
 		var storeStatsTo = options.storeStatsTo;
-		var statsOptions = options.stats || {};
+		var statsOptions = options.stats;
+		var progress = options.progress;
 		delete options.stats;
 		var compiler = webpack(options);
 
@@ -60,21 +63,23 @@ module.exports = function(grunt) {
 			}
 		}
 
-		var chars = 0;
-		compiler.apply(new ProgressPlugin(function(percentage, msg) {
-			if(percentage < 1) {
-				percentage = Math.floor(percentage * 100);
-				msg = percentage + "% " + msg;
-				if(percentage < 100) msg = " " + msg;
-				if(percentage < 10) msg = " " + msg;
-			}
-			for(; chars > msg.length; chars--)
-				grunt.log.write("\b \b");
-			chars = msg.length;
-			for(var i = 0; i < chars; i++)
-				grunt.log.write("\b");
-			grunt.log.write(msg);
-		}));
+		if(progress) {
+			var chars = 0;
+			compiler.apply(new ProgressPlugin(function(percentage, msg) {
+				if(percentage < 1) {
+					percentage = Math.floor(percentage * 100);
+					msg = percentage + "% " + msg;
+					if(percentage < 100) msg = " " + msg;
+					if(percentage < 10) msg = " " + msg;
+				}
+				for(; chars > msg.length; chars--)
+					grunt.log.write("\b \b");
+				chars = msg.length;
+				for(var i = 0; i < chars; i++)
+					grunt.log.write("\b");
+				grunt.log.write(msg);
+			}));
+		}
 
 		if (watch) {
 			compiler.watch(options.watchDelay || 200, handler);
@@ -93,19 +98,21 @@ module.exports = function(grunt) {
 				return done(false);
 			}
 
-			grunt.log.notverbose.writeln(stats.toString(grunt.util._.merge({
-				colors: true,
-				hash: false,
-				timings: false,
-				assets: true,
-				chunks: false,
-				chunkModules: false,
-				modules: false,
-				children: true
-			}, statsOptions)));
-			grunt.verbose.writeln(stats.toString(grunt.util._.merge({
-				colors: true
-			}, statsOptions)));
+			if(statsOptions) {
+				grunt.log.notverbose.writeln(stats.toString(grunt.util._.merge({
+					colors: true,
+					hash: false,
+					timings: false,
+					assets: true,
+					chunks: false,
+					chunkModules: false,
+					modules: false,
+					children: true
+				}, statsOptions)));
+				grunt.verbose.writeln(stats.toString(grunt.util._.merge({
+					colors: true
+				}, statsOptions)));
+			}
 			if(typeof storeStatsTo === "string") {
 				grunt.config.set(storeStatsTo, stats.toJson());
 			}

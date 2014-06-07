@@ -29,6 +29,7 @@ module.exports = function(grunt) {
 						path: "/"
 					}
 				},
+				progress: true,
 				stats: {
 					colors: true,
 					hash: false,
@@ -54,21 +55,23 @@ module.exports = function(grunt) {
 
 		var compiler = webpack(options.webpack);
 
-		var chars = 0;
-		compiler.apply(new ProgressPlugin(function(percentage, msg) {
-			if(percentage < 1) {
-				percentage = Math.floor(percentage * 100);
-				msg = percentage + "% " + msg;
-				if(percentage < 100) msg = " " + msg;
-				if(percentage < 10) msg = " " + msg;
-			}
-			for(; chars > msg.length; chars--)
-				grunt.log.write("\b \b");
-			chars = msg.length;
-			for(var i = 0; i < chars; i++)
-				grunt.log.write("\b");
-			grunt.log.write(msg);
-		}));
+		if(options.progress) {
+			var chars = 0;
+			compiler.apply(new ProgressPlugin(function(percentage, msg) {
+				if(percentage < 1) {
+					percentage = Math.floor(percentage * 100);
+					msg = percentage + "% " + msg;
+					if(percentage < 100) msg = " " + msg;
+					if(percentage < 10) msg = " " + msg;
+				}
+				for(; chars > msg.length; chars--)
+					grunt.log.write("\b \b");
+				chars = msg.length;
+				for(var i = 0; i < chars; i++)
+					grunt.log.write("\b");
+				grunt.log.write(msg);
+			}));
+		}
 
 		(new WebpackDevServer(compiler, options)).listen(options.port, options.host, function() {
 			grunt.log.writeln("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bwebpack-dev-server on port " + options.port);
