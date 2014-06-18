@@ -8,8 +8,10 @@
 
 var path = require("path");
 var _ = require("lodash");
+
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
+	var mergeFunction = require("../lib/mergeFunction")(grunt);
 
 	var webpack = require("webpack");
 	var CachePlugin = require("webpack/lib/CachePlugin");
@@ -21,7 +23,7 @@ module.exports = function(grunt) {
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
 		var options = _.merge(
-			{
+			{x:{
 				context: ".",
 				output: {
 					path: "."
@@ -29,26 +31,28 @@ module.exports = function(grunt) {
 				progress: true,
 				stats: {},
 				failOnError: true
-			},
-			getWithPlugins([this.name, "options"]),
-			getWithPlugins([this.name, this.target]),
-			function(a, b) {
-				return grunt.util._.isArray(a) && grunt.util._.isArray(b) ? a.concat(b) : undefined;
-			}
-		);
-		options.context = path.resolve(process.cwd(), options.context);
-		options.output.path = path.resolve(process.cwd(), options.output.path);
+			}},
+			{x:getWithPlugins([this.name, "options"])},
+			{x:getWithPlugins([this.name, this.target])},
+			mergeFunction
+		).x;
+		[].concat(options).forEach(function(options) {
+			options.context = path.resolve(process.cwd(), options.context);
+			options.output.path = path.resolve(process.cwd(), options.output.path);
+		});
 
+		var firstOptions = Array.isArray(options) ? options[0] : options;
 		var target = this.target;
-		var watch = options.watch;
-		var cache = watch ? false : options.cache;
-		var keepalive = this.flags.keepalive || options.keepalive;
-		if(cache)
-			options.cache = false;
-		var storeStatsTo = options.storeStatsTo;
-		var statsOptions = options.stats;
-		var progress = options.progress;
-		delete options.stats;
+		var watch = firstOptions.watch;
+		var cache = watch ? false : firstOptions.cache;
+		var keepalive = this.flags.keepalive || firstOptions.keepalive;
+		if(cache) {
+			[].concat(options).forEach(function(o) { o.cache = false; });
+		}
+		var storeStatsTo = firstOptions.storeStatsTo;
+		var statsOptions = firstOptions.stats;
+		var failOnError = firstOptions.failOnError;
+		var progress = firstOptions.progress;
 		var compiler = webpack(options);
 
 		if(cache) {
@@ -116,7 +120,7 @@ module.exports = function(grunt) {
 			if(typeof storeStatsTo === "string") {
 				grunt.config.set(storeStatsTo, stats.toJson());
 			}
-			if(options.failOnError && stats.hasErrors()) {
+			if(failOnError && stats.hasErrors()) {
 				return done(false);
 			}
 			if(!keepalive) {

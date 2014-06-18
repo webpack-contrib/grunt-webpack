@@ -10,6 +10,7 @@ var path = require("path");
 var _ = require("lodash");
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
+	var mergeFunction = require("../lib/mergeFunction")(grunt);
 
 	var webpack = require("webpack");
 	var WebpackDevServer = require("webpack-dev-server");
@@ -43,16 +44,15 @@ module.exports = function(grunt) {
 			},
 			getWithPlugins([this.name, "options"]),
 			getWithPlugins([this.name, this.target]),
-			function(a, b) {
-				return grunt.util._.isArray(a) && grunt.util._.isArray(b) ? a.concat(b) : undefined;
-			}
+			mergeFunction
 		);
 		if(!/^(https?:)?\/\//.test(options.contentBase))
 			options.contentBase = path.resolve(process.cwd(), options.contentBase);
-		options.webpack.context = path.resolve(process.cwd(), options.webpack.context);
-		if(!/^\//.test(options.webpack.output.path))
-			options.webpack.output.path = "/" + options.webpack.output.path;
+		[].concat(options.webpack).forEach(function(webpackOptions) {
+			webpackOptions.context = path.resolve(process.cwd(), webpackOptions.context);
+		});
 
+		console.log(options);
 		var compiler = webpack(options.webpack);
 
 		if(options.progress) {
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
 		}
 
 		(new WebpackDevServer(compiler, options)).listen(options.port, options.host, function() {
-			grunt.log.writeln("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\bwebpack-dev-server on port " + options.port);
+			grunt.log.writeln("\rwebpack-dev-server on port " + options.port + "  ");
 			if(!options.keepAlive && !options.keepalive) done();
 		});
 
