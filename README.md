@@ -39,14 +39,18 @@ webpack: {
 
 	failOnError: false, // don't report error to grunt if webpack find errors
 	// Use this if webpack errors are tolerable and grunt should continue
+	
+	watch: true, // use webpacks watcher
+	// You need to keep the grunt process alive
+
+	keepalive: true, // don't finish the grunt task
+	// Use this in combination with the watch option
   },
   anotherName: {...}
 }
 ```
 
 `grunt-webpack` uses the [webpack options](https://github.com/webpack/docs/wiki/webpack-options).
-
-The `watch` option is not valid for compiling with `grunt`, you have to use the watch function of grunt.
 
 ## License
 Copyright (c) 2012-2014 Tobias Koppers @sokra  
