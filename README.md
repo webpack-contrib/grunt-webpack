@@ -50,7 +50,7 @@ webpack: {
 }
 ```
 
-`grunt-webpack` uses the [webpack options](https://github.com/webpack/docs/wiki/webpack-options).
+`grunt-webpack` uses the [webpack options](http://webpack.github.io/docs/configuration.html).
 
 ## License
 Copyright (c) 2012-2014 Tobias Koppers @sokra  
