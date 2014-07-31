@@ -50,6 +50,7 @@ module.exports = function(grunt) {
 			options.contentBase = path.resolve(process.cwd(), options.contentBase);
 		[].concat(options.webpack).forEach(function(webpackOptions) {
 			webpackOptions.context = path.resolve(process.cwd(), webpackOptions.context);
+			webpackOptions.output.path = path.resolve(process.cwd(), webpackOptions.output.path);
 		});
 
 		console.log(options);
