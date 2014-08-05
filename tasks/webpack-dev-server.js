@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 			getWithPlugins([this.name, this.target]),
 			mergeFunction
 		);
-		if(!/^(https?:)?\/\//.test(options.contentBase))
+		if(typeof options.contentBase !== 'object' && !/^(https?:)?\/\//.test(options.contentBase))
 			options.contentBase = path.resolve(process.cwd(), options.contentBase);
 		[].concat(options.webpack).forEach(function(webpackOptions) {
 			webpackOptions.context = path.resolve(process.cwd(), webpackOptions.context);
