@@ -18,6 +18,10 @@ module.exports = function(grunt) {
 			a: {
 				webpack: {
 					entry: "./example/entry",
+					output: {
+						path: "js",
+						filename: "bundle.js"
+					},
 					plugins: [new webpack.DefinePlugin({
 						ok: JSON.stringify("ok")
 					})]
