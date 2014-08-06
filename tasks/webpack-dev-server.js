@@ -55,7 +55,6 @@ module.exports = function(grunt) {
 			}
 		});
 
-		console.log(options);
 		var compiler = webpack(options.webpack);
 
 		if(options.progress) {
