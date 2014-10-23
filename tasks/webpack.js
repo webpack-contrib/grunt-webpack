@@ -37,20 +37,39 @@ module.exports = function(grunt) {
 			mergeFunction
 		).x;
 		[].concat(options).forEach(function(options) {
-			options.context = path.resolve(process.cwd(), options.context);
-			options.output.path = path.resolve(process.cwd(), options.output.path);
-			if(options.resolve && options.resolve.root){
-				if(_.isString(options.resolve.root)){
-					options.resolve.root = path.resolve(process.cwd(), options.resolve.root);
-				}
-				else if(_.isArray(options.resolve.root)){
-					options.resolve.root = _.map(options.resolve.root, function(r){
-						return path.resolve(process.cwd(), r);
-					})
-				}
+			convertPathsForObject(options, ["context", "recordsPath", "recordsInputPath", "recordsOutputPath"])
+			convertPathsForObject(options.output, ["path"]);
+			convertPathsForObject(options.resolve, ["root", "fallback"])
+			convertPathsForObject(options.resolveLoader, ["root", "fallback"])
+			if(options.module.loaders){
+				options.module.loaders.forEach(function(l){
+					convertPathsForObject(l, ["test", "include", "exclude"])
+				})
 			}
-
 		});
+
+		function convertPathsForObject(obj, props){
+			if(obj){
+				props.forEach(function(prop){
+					if(obj[prop] != undefined){
+						obj[prop] = convertPath(obj[prop])
+					}
+				})
+			}
+		}
+
+		function convertPath(pth) {
+			if(_.isString(pth)){
+				return path.resolve(process.cwd(), pth);
+			}
+			else if(_.isArray(pth)){
+				return _.map(pth, function(p){
+					return path.resolve(process.cwd(), p);
+				})
+			}
+			// It may have been a RegExp so just send it back
+			return pth
+		}
 
 		var firstOptions = Array.isArray(options) ? options[0] : options;
 		var target = this.target;
