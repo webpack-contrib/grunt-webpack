@@ -39,6 +39,8 @@ module.exports = function(grunt) {
 		[].concat(options).forEach(function(options) {
 			options.context = path.resolve(process.cwd(), options.context);
 			options.output.path = path.resolve(process.cwd(), options.output.path);
+
+
 			if(options.resolve && options.resolve.root){
 				if(_.isString(options.resolve.root)){
 					options.resolve.root = path.resolve(process.cwd(), options.resolve.root);
