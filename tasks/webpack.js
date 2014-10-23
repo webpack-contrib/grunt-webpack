@@ -39,22 +39,22 @@ module.exports = function(grunt) {
 		[].concat(options).forEach(function(options) {
 			convertPathsForObject(options, ["context", "recordsPath", "recordsInputPath", "recordsOutputPath"])
 			convertPathsForObject(options.output, ["path"]);
-			convertPathsForObject(options.resolve, ["root", "fallback"])
-			convertPathsForObject(options.resolveLoader, ["root", "fallback"])
-			if(options.module.loaders){
+			convertPathsForObject(options.resolve, ["root", "fallback"]);
+			convertPathsForObject(options.resolveLoader, ["root", "fallback"]);
+			if(options.module.loaders) {
 				options.module.loaders.forEach(function(l){
-					convertPathsForObject(l, ["test", "include", "exclude"])
-				})
+					convertPathsForObject(l, ["test", "include", "exclude"]);
+				});
 			}
 		});
 
 		function convertPathsForObject(obj, props){
 			if(obj){
-				props.forEach(function(prop){
-					if(obj[prop] != undefined){
-						obj[prop] = convertPath(obj[prop])
+				props.forEach(function(prop) {
+					if(obj[prop] != undefined) {
+						obj[prop] = convertPath(obj[prop]);
 					}
-				})
+				});
 			}
 		}
 
@@ -65,10 +65,10 @@ module.exports = function(grunt) {
 			else if(_.isArray(pth)){
 				return _.map(pth, function(p){
 					return path.resolve(process.cwd(), p);
-				})
+				});
 			}
 			// It may have been a RegExp so just send it back
-			return pth
+			return pth;
 		}
 
 		var firstOptions = Array.isArray(options) ? options[0] : options;
