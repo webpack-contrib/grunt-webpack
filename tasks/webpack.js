@@ -64,7 +64,11 @@ module.exports = function(grunt) {
 			}
 			else if(_.isArray(pth)){
 				return _.map(pth, function(p){
-					return path.resolve(process.cwd(), p);
+					// Arrays of paths can contain a mix of both strings and RegExps
+					if(_.isString(p)){
+						return path.resolve(process.cwd(), p);
+					}
+					return p
 				});
 			}
 			// It may have been a RegExp so just send it back
