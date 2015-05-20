@@ -54,6 +54,23 @@ module.exports = function(grunt) {
 				webpackOptions.output.path = path.resolve(process.cwd(), webpackOptions.output.path);
 			}
 		});
+		
+		var protocol = options.https ? "https" : "http";
+		if(options.inline) {
+			var devClient = ["webpack-dev-server/client?" + protocol + "://" + options.host + ":" + options.port];
+			if(options.hot)
+				devClient.push("webpack/hot/dev-server");
+			[].concat(options.webpack).forEach(function(webpackOptions) {
+				if (options.hot) webpackOptions.plugins = [].concat(webpackOptions.plugins, new webpack.HotModuleReplacementPlugin());
+				if(typeof webpackOptions.entry === "object" && !Array.isArray(webpackOptions.entry)) {
+					Object.keys(webpackOptions.entry).forEach(function(key) {
+						webpackOptions.entry[key] = devClient.concat(webpackOptions.entry[key]);
+					});
+				} else {
+					webpackOptions.entry = devClient.concat(webpackOptions.entry);
+				}
+			});
+		}
 
 		var compiler = webpack(options.webpack);
 
