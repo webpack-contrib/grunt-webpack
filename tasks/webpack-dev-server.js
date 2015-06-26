@@ -31,6 +31,8 @@ module.exports = function(grunt) {
 					}
 				},
 				progress: true,
+				inline: false,
+				hot: false,
 				stats: {
 					colors: true,
 					hash: false,
@@ -54,7 +56,7 @@ module.exports = function(grunt) {
 				webpackOptions.output.path = path.resolve(process.cwd(), webpackOptions.output.path);
 			}
 		});
-		
+
 		var protocol = options.https ? "https" : "http";
 		if(options.inline) {
 			var devClient = ["webpack-dev-server/client?" + protocol + "://" + options.host + ":" + options.port];
