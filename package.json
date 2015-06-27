@@ -1,32 +1,32 @@
 {
-	"name": "grunt-webpack",
-	"description": "Use webpack with grunt.",
-	"version": "1.0.9",
-	"homepage": "https://github.com/webpack/grunt-webpack",
-	"author": {
-		"name": "Tobias Koppers @sokra"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git@github.com:webpack/grunt-webpack.git"
-	},
-	"bugs": {
-		"url": "https://github.com/webpack/grunt-webpack/issues"
-	},
-	"dependencies": {
-		"lodash": "~1.2.0"
-	},
-	"peerDependencies": {
-		"webpack": "1.x",
-		"webpack-dev-server": "1.x"
-	},
-	"licenses": [
-		{
-			"type": "MIT",
-			"url": "https://github.com/webpack/grunt-webpack/blob/master/LICENSE-MIT"
-		}
-	],
-	"keywords": [
-		"gruntplugin"
-	]
+  "name": "grunt-webpack",
+  "description": "Use webpack with grunt.",
+  "version": "1.0.10",
+  "homepage": "https://github.com/webpack/grunt-webpack",
+  "author": {
+    "name": "Tobias Koppers @sokra"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:webpack/grunt-webpack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webpack/grunt-webpack/issues"
+  },
+  "dependencies": {
+    "lodash": "~1.2.0"
+  },
+  "peerDependencies": {
+    "webpack": "1.x",
+    "webpack-dev-server": "1.x"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/webpack/grunt-webpack/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [
+    "gruntplugin"
+  ]
 }
