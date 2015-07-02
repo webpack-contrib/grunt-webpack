@@ -41,7 +41,7 @@ module.exports = function(grunt) {
 			convertPathsForObject(options.output, ["path"]);
 			convertPathsForObject(options.resolve, ["root", "fallback"]);
 			convertPathsForObject(options.resolveLoader, ["root", "fallback"]);
-			if(options.module.loaders) {
+			if(options.module && options.module.loaders) {
 				options.module.loaders.forEach(function(l){
 					convertPathsForObject(l, ["test", "include", "exclude"]);
 				});
