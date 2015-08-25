@@ -11,6 +11,12 @@ Then add this line to your project's `Gruntfile.js` gruntfile:
 grunt.loadNpmTasks('grunt-webpack');
 ```
 
+## Tasks
+
+There are two tasks available
+- `webpack`.
+- `webpack-dev-server`: see [webpack-dev-server doc](http://webpack.github.io/docs/webpack-dev-server.html#api) for available options.
+
 ## Configuration Example
 
 ``` javascript
