@@ -125,6 +125,7 @@ module.exports = function(grunt) {
 			compiler.run(handler);
 		}
 		function handler(err, stats) {
+			var options;
 			if(cache) {
 				targetDependencies[target] = {
 					file: compiler._lastCompilationFileDependencies,
@@ -137,7 +138,7 @@ module.exports = function(grunt) {
 			}
 
 			if(statsOptions) {
-				grunt.log.notverbose.writeln(stats.toString(grunt.util._.merge({
+				options = grunt.util._.merge({
 					colors: true,
 					hash: false,
 					timings: false,
@@ -146,13 +147,15 @@ module.exports = function(grunt) {
 					chunkModules: false,
 					modules: false,
 					children: true
-				}, statsOptions)));
+				}, statsOptions);
+				
+				grunt.log.notverbose.writeln(stats.toString(options));
 				grunt.verbose.writeln(stats.toString(grunt.util._.merge({
 					colors: true
 				}, statsOptions)));
 			}
 			if(typeof storeStatsTo === "string") {
-				grunt.config.set(storeStatsTo, stats.toJson());
+				grunt.config.set(storeStatsTo, stats.toJson(options));
 			}
 			if(failOnError && stats.hasErrors()) {
 				return done(false);
