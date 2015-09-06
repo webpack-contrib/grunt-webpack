@@ -3,7 +3,7 @@
 Use [webpack](https://github.com/webpack/webpack) with grunt.
 
 ## Getting Started
-Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: `npm install grunt-webpack`
+Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: `npm install grunt-webpack --save-dev`
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
 
