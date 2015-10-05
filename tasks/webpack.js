@@ -149,7 +149,12 @@ module.exports = function(grunt) {
 					children: true
 				}, statsOptions);
 				
-				grunt.log.notverbose.writeln(stats.toString(options));
+                if ( firstOptions.quiet ) {
+                    grunt.verbose.writeln( stats.toString( options ) );
+                } else {
+                    grunt.log.notverbose.writeln( stats.toString( options ) );
+                }
+                
 				grunt.verbose.writeln(stats.toString(grunt.util._.merge({
 					colors: true
 				}, statsOptions)));
