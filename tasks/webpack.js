@@ -120,7 +120,9 @@ module.exports = function(grunt) {
 		}
 
 		if (watch) {
-			compiler.watch(options.watchDelay || 200, handler);
+			// watchDealy and 0 are for backwards compatibility with webpack <= 1.9.0
+			// remove with next major and bump to v1.9.1 / v2
+			compiler.watch(options.watchOptions || options.watchDelay || 0, handler);
 		} else {
 			compiler.run(handler);
 		}
