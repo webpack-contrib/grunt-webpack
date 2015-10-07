@@ -120,7 +120,7 @@ module.exports = function(grunt) {
 		}
 
 		if (watch) {
-			compiler.watch(options.watchDelay || 200, handler);
+			compiler.watch(options.watchOptions || {}, handler);
 		} else {
 			compiler.run(handler);
 		}
