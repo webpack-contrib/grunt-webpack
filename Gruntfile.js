@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 						ok: JSON.stringify("ok")
 					})]
 				},
-				keepAlive: true
+				keepalive: true
 			}
 		}
 	});
