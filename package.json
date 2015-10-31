@@ -28,5 +28,12 @@
   ],
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "scripts": {
+    "test": "jasmine"
+  },
+  "devDependencies": {
+    "grunt": "0.4.5",
+    "jasmine": "2.3.2"
+  }
 }
