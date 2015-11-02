@@ -49,6 +49,12 @@ webpack: {
 	watch: true, // use webpacks watcher
 	// You need to keep the grunt process alive
 
+	watchOptions: {
+		aggregateTimeout: 500,
+		poll: true
+	},
+	// Use this when you need to fallback to poll based watching
+
 	keepalive: true, // don't finish the grunt task
 	// Use this in combination with the watch option
 
