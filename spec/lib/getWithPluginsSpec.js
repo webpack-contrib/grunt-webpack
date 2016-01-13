@@ -50,4 +50,10 @@ describe('getWithPlugins', function() {
 		expect(getWithPlugins(namespace).foo.plugins)
 			.toEqual(['foo']);
 	});
+
+	it('should not throw an error if grunt.config.data has a cyclical dependency', function() {
+		grunt.config.data[taskName][target].child = grunt.config.data[taskName][target];
+		expect(getWithPlugins(namespace).foo.plugins)
+			.toEqual(['foo']);
+	});
 });
