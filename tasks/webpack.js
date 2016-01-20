@@ -7,7 +7,10 @@
  */
 
 var path = require("path");
-var _ = require("lodash");
+var merge = require("lodash/merge");
+var map = require("lodash/map");
+var isString = require("lodash/isString");
+var isArray = require("lodash/isArray");
 
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
@@ -22,7 +25,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
-		var options = _.merge(
+		var options = merge(
 			{x:{
 				context: ".",
 				output: {
@@ -59,13 +62,13 @@ module.exports = function(grunt) {
 		}
 
 		function convertPath(pth) {
-			if(_.isString(pth)){
+			if(isString(pth)){
 				return path.resolve(process.cwd(), pth);
 			}
-			else if(_.isArray(pth)){
-				return _.map(pth, function(p){
+			else if(isArray(pth)){
+				return map(pth, function(p){
 					// Arrays of paths can contain a mix of both strings and RegExps
-					if(_.isString(p)){
+					if(isString(p)){
 						return path.resolve(process.cwd(), p);
 					}
 					return p
@@ -137,7 +140,7 @@ module.exports = function(grunt) {
 			}
 
 			if(statsOptions) {
-				grunt.log.notverbose.writeln(stats.toString(grunt.util._.merge({
+				grunt.log.notverbose.writeln(stats.toString(grunt.util.merge({
 					colors: true,
 					hash: false,
 					timings: false,
@@ -147,7 +150,7 @@ module.exports = function(grunt) {
 					modules: false,
 					children: true
 				}, statsOptions)));
-				grunt.verbose.writeln(stats.toString(grunt.util._.merge({
+				grunt.verbose.writeln(stats.toString(grunt.util.merge({
 					colors: true
 				}, statsOptions)));
 			}
