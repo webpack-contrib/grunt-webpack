@@ -1,7 +1,16 @@
-var webpack = require("webpack");
+var webpack;
+var plugins = [];
+var DefinePlugin;
+try {
+	webpack = require("webpack");
+	plugins.push(new webpack.DefinePlugin({
+		ok: JSON.stringify("ok")
+	}));
+	DefinePlugin = webpack.DefinePlugin;
+} catch (e) {
+}
 var grunt = require('grunt');
 var getWithPluginsFactory = require('../../lib/getWithPlugins');
-var DefinePlugin = webpack.DefinePlugin;
 var taskName;
 var target;
 var gruntConfigFactory = function(grunt) {
@@ -18,9 +27,7 @@ var gruntConfigFactory = function(grunt) {
 		foo: {
 			plugins: ['foo']
 		},
-		plugins: [new webpack.DefinePlugin({
-			ok: JSON.stringify("ok")
-		})]
+		plugins: plugins
 	};
 
 	grunt.initConfig(config);
@@ -42,6 +49,9 @@ describe('getWithPlugins', function() {
 
 
 	it('should fix plugins property in webpack config', function() {
+		if (typeof webpack === 'undefined') {
+			pending('webpack peerDependency not installed');
+		}
 		expect(getWithPlugins(namespace).plugins[0].constructor)
 			.toBe(DefinePlugin);
 	});

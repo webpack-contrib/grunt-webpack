@@ -9,6 +9,13 @@
 var path = require("path");
 var _ = require("lodash");
 module.exports = function(grunt) {
+	if (!grunt.file.exists(path.join(path.resolve('node_modules'), 'webpack-dev-server', 'package.json'))) {
+		grunt.registerTask('webpack-dev-server', 'webpack-dev-server not installed, this task will do nothing.', function () {
+			grunt.fail.warn('webpack-dev-server not installed, this task will do nothing.');
+		});
+		return;
+	}
+
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
 	var mergeFunction = require("../lib/mergeFunction")(grunt);
 
