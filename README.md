@@ -1,4 +1,4 @@
-# grunt-webpack
+# grunt-webpack [![Build Status](https://travis-ci.org/webpack/grunt-webpack.svg?branch=master)](https://travis-ci.org/webpack/grunt-webpack)
 
 Use [webpack](https://github.com/webpack/webpack) with grunt.
 
