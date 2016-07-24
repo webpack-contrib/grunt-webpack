@@ -7,7 +7,7 @@
  */
 
 var path = require("path");
-var _ = require("lodash");
+var merge = require("lodash/merge");
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
 	var mergeFunction = require("../lib/mergeFunction")(grunt);
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function() {
 		var done = this.async();
-		var options = _.merge(
+		var options = merge(
 			{
 				port: 8080,
 				host: undefined,
