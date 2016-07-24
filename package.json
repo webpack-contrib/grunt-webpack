@@ -20,16 +20,20 @@
     "webpack": "1.x",
     "webpack-dev-server": "1.x"
   },
-  "license" : "MIT",
+  "license": "MIT",
   "keywords": [
     "gruntplugin"
   ],
   "scripts": {
+    "check": "npm run lint && npm test",
+    "lint": "eslint .",
     "test": "jasmine"
   },
   "devDependencies": {
+    "eslint": "^3.1.1",
     "grunt": "^1.0.0",
     "jasmine": "2.3.2",
-    "webpack": "^1.13.0"
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }
