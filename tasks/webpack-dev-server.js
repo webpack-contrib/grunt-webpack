@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 		var options = mergeWith(
 			{
 				port: 8080,
-				host: undefined,
+				host: "localhost",
 				keepalive: false,
 				contentBase: ".",
 				webpack: {
