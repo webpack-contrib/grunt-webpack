@@ -33,7 +33,8 @@
     "test": "jasmine"
   },
   "devDependencies": {
-    "grunt": "0.4.5",
-    "jasmine": "2.3.2"
+    "grunt": "^1.0.0",
+    "jasmine": "2.3.2",
+    "webpack": "^1.13.0"
   }
 }
