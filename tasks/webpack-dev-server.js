@@ -1,13 +1,6 @@
-/*
- * grunt-webpack
- * https://github.com/sokra/grunt-webpack
- *
- * Copyright (c) 2014 Tobias Koppers @sokra
- * Licensed under the MIT license.
- */
-
 var path = require("path");
 var mergeWith = require("lodash/mergeWith");
+
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
 	var mergeFunction = require("../lib/mergeFunction")(grunt);

@@ -1,11 +1,3 @@
-/*
- * grunt-webpack
- * https://github.com/sokra/grunt-webpack
- *
- * Copyright (c) 2012 Tobias Koppers @sokra
- * Licensed under the MIT license.
- */
-
 var path = require("path");
 var mergeWith = require("lodash/mergeWith");
 var map = require("lodash/map");

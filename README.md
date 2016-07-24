@@ -72,5 +72,5 @@ webpack: {
 `grunt-webpack` uses the [webpack options](http://webpack.github.io/docs/configuration.html).
 
 ## License
-Copyright (c) 2012-2014 Tobias Koppers @sokra
+Copyright (c) 2012-2016 Tobias Koppers @sokra
 Licensed under the MIT license.
