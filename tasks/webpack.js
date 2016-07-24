@@ -7,7 +7,7 @@
  */
 
 var path = require("path");
-var merge = require("lodash/merge");
+var mergeWith = require("lodash/mergeWith");
 var map = require("lodash/map");
 var isString = require("lodash/isString");
 var isArray = require("lodash/isArray");
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 
 	grunt.registerMultiTask('webpack', 'Webpack files.', function() {
 		var done = this.async();
-		var options = merge(
+		var options = mergeWith(
 			{x:{
 				context: ".",
 				output: {
