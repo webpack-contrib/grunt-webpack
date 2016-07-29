@@ -1,7 +1,7 @@
 {
   "name": "grunt-webpack",
   "description": "Use webpack with grunt.",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "homepage": "https://github.com/webpack/grunt-webpack",
   "author": {
     "name": "Tobias Koppers @sokra"
