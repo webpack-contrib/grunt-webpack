@@ -1,4 +1,5 @@
 var path = require("path");
+var merge = require("lodash/merge");
 var mergeWith = require("lodash/mergeWith");
 var map = require("lodash/map");
 var isString = require("lodash/isString");
@@ -134,7 +135,7 @@ module.exports = function(grunt) {
 			}
 
 			if(statsOptions) {
-				grunt.log.notverbose.writeln(stats.toString(grunt.util.merge({
+				grunt.log.notverbose.writeln(stats.toString(merge({
 					colors: true,
 					hash: false,
 					timings: false,
@@ -144,7 +145,7 @@ module.exports = function(grunt) {
 					modules: false,
 					children: true
 				}, statsOptions)));
-				grunt.verbose.writeln(stats.toString(grunt.util.merge({
+				grunt.verbose.writeln(stats.toString(merge({
 					colors: true
 				}, statsOptions)));
 			}
