@@ -1,4 +1,8 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
   "env": {
     "node": true
   },
@@ -6,7 +10,7 @@
     "strict": 0,
     "camelcase": 0,
     "curly": 0,
-    "indent": [2, "tab", { "SwitchCase": 1 }],
+    "indent": [2, 2, { "SwitchCase": 1, "VariableDeclarator": 1, "outerIIFEBody": 1 }],
     "eol-last": 1,
     "no-shadow": 0,
     "no-redeclare": 2,
