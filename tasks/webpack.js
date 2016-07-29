@@ -7,7 +7,7 @@ var isArray = require("lodash/isArray");
 
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
-	var mergeFunction = require("../lib/mergeFunction")(grunt);
+	var mergeFunction = require("../lib/mergeFunction");
 
 	var webpack = require("webpack");
 	var CachePlugin = require("webpack/lib/CachePlugin");

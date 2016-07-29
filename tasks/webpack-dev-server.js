@@ -3,7 +3,7 @@ var mergeWith = require("lodash/mergeWith");
 
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
-	var mergeFunction = require("../lib/mergeFunction")(grunt);
+	var mergeFunction = require("../lib/mergeFunction");
 
 	var webpack = require("webpack");
 	var WebpackDevServer = require("webpack-dev-server");
