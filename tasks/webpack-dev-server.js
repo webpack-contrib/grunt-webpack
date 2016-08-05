@@ -3,7 +3,7 @@ var mergeWith = require("lodash/mergeWith");
 
 module.exports = function(grunt) {
   var getWithPlugins = require("../src/getWithPlugins")(grunt);
-  var mergeFunction = require("../src/mergeFunction");
+  var mergeCustomizer = require("../src/mergeCustomizer");
 
   var webpack = require("webpack");
   var WebpackDevServer = require("webpack-dev-server");
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
       },
       getWithPlugins([this.name, "options"]),
       getWithPlugins([this.name, this.target]),
-      mergeFunction
+      mergeCustomizer
     );
     if(typeof options.contentBase === 'string' && !/^(https?:)?\/\//.test(options.contentBase))
       options.contentBase = path.resolve(process.cwd(), options.contentBase);

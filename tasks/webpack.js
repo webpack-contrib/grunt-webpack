@@ -7,7 +7,7 @@ var isArray = require("lodash/isArray");
 
 module.exports = function(grunt) {
   var getWithPlugins = require("../src/getWithPlugins")(grunt);
-  var mergeFunction = require("../src/mergeFunction");
+  var mergeCustomizer = require("../src/mergeCustomizer");
 
   var webpack = require("webpack");
   var CachePlugin = require("webpack/lib/CachePlugin");
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
       }},
       {x:getWithPlugins([this.name, "options"])},
       {x:getWithPlugins([this.name, this.target])},
-      mergeFunction
+      mergeCustomizer
     ).x;
     [].concat(options).forEach(function(options) {
       convertPathsForObject(options, ["context", "recordsPath", "recordsInputPath", "recordsOutputPath"])
