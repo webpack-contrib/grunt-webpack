@@ -56,7 +56,7 @@ Object.keys(executionList).forEach(trigger => {
     const actualFolder = path.join(directory, 'actual');
     const expectedFolder = path.join(directory, 'expected');
 
-    const expectedFiles = glob.sync(path.join(expectedFolder, '*.js')).filter(file => !file.endsWith('common.js'));
+    const expectedFiles = glob.sync(path.join(expectedFolder, '*.js')).filter(file => !file.match(/common\.js$/));
 
     if (expectedFiles.length === 0) {
       fs.copySync(actualFolder, expectedFolder);
