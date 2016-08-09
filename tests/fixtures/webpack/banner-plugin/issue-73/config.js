@@ -9,7 +9,9 @@ module.exports = {
       filename: "bundle.js",
     },
     plugins: [
-      new webpack.DefinePlugin({ ok: JSON.stringify("ok") }),
+      new webpack.BannerPlugin("this is a banner"),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
     ],
   },
 };

@@ -6,10 +6,6 @@ import glob from 'glob';
 import webpack from 'webpack';
 
 function prepareGrunt(config) {
-  config.webpack.a.plugins.push( // extract runtime into common so we don't diff it
-    new webpack.optimize.CommonsChunkPlugin({ name: 'common', filename: 'common.js', minChunks: 99 })
-  );
-
   // disable loading of Gruntfile.js
   grunt.task.init = () => {};
 
@@ -19,44 +15,71 @@ function prepareGrunt(config) {
 
 const files = glob.sync(path.join(__dirname, 'fixtures/**/config.js'));
 
+const tasks = [];
+const executionList = {};
+const completeConfig = {
+  webpack: {},
+  "webpack-dev-server": {},
+};
+
 files.forEach(file => {
+  const config = require(file);
   const directory = path.dirname(file);
-  const name = path.basename(directory);
+  const parts = path.relative(path.join(__dirname, 'fixtures'), directory).split('/');
+  const plugin = parts.shift();
+  const name = parts.join('_');
 
-  test.cb(`webpack ${name}`, t => {
-    const config = require(file);
-    prepareGrunt(config.grunt);
-    grunt.tasks(config.run, {}, () => {
-      const actualFolder = path.join(directory, 'actual');
-      const expectedFolder = path.join(directory, 'expected');
+  completeConfig[plugin][name] = Object.assign(
+    {},
+    config.grunt,
+    {
+      plugins: [
+        ...config.grunt.plugins,
+        // extract runtime into common so we don't diff it
+        new webpack.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 42}),
+      ],
+      stats: false
+    }
+  );
+  executionList[`${plugin} ${name.replace(/_/g, ' ')}`] = directory;
+});
 
-      const expectedFiles = glob.sync(path.join(expectedFolder, '*.js')).filter(file => !file.endsWith('common.js'));
+prepareGrunt(completeConfig);
 
-      if (expectedFiles.length === 0) {
-        fs.copySync(actualFolder, expectedFolder);
-        t.pass();
-        t.end();
-        return;
+test.before(async t => {
+  await new Promise(resolve => grunt.tasks('webpack', {}, () => resolve()));
+});
+
+Object.keys(executionList).forEach(trigger => {
+  const directory = executionList[trigger];
+  test(trigger, t => {
+    const actualFolder = path.join(directory, 'actual');
+    const expectedFolder = path.join(directory, 'expected');
+
+    const expectedFiles = glob.sync(path.join(expectedFolder, '*.js')).filter(file => !file.endsWith('common.js'));
+
+    if (expectedFiles.length === 0) {
+      fs.copySync(actualFolder, expectedFolder);
+      t.pass();
+      return;
+    }
+
+    expectedFiles.forEach(expectedFile => {
+      const actualFile = expectedFile.replace('/expected/', '/actual/');
+
+      let actualContent;
+      try {
+        actualContent = fs.readFileSync(actualFile, 'utf-8');
+      } catch (e) {
+        t.fail(`Expected actual file to exist. ${actualFile}`);
       }
+      const expectedContent = fs.readFileSync(expectedFile, 'utf-8');
 
-      expectedFiles.forEach(expectedFile => {
-        const actualFile = expectedFile.replace('/expected/', '/actual/');
-
-        let actualContent;
-        try {
-          actualContent = fs.readFileSync(actualFile, 'utf-8');
-        } catch (e) {
-          t.fail(`Expected actual file to exist. ${actualFile}`);
-        }
-        const expectedContent = fs.readFileSync(expectedFile, 'utf-8');
-
-        if (actualContent !== expectedContent) {
-          // TODO maybe output a diff
-          t.fail(`Expected and actual file does not match. ${actualFile}`);
-        }
-      });
-
-      t.end();
+      if (actualContent !== expectedContent) {
+        // TODO maybe output a diff
+        t.fail(`Expected and actual file does not match. ${actualFile}`);
+      }
     });
   });
 });
+
