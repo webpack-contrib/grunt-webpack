@@ -14,7 +14,7 @@
     "url": "https://github.com/webpack/grunt-webpack/issues"
   },
   "dependencies": {
-    "lodash": "^4.0.0"
+    "lodash": "^4.7.0"
   },
   "peerDependencies": {
     "webpack": "1.x",
