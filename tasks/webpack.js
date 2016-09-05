@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 			convertPathsForObject(options.output, ["path"]);
 			convertPathsForObject(options.resolve, ["root", "fallback"]);
 			convertPathsForObject(options.resolveLoader, ["root", "fallback"]);
-			if(options.module && options.module.loaders) {
+			if (options.module && options.module.loaders) {
 				options.module.loaders.forEach(function(l){
 					convertPathsForObject(l, ["test", "include", "exclude"]);
 				});
@@ -45,9 +45,9 @@ module.exports = function(grunt) {
 		});
 
 		function convertPathsForObject(obj, props){
-			if(obj){
+			if (obj){
 				props.forEach(function(prop) {
-					if(obj[prop] != undefined) {
+					if (obj[prop] != undefined) {
 						obj[prop] = convertPath(obj[prop]);
 					}
 				});
@@ -55,13 +55,13 @@ module.exports = function(grunt) {
 		}
 
 		function convertPath(pth) {
-			if(isString(pth)){
+			if (isString(pth)){
 				return path.resolve(process.cwd(), pth);
 			}
-			else if(isArray(pth)){
+			else if (isArray(pth)){
 				return map(pth, function(p){
 					// Arrays of paths can contain a mix of both strings and RegExps
-					if(isString(p)){
+					if (isString(p)){
 						return path.resolve(process.cwd(), p);
 					}
 					return p
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
 		var watch = firstOptions.watch;
 		var cache = watch ? false : firstOptions.cache;
 		var keepalive = this.flags.keepalive || firstOptions.keepalive;
-		if(cache) {
+		if (cache) {
 			[].concat(options).forEach(function(o) { o.cache = false; });
 		}
 		var storeStatsTo = firstOptions.storeStatsTo;
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 		var progress = firstOptions.progress;
 		var compiler = webpack(options);
 
-		if(cache) {
+		if (cache) {
 			var theCachePlugin = targetCachePlugins[target];
 			if(!theCachePlugin) {
 				theCachePlugin = targetCachePlugins[target] = new CachePlugin();
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
 			}
 		}
 
-		if(progress) {
+		if (progress) {
 			var chars = 0;
 			compiler.apply(new ProgressPlugin(function(percentage, msg) {
 				if(percentage < 1) {
@@ -123,18 +123,17 @@ module.exports = function(grunt) {
 			compiler.run(handler);
 		}
 		function handler(err, stats) {
-			if(cache) {
+			if (cache) {
 				targetDependencies[target] = {
 					file: compiler._lastCompilationFileDependencies,
 					context: compiler._lastCompilationContextDependencies
 				};
 			}
-			if(err) {
-				grunt.log.error(err);
-				return done(false);
+			if (err) {
+				return done(err);
 			}
 
-			if(statsOptions) {
+			if (statsOptions || stats.hasErrors()) {
 				grunt.log.notverbose.writeln(stats.toString(merge({
 					colors: true,
 					hash: false,
@@ -149,17 +148,16 @@ module.exports = function(grunt) {
 					colors: true
 				}, statsOptions)));
 			}
-			if(typeof storeStatsTo === "string") {
+			if (typeof storeStatsTo === "string") {
 				grunt.config.set(storeStatsTo, stats.toJson());
 			}
-			if(failOnError && stats.hasErrors()) {
+			if (failOnError && stats.hasErrors()) {
 				return done(false);
 			}
-			if(!keepalive) {
+			if (!keepalive) {
 				done();
 				done = function(){};
 			}
 		}
 	});
-
 };
