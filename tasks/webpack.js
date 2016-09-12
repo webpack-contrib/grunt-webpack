@@ -6,6 +6,13 @@ var isString = require("lodash/isString");
 var isArray = require("lodash/isArray");
 
 module.exports = function(grunt) {
+	if (!grunt.file.exists(path.join(path.resolve('node_modules'), 'webpack', 'package.json'))) {
+		grunt.registerTask('webpack', 'Webpack not installed, this task will do nothing.', function () {
+			grunt.fail.warn('Webpack not installed, this task will do nothing.');
+		});
+		return;
+	}
+
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
 	var mergeFunction = require("../lib/mergeFunction");
 
