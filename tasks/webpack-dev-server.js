@@ -1,5 +1,6 @@
 var path = require("path");
 var mergeWith = require("lodash/mergeWith");
+var pick = require("lodash/pick");
 
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
@@ -8,6 +9,8 @@ module.exports = function(grunt) {
 	var webpack = require("webpack");
 	var WebpackDevServer = require("webpack-dev-server");
 	var ProgressPlugin = require("webpack/lib/ProgressPlugin");
+
+	var validWebpackOptions = require("../lib/validWebpackOptions");
 
 	grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function() {
 		var done = this.async();
@@ -67,7 +70,7 @@ module.exports = function(grunt) {
 			});
 		}
 
-		var compiler = webpack(options.webpack);
+		var compiler = webpack(pick(options.webpack, validWebpackOptions));
 
 		if(options.progress) {
 			var chars = 0;
