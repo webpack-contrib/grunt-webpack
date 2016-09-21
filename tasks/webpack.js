@@ -25,8 +25,7 @@ module.exports = function(grunt) {
 					path: "."
 				},
 				progress: true,
-				stats: {},
-				failOnError: true
+				stats: {}
 			}},
 			{x:getWithPlugins([this.name, "options"])},
 			{x:getWithPlugins([this.name, this.target])},
