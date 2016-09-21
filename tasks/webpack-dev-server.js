@@ -1,5 +1,6 @@
 var path = require("path");
 var mergeWith = require("lodash/mergeWith");
+var pick = require("lodash/pick");
 
 module.exports = function(grunt) {
 	var getWithPlugins = require("../lib/getWithPlugins")(grunt);
@@ -69,7 +70,7 @@ module.exports = function(grunt) {
 			});
 		}
 
-		var compiler = webpack(_.pick(options.webpack, validWebpackOptions));
+		var compiler = webpack(pick(options.webpack, validWebpackOptions));
 
 		if(options.progress) {
 			var chars = 0;
