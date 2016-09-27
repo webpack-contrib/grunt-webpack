@@ -16,12 +16,8 @@
   "engines": {
     "node": ">=4"
   },
-  "dependencies": {
-    "lodash": "^4.7.0"
-  },
   "peerDependencies": {
-    "webpack": "1.x",
-    "webpack-dev-server": "1.x"
+    "webpack": "^2.1.0-beta"
   },
   "license": "MIT",
   "keywords": [
@@ -38,7 +34,6 @@
     "fs-extra": "^0.30.0",
     "glob": "^7.0.5",
     "grunt": "^1.0.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^2.1.0-beta"
   }
 }

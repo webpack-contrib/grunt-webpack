@@ -1,79 +1,39 @@
-var merge = require("lodash/merge");
-var options = require("../src/options");
+'use strict';
+const webpack = require("webpack");
+const OptionHelper = require('../src/options/OptionHelper');
+const CachePluginFactory = require('../src/plugins/CachePluginFactory');
+const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
 
-module.exports = function(grunt) {
-  var webpack = require("webpack");
+module.exports = (grunt) => {
+  const cachePluginFactory = new CachePluginFactory();
+  const processPluginFactory = new ProgressPluginFactory(grunt);
 
-  var targetCachePlugins = {};
-  var targetDependencies = {};
+  grunt.registerMultiTask('webpack', 'Webpack files.', function webpackTask() {
+    const done = this.async();
+    const optionHelper = new OptionHelper(grunt, this);
 
-  grunt.registerMultiTask('webpack', 'Webpack files.', function() {
-    var done = this.async();
+    const watch = optionHelper.get('watch', true);
+    const opts = {
+      cache: watch ? false : optionHelper.get('cache'),
+      failOnError: optionHelper.get('failOnError'),
+      keepalive: this.flags.keepalive || optionHelper.get('keepalive'),
+      progress: optionHelper.get('progress'),
+      stats: optionHelper.get('stats'),
+      storeStatsTo: optionHelper.get('storeStatsTo'),
+      watch: watch,
+    };
 
-    var gruntOptions = options.getGruntOptions(this.name, this.target, grunt);
-    var webpackOptions = options.getWebpackOptions(this.name, this.target, grunt);
+    const webpackOptions = optionHelper.getWebpackOptions();
+    if (opts.cache) webpackOptions.cache = false;
 
-    var target = this.target;
-    var watch = webpackOptions.watch;
-    var cache = watch ? false : webpackOptions.cache;
-    var keepalive = this.flags.keepalive || gruntOptions.keepalive;
-    if (cache) webpackOptions.cache = false;
+    const compiler = webpack(webpackOptions);
 
-    var storeStatsTo = gruntOptions.storeStatsTo;
-    var statsOptions = webpackOptions.stats;
-    var failOnError = gruntOptions.failOnError;
-    var progress = gruntOptions.progress;
-    var compiler = webpack(webpackOptions);
+    if (opts.cache) cachePluginFactory.addPlugin(this.target, compiler);
+    if (opts.progress) processPluginFactory.addPlugin(this.target, compiler);
 
-    if (cache) {
-      var CachePlugin = require("webpack/lib/CachePlugin");
-      var theCachePlugin = targetCachePlugins[target];
-      if (!theCachePlugin) {
-        theCachePlugin = targetCachePlugins[target] = new CachePlugin();
-      }
-      compiler.apply(theCachePlugin);
-      if (targetDependencies[target]) {
-        compiler._lastCompilationFileDependencies = targetDependencies[target].file;
-        compiler._lastCompilationContextDependencies = targetDependencies[target].context;
-      }
-    }
-
-    if (progress) {
-      var ProgressPlugin = require("webpack/lib/ProgressPlugin");
-      var chars = 0;
-      compiler.apply(new ProgressPlugin(function(percentage, msg) {
-        if (percentage < 1) {
-          percentage = Math.floor(percentage * 100);
-          msg = percentage + "% " + msg;
-          if (percentage < 100) msg = " " + msg;
-          if (percentage < 10) msg = " " + msg;
-        }
-        for (; chars > msg.length; chars--)
-          grunt.log.write("\b \b");
-        chars = msg.length;
-        for (var i = 0; i < chars; i++)
-          grunt.log.write("\b");
-        grunt.log.write(msg);
-      }));
-    }
-
-    if (watch) {
-      // watchDelay and 0 are for backwards compatibility with webpack <= 1.9.0
-      // remove with next major and bump to v1.9.1 / v2
-      compiler.watch(webpackOptions.watchOptions || webpackOptions.watchDelay || 0, handler);
-    } else {
-      compiler.run(handler);
-    }
-    function handler(err, stats) {
-      if (cache) {
-        targetDependencies[target] = {
-          file: compiler._lastCompilationFileDependencies,
-          context: compiler._lastCompilationContextDependencies
-        };
-      }
-      if (err) {
-        return done(err);
-      }
+    const handler = (err, stats) => {
+      if (opts.cache) cachePluginFactory.updateDependencies(this.target, compiler);
+      if (err) return done(err);
 
       var defaultStatsOptions = {
         colors: true,
@@ -86,22 +46,25 @@ module.exports = function(grunt) {
         children: true
       };
 
-      if (statsOptions || stats.hasErrors()) {
-        grunt.log.notverbose.writeln(stats.toString(merge(defaultStatsOptions, statsOptions)));
-        grunt.verbose.writeln(stats.toString(merge({
-          colors: true
-        }, statsOptions)));
+      if (opts.stats || stats.hasErrors()) {
+        grunt.log.writeln(stats.toString(Object.assign(defaultStatsOptions, opts.stats)));
       }
-      if (typeof storeStatsTo === "string") {
-        grunt.config.set(storeStatsTo, stats.toJson(merge(defaultStatsOptions, statsOptions)));
+
+      if (typeof opts.storeStatsTo === "string") {
+        grunt.config.set(opts.storeStatsTo, stats.toJson(Object.assign(defaultStatsOptions, opts.stats)));
       }
-      if (failOnError && stats.hasErrors()) {
+
+      if (opts.failOnError && stats.hasErrors()) {
         return done(false);
       }
-      if (!keepalive) {
-        done();
-        done = function(){};
-      }
+
+      if (!opts.keepalive) done();
+    };
+
+    if (opts.watch) {
+      compiler.watch(webpackOptions.watchOptions || {}, handler);
+    } else {
+      compiler.run(handler);
     }
   });
 };

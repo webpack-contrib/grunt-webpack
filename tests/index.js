@@ -29,18 +29,33 @@ files.forEach(file => {
   const plugin = parts.shift();
   const name = parts.join('_');
 
-  completeConfig[plugin][name] = Object.assign(
-    {},
-    config.grunt,
-    {
-      plugins: [
-        ...config.grunt.plugins,
-        // extract runtime into common so we don't diff it
-        new webpack.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 42}),
-      ],
-      stats: false
-    }
-  );
+  if (Array.isArray(config.grunt)) {
+    completeConfig[plugin][name] = config.grunt.map(conf => Object.assign(
+      {},
+      conf,
+      {
+        plugins: [
+          ...conf.plugins,
+          // extract runtime into common so we don't diff it
+          new webpack.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 42}),
+        ],
+        stats: false
+      })
+    );
+  } else {
+    completeConfig[plugin][name] = Object.assign(
+      {},
+      config.grunt,
+      {
+        plugins: [
+          ...config.grunt.plugins,
+          // extract runtime into common so we don't diff it
+          new webpack.optimize.CommonsChunkPlugin({name: 'common', filename: 'common.js', minChunks: 42}),
+        ],
+        stats: false
+      });
+  }
+
   executionList[`${plugin} ${name.replace(/_/g, ' ')}`] = directory;
 });
 
