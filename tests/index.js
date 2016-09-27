@@ -47,7 +47,7 @@ files.forEach(file => {
 prepareGrunt(completeConfig);
 
 test.before(async t => {
-  await new Promise(resolve => grunt.tasks('webpack', {}, () => resolve()));
+  await new Promise(resolve => grunt.tasks('webpack', { stack: true }, () => resolve()));
 });
 
 Object.keys(executionList).forEach(trigger => {
