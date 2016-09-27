@@ -68,7 +68,7 @@ function getGruntOptions(name, target, grunt) {
 function convertPathsForObject(obj, props){
   if (obj){
     props.forEach(function(prop) {
-      if(obj[prop] != undefined) {
+      if (obj[prop] != undefined) {
         obj[prop] = convertPath(obj[prop]);
       }
     });
@@ -76,13 +76,13 @@ function convertPathsForObject(obj, props){
 }
 
 function convertPath(pth) {
-  if(typeof pth === 'string'){
+  if (typeof pth === 'string'){
     return path.resolve(process.cwd(), pth);
   }
-  else if(isArray(pth)){
+  else if (isArray(pth)){
     return map(pth, function(p){
       // Arrays of paths can contain a mix of both strings and RegExps
-      if(typeof p === 'string'){
+      if (typeof p === 'string'){
         return path.resolve(process.cwd(), p);
       }
       return p;

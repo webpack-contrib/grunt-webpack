@@ -42,16 +42,16 @@ module.exports = function(grunt) {
       var ProgressPlugin = require("webpack/lib/ProgressPlugin");
       var chars = 0;
       compiler.apply(new ProgressPlugin(function(percentage, msg) {
-        if(percentage < 1) {
+        if (percentage < 1) {
           percentage = Math.floor(percentage * 100);
           msg = percentage + "% " + msg;
-          if(percentage < 100) msg = " " + msg;
-          if(percentage < 10) msg = " " + msg;
+          if (percentage < 100) msg = " " + msg;
+          if (percentage < 10) msg = " " + msg;
         }
-        for(; chars > msg.length; chars--)
+        for (; chars > msg.length; chars--)
           grunt.log.write("\b \b");
         chars = msg.length;
-        for(var i = 0; i < chars; i++)
+        for (var i = 0; i < chars; i++)
           grunt.log.write("\b");
         grunt.log.write(msg);
       }));
