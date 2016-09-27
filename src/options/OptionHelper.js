@@ -52,12 +52,12 @@ class OptionHelper {
   }
 
   getWithPlugins(ns) {
-    var obj = this.grunt.config(ns) || {};
+    const obj = this.grunt.config(ns) || {};
 
     if (obj.plugins) {
       // getRaw must be used or grunt.config will clobber the types (i.e.
       // the array won't a BannerPlugin, it will contain an Object)
-      const plugins = this.grunt.config.getRaw(ns.concat(["plugins"]));
+      const plugins = this.grunt.config.getRaw(ns.concat(['plugins']));
       obj.plugins = plugins.map(plugin => this.fixPlugin(plugin));
     }
 
@@ -71,7 +71,7 @@ class OptionHelper {
     // can be called multiple times for one instance of a plugin
     const instance = Object.create(plugin);
     Object.keys(plugin).forEach((key) => {
-      if (typeof plugin[key] === "string") {
+      if (typeof plugin[key] === 'string') {
         instance[key] = this.grunt.template.process(plugin[key]);
       }
     });

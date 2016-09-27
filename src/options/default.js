@@ -10,9 +10,9 @@ const gruntOptions = {
 };
 
 const webpackOptions = {
-  context: ".",
+  context: '.',
   output: {
-    path: ".",
+    path: '.',
   },
   stats: {},
 };

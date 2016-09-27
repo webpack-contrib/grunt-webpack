@@ -1,5 +1,5 @@
 'use strict';
-const webpack = require("webpack");
+const webpack = require('webpack');
 const OptionHelper = require('../src/options/OptionHelper');
 const CachePluginFactory = require('../src/plugins/CachePluginFactory');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
@@ -35,7 +35,7 @@ module.exports = (grunt) => {
       if (opts.cache) cachePluginFactory.updateDependencies(this.target, compiler);
       if (err) return done(err);
 
-      var defaultStatsOptions = {
+      const defaultStatsOptions = {
         colors: true,
         hash: false,
         timings: false,
@@ -50,7 +50,7 @@ module.exports = (grunt) => {
         grunt.log.writeln(stats.toString(Object.assign(defaultStatsOptions, opts.stats)));
       }
 
-      if (typeof opts.storeStatsTo === "string") {
+      if (typeof opts.storeStatsTo === 'string') {
         grunt.config.set(opts.storeStatsTo, stats.toJson(Object.assign(defaultStatsOptions, opts.stats)));
       }
 

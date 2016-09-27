@@ -1,5 +1,5 @@
 'use strict';
-const path = require("path");
+const path = require('path');
 
 function resolvePath(inputPath) {
   if (typeof inputPath === 'string') {
@@ -29,14 +29,14 @@ function convertPathsForObject(obj, props) {
 }
 
 function convertPathsForOptions(options) {
-  convertPathsForObject(options, ["context", "recordsPath", "recordsInputPath", "recordsOutputPath"]);
-  convertPathsForObject(options.output, ["path"]);
-  convertPathsForObject(options.resolve, ["root", "fallback"]);
-  convertPathsForObject(options.resolveLoader, ["root", "fallback"]);
+  convertPathsForObject(options, ['context', 'recordsPath', 'recordsInputPath', 'recordsOutputPath']);
+  convertPathsForObject(options.output, ['path']);
+  convertPathsForObject(options.resolve, ['root', 'fallback']);
+  convertPathsForObject(options.resolveLoader, ['root', 'fallback']);
 
   if (options.module && options.module.loaders) {
     options.module.loaders.forEach((loader) => {
-      convertPathsForObject(loader, ["test", "include", "exclude"]);
+      convertPathsForObject(loader, ['test', 'include', 'exclude']);
     });
   }
 
