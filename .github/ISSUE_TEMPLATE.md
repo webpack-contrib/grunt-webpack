@@ -1,48 +1,50 @@
-## **BEFORE YOU SUBMIT** please read the following:
-If you have a support request or question please 
-submit them to [StackOverflow](http://stackoverflow.com/questions/tagged/webpack+gruntjs) using the tags `[webpack]` and `[gruntjs]` or the [grunt-webpack Gitter](https://gitter.im/webpack/grunt-webpack). Future support requests will be closed.
+<!---
+BEFORE YOU SUBMIT please read the following:
 
-To find the versions of your installed dependencies you can use `npm list webpack` and `npm list grunt-webpack`
+If you have a support request or question please submit them to one of this resources:
 
-(remove above from issue)
+* Gitter: https://gitter.im/webpack/grunt-webpack
+* StackOverflow: http://stackoverflow.com/questions/tagged/webpack+gruntjs using the tags `[webpack]` and `[gruntjs]`
 
----
+Issues on github are only related to problems of grunt-webpack itself and we cannot answer 
+support questions here.
+-->
 
-**I'm submitting a bug report**
-**I'm submitting a feature request**
+<!--- Provide a general summary of the issue in the title above -->
 
-**Which versions ar you using?**
+### Webpack/Grunt Configuration (webpack.config.js, webpack part of Gruntfile.js)
+<!--- If describing a bug, tell us what your configuration looks like -->
 
-*webpack:* 
-1.10.x/2.x
+```json
+{
+  "your": { "config": "here" }
+}
+```
 
-*grunt-webpack:* 
-0.4.x/1.x
+### Expected Behavior
+<!--- If you're describing a bug, tell us what should happen -->
+<!--- If you're suggesting a change/improvement, tell us how it should work -->
 
-**Please tell us about your environment:**
-OSX 10.x / Linux / Windows 10
+### Current Behavior
+<!--- If describing a bug, tell us what happens instead of the expected behavior -->
+<!--- If suggesting a change/improvement, explain the difference from current behavior -->
 
-**Current behavior:**
+### Possible Solution
+<!--- Not obligatory, but suggest a fix/reason for the bug, -->
+<!--- or ideas how to implement the addition or change -->
 
+### Context
+<!--- How has this issue affected you? What are you trying to accomplish? -->
+<!--- Providing context helps us come up with a solution that is most useful in the real world -->
 
-
-**Expected/desired behavior:**
-
-
-
-**If the current behavior is a bug:**
-* **Steps to reproduce:**
-
-1. 
-2.
-3.
-
-* **A minimal demo of the problem along with a gist/jsbin of your webpack and grunt configuration.** 
-
-
-
-**If the desired behavior is a new feature request:**
-
-* **What is the motivation / use case for changing the behavior?**
-
-
+### Your Environment
+<!--- Include as many relevant details about the environment you experienced the bug in -->
+<!--- To find the package versions you can use `npm ls grunt webpack grunt-webpack` -->
+| software         | version
+| ---------------- | -------
+| webpack          | 
+| grunt-webpack    |
+| grunt            |
+| node             | 
+| npm              | 
+| Operating System | 
