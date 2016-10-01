@@ -1,8 +1,2 @@
-webpackJsonp([0,1],[
-/* 0 */
-/***/ function(module, exports) {
-
-console.log(ok);
-
-/***/ }
-],[0]);
+/*! this is a banner */
+webpackJsonp([0,1],[function(o,n){console.log(ok)}],[0]);

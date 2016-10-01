@@ -1,4 +1,5 @@
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
   grunt: [
@@ -8,7 +9,10 @@ module.exports = {
         path: path.join(__dirname, "actual"),
         filename: "bundle.js",
       },
-      plugins: [],
+      plugins: [
+        new webpack.BannerPlugin("this is a banner"),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin(),],
     },
     {
       entry: path.join(__dirname, "entry2"),
@@ -16,7 +20,10 @@ module.exports = {
         path: path.join(__dirname, "actual"),
         filename: "bundle2.js",
       },
-      plugins: [],
+      plugins: [
+        new webpack.BannerPlugin("this is a banner"),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin(),],
     },
   ],
 };

@@ -24,7 +24,6 @@ module.exports = (grunt) => {
     };
 
     const webpackOptions = optionHelper.getWebpackOptions();
-    if (opts.cache) webpackOptions.cache = false;
 
     const compiler = webpack(webpackOptions);
 

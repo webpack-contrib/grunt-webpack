@@ -54,10 +54,22 @@ class OptionHelper {
   getWithPlugins(ns) {
     const obj = this.grunt.config(ns) || {};
 
+    if (Array.isArray(obj)) {
+      obj.forEach((options, index) => {
+        this.fixPlugins(options, ns.concat([`${index}`, 'plugins']));
+      });
+    } else {
+      this.fixPlugins(obj, ns.concat(['plugins']));
+    }
+
+    return obj;
+  }
+
+  fixPlugins(obj, ns) {
     if (obj.plugins) {
       // getRaw must be used or grunt.config will clobber the types (i.e.
       // the array won't a BannerPlugin, it will contain an Object)
-      const plugins = this.grunt.config.getRaw(ns.concat(['plugins']));
+      const plugins = this.grunt.config.getRaw(ns);
       obj.plugins = plugins.map(plugin => this.fixPlugin(plugin));
     }
 
@@ -82,6 +94,10 @@ class OptionHelper {
   filterGruntOptions(options) {
     const result = Object.assign({}, options);
     Object.keys(defaults.gruntOptions).forEach(key => delete result[key]);
+
+    // ensure cache is disabled, as we add our own CachePlugin to support
+    // multiple targets in one run with different caches
+    result.cache = false;
 
     return result;
   }
