@@ -7,12 +7,12 @@ module.exports = function mergeCustomizer(a, b) {
       return a.concat(b);
     } else {
       return a.map(function(item) {
-        return mergeWith({ x: item }, { x: b }, mergeCustomizer).x;
+        return mergeWith({}, { x: item }, { x: b }, mergeCustomizer).x;
       });
     }
   } else if (isArray(b)) {
     return b.map(function(item) {
-      return mergeWith({ x: a }, { x: item }, mergeCustomizer).x;
+      return mergeWith({}, { x: a }, { x: item }, mergeCustomizer).x;
     });
   }
 };
