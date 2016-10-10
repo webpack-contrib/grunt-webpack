@@ -9,8 +9,6 @@ module.exports = function(grunt) {
   var WebpackDevServer = require("webpack-dev-server");
   var ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
-  var validWebpackOptions = require("../lib/validWebpackOptions");
-
   grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function() {
     var done = this.async();
     var options = mergeWith(
@@ -69,7 +67,7 @@ module.exports = function(grunt) {
       });
     }
 
-    var compiler = webpack(_.pick(options.webpack, validWebpackOptions));
+    var compiler = webpack(options.webpack);
 
     if(options.progress) {
       var chars = 0;

@@ -13,8 +13,6 @@ module.exports = function(grunt) {
   var CachePlugin = require("webpack/lib/CachePlugin");
   var ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
-  var validWebpackOptions = require("../lib/validWebpackOptions");
-
   var targetCachePlugins = {};
   var targetDependencies = {};
 
@@ -85,7 +83,7 @@ module.exports = function(grunt) {
     var statsOptions = firstOptions.stats;
     var failOnError = firstOptions.failOnError;
     var progress = firstOptions.progress;
-    var compiler = webpack(_.pick(options, validWebpackOptions));
+    var compiler = webpack(options);
 
     if(cache) {
       var theCachePlugin = targetCachePlugins[target];
