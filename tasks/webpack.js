@@ -4,7 +4,6 @@ var mergeWith = require("lodash/mergeWith");
 var map = require("lodash/map");
 var isString = require("lodash/isString");
 var isArray = require("lodash/isArray");
-var pick = require("lodash/pick");
 
 module.exports = function(grunt) {
   var getWithPlugins = require("../src/getWithPlugins")(grunt);
@@ -86,7 +85,7 @@ module.exports = function(grunt) {
     var statsOptions = firstOptions.stats;
     var failOnError = firstOptions.failOnError;
     var progress = firstOptions.progress;
-    var compiler = webpack(pick(options, validWebpackOptions));
+    var compiler = webpack(_.pick(options, validWebpackOptions));
 
     if(cache) {
       var theCachePlugin = targetCachePlugins[target];
