@@ -7,12 +7,14 @@ class OptionHelper {
   constructor(grunt, task) {
     this.grunt = grunt;
     this.task = task;
-    this.options = this.task.options(defaults.gruntOptions);
-    this.webpackOptions = this.generateWebpackOptions();
   }
 
-  generateWebpackOptions() {
-    const options = defaults.ensureWebpackOptions(
+  generateOptions() {
+    const baseOptions = this.getWithPlugins([this.task.name, 'options']);
+    if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
+
+    const options = defaults.mergeOptions(
+      baseOptions,
       this.getWithPlugins([this.task.name, this.task.target])
     );
 
@@ -25,30 +27,38 @@ class OptionHelper {
     return options;
   }
 
-  get(name, onlyWebpackOptions) {
-    if (Array.isArray(this.webpackOptions)) {
+  getOptions() {
+    if (!this.options) {
+      this.options = this.generateOptions();
+    }
+
+    return this.options;
+  }
+
+  get(name) {
+    const options = this.getOptions();
+
+    if (Array.isArray(options)) {
       let value = undefined;
-      this.webpackOptions.some((options) => {
-        value = options[name];
+      options.some((opt) => {
+        value = opt[name];
         return value != undefined;
       });
 
       return value;
-    } else if (this.options[name] !== undefined) {
-      return this.webpackOptions[name];
     }
 
-    if (onlyWebpackOptions) return undefined;
-
-    return this.options[name];
+    return options[name];
   }
 
   getWebpackOptions() {
-    if (Array.isArray(this.webpackOptions)) {
-      return this.webpackOptions.map((options) => this.filterGruntOptions(options));
+    const options = this.getOptions();
+
+    if (Array.isArray(options)) {
+      return options.map((opt) => this.filterGruntOptions(opt));
     }
 
-    return this.filterGruntOptions(this.webpackOptions);
+    return this.filterGruntOptions(options);
   }
 
   getWithPlugins(ns) {

@@ -1,5 +1,7 @@
 'use strict';
 
+const mergeWith = require('lodash/mergeWith');
+
 const gruntOptions = {
   failOnError: true,
   keepalive: false,
@@ -17,24 +19,23 @@ const webpackOptions = {
   stats: {},
 };
 
-function ensureWebpackOptions(options) {
-  if (!options.context) {
-    options.context = webpackOptions.context;
+function mergeCustomize(a, b) {
+  if (Array.isArray(a) && Array.isArray(b)) {
+    return a.concat(b);
+  }
+}
+
+function mergeOptions(options, targetOptions) {
+  let result;
+  if (Array.isArray(targetOptions)) {
+    result = targetOptions.map(opt => mergeWith({}, webpackOptions, options, opt, mergeCustomize));
+  } else {
+    result = mergeWith({}, webpackOptions, options, targetOptions, mergeCustomize);
   }
 
-  if (!options.output) {
-    options.output = webpackOptions.output;
-  } else if (!options.output.path) {
-    options.output.path = webpackOptions.output.path;
-  }
-
-  if (!options.stats) {
-    options.stats = webpackOptions.stats;
-  }
-
-  return options;
+  return result;
 }
 
 exports.gruntOptions = gruntOptions;
-exports.ensureWebpackOptions = ensureWebpackOptions;
+exports.mergeOptions = mergeOptions;
 

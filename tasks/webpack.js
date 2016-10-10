@@ -12,7 +12,7 @@ module.exports = (grunt) => {
     const done = this.async();
     const optionHelper = new OptionHelper(grunt, this);
 
-    const watch = optionHelper.get('watch', true);
+    const watch = optionHelper.get('watch');
     const opts = {
       cache: watch ? false : optionHelper.get('cache'),
       failOnError: optionHelper.get('failOnError'),
