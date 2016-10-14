@@ -4,3 +4,13 @@ node_js:
   - "4"
   - "5"
   - "6"
+
+matrix:
+  fast_finish: true
+  include:
+    - node_js: "node"
+      env: LINT=true
+
+script:
+  - 'if [ -n "${LINT-}" ]; then npm run lint ; fi'
+  - 'if [ -z "${LINT-}" ]; then npm test-only ; fi'

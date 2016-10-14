@@ -34,7 +34,7 @@ function convertPathsForOptions(options) {
   convertPathsForObject(options.resolve, ['root', 'fallback']);
   convertPathsForObject(options.resolveLoader, ['root', 'fallback']);
 
-  if (options.module && options.module.loaders) {
+  if (options.module && Array.isArray(options.module.loaders)) {
     options.module.loaders.forEach((loader) => {
       convertPathsForObject(loader, ['test', 'include', 'exclude']);
     });
