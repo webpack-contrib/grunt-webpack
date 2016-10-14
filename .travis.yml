@@ -13,4 +13,4 @@ matrix:
 
 script:
   - 'if [ -n "${LINT-}" ]; then npm run lint ; fi'
-  - 'if [ -z "${LINT-}" ]; then npm test-only ; fi'
+  - 'if [ -z "${LINT-}" ]; then npm run test-only ; fi'
