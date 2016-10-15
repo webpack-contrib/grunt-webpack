@@ -38,6 +38,6 @@
     "webpack": "^2.1.0-beta"
   },
   "dependencies": {
-    "lodash": "^4.16.4"
+    "lodash": "^4.7.0"
   }
 }
