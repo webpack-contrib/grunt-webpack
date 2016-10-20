@@ -1,6 +1,6 @@
 'use strict';
 const defaults = require('./default');
-const convertPaths = require('./convertPaths');
+// const convertPaths = require('./convertPaths');
 
 class OptionHelper {
 
@@ -9,22 +9,26 @@ class OptionHelper {
     this.task = task;
   }
 
+  getDefaultOptions() {
+    throw new Error();
+  }
+
   generateOptions() {
     const baseOptions = this.getWithPlugins([this.task.name, 'options']);
     if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
 
-    const options = defaults.mergeOptions(
+    return defaults.mergeOptions(
+      this.getDefaultOptions(),
       baseOptions,
       this.getWithPlugins([this.task.name, this.task.target])
     );
 
-    if (Array.isArray(options)) {
-      options.forEach(convertPaths);
-    } else {
-      convertPaths(options);
-    }
-
-    return options;
+    // disabled for now, it seems this is not necessary as webpack requires absolute paths for most stuff now
+    // if (Array.isArray(options)) {
+    //   options.forEach(convertPaths);
+    // } else {
+    //   convertPaths(options);
+    // }
   }
 
   getOptions() {

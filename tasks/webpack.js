@@ -1,6 +1,6 @@
 'use strict';
 const webpack = require('webpack');
-const OptionHelper = require('../src/options/OptionHelper');
+const OptionHelper = require('../src/options/WebpackOptionHelper');
 const CachePluginFactory = require('../src/plugins/CachePluginFactory');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
 
