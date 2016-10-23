@@ -1,5 +1,6 @@
 node_modules
 npm-debug.log
-yarn.lock
 tests/fixtures/**/actual/common.js
 tests/fixtures/**/expected/common.js
+tests/tmp
+yarn.lock
