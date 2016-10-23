@@ -67,8 +67,10 @@ tests.forEach(({ cwd, relativeDirectory }, name) => {
     if (fs.existsSync(optionsLoc)) {
       options = require(optionsLoc);
     } else {
-      options = { args: [ directoryParts.shift()] };
+      options = { args: [directoryParts.shift()] };
     }
+
+    options.args.unshift('--stack');
 
     const execLoc = path.join(cwd, 'exec.js');
     let execCode;
