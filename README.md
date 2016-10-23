@@ -1,9 +1,16 @@
 # grunt-webpack [![Build Status](https://travis-ci.org/webpack/grunt-webpack.svg?branch=master)](https://travis-ci.org/webpack/grunt-webpack)
 
+**This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack/grunt-webpack/tree/1.0).** 
+
 Use [webpack](https://github.com/webpack/webpack) with grunt.
 
 ## Getting Started
-Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: `npm install grunt-webpack --save-dev`
+
+Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: 
+
+```bash
+npm install grunt-webpack --save-dev
+```
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
 
