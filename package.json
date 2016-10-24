@@ -16,6 +16,10 @@
   "engines": {
     "node": ">=4"
   },
+  "files": [
+    "src",
+    "tasks"
+  ],
   "peerDependencies": {
     "webpack": "^2.1.0-beta || ^2.0.0"
   },
