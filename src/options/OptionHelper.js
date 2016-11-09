@@ -1,6 +1,6 @@
 'use strict';
 const defaults = require('./default');
-// const convertPaths = require('./convertPaths');
+const convertPaths = require('./convertPaths');
 
 class OptionHelper {
 
@@ -17,18 +17,21 @@ class OptionHelper {
     const baseOptions = this.getWithPlugins([this.task.name, 'options']);
     if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
 
-    return defaults.mergeOptions(
+    const options = defaults.mergeOptions(
       this.getDefaultOptions(),
       baseOptions,
       this.getWithPlugins([this.task.name, this.task.target])
     );
-
-    // disabled for now, it seems this is not necessary as webpack requires absolute paths for most stuff now
-    // if (Array.isArray(options)) {
-    //   options.forEach(convertPaths);
-    // } else {
-    //   convertPaths(options);
-    // }
+    
+    // https://webpack.github.io/docs/configuration.html#module-loaders
+    // The loaders here are resolved relative to the resource which they are applied to. 
+    // This means they are not resolved relative the the configuration file.
+    if (Array.isArray(options)) {
+      options.forEach(convertPaths);
+    } else {
+      convertPaths(options);
+    }
+    return options;
   }
 
   getOptions() {
