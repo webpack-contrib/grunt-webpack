@@ -1,4 +1,4 @@
-# grunt-webpack [![Build Status](https://travis-ci.org/webpack/grunt-webpack.svg?branch=master)](https://travis-ci.org/webpack/grunt-webpack)
+# grunt-webpack [![Build Status](https://travis-ci.org/webpack/grunt-webpack.svg?branch=master)](https://travis-ci.org/webpack/grunt-webpack) [![codecov](https://codecov.io/gh/webpack/grunt-webpack/branch/master/graph/badge.svg)](https://codecov.io/gh/webpack/grunt-webpack)
 
 **This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack/grunt-webpack/tree/1.0).** 
 
