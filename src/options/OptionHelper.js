@@ -1,16 +1,11 @@
 'use strict';
 const defaults = require('./default');
-// const convertPaths = require('./convertPaths');
 
 class OptionHelper {
 
   constructor(grunt, task) {
     this.grunt = grunt;
     this.task = task;
-  }
-
-  getDefaultOptions() {
-    throw new Error();
   }
 
   generateOptions() {
@@ -22,13 +17,6 @@ class OptionHelper {
       baseOptions,
       this.getWithPlugins([this.task.name, this.task.target])
     );
-
-    // disabled for now, it seems this is not necessary as webpack requires absolute paths for most stuff now
-    // if (Array.isArray(options)) {
-    //   options.forEach(convertPaths);
-    // } else {
-    //   convertPaths(options);
-    // }
   }
 
   getOptions() {
@@ -53,16 +41,6 @@ class OptionHelper {
     }
 
     return options[name];
-  }
-
-  getWebpackOptions() {
-    const options = this.getOptions();
-
-    if (Array.isArray(options)) {
-      return options.map((opt) => this.filterGruntOptions(opt));
-    }
-
-    return this.filterGruntOptions(options);
   }
 
   getWithPlugins(ns) {
