@@ -35,12 +35,14 @@
   },
   "devDependencies": {
     "ava": "^0.16.0",
+    "awesome-typescript-loader": "^2.2.4",
     "babel-core": "^6.17.0",
     "babel-preset-latest": "^6.16.0",
     "eslint": "^3.6.1",
     "fs-extra": "^0.30.0",
     "glob": "^7.0.5",
     "grunt": "^1.0.0",
+    "typescript": "^2.0.8",
     "webpack": "^2.1.0-beta"
   },
   "dependencies": {

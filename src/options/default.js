@@ -12,10 +12,6 @@ const gruntOptions = {
 };
 
 const webpackOptions = {
-  context: '.',
-  output: {
-    path: '.',
-  },
   stats: {},
 };
 
