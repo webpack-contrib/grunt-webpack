@@ -17,7 +17,7 @@ class OptionHelper {
     const baseOptions = this.getWithPlugins([this.task.name, 'options']);
     if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
 
-    let options = defaults.mergeOptions(
+    const options = defaults.mergeOptions(
       this.getDefaultOptions(),
       baseOptions,
       this.getWithPlugins([this.task.name, this.task.target])
