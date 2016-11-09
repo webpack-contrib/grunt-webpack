@@ -14,4 +14,6 @@ matrix:
 
 script:
   - 'if [ -n "${LINT-}" ]; then npm run lint ; fi'
-  - 'if [ -z "${LINT-}" ]; then npm run test-only ; fi'
+  - 'if [ -z "${LINT-}" ]; then npm run test-ci ; fi'
+
+after_success: 'if [ -z "${LINT-}" ]; then npm run coverage ; fi'
