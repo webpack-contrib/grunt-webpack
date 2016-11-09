@@ -30,6 +30,7 @@
   "scripts": {
     "check": "npm run lint && npm test",
     "lint": "eslint src tasks",
+    "preversion": "npm test",
     "test": "npm run lint && npm run test-only",
     "test-only": "ava"
   },
