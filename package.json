@@ -36,7 +36,7 @@
     "test-only": "ava"
   },
   "devDependencies": {
-    "ava": "^0.16.0",
+    "ava": "^0.17.0",
     "awesome-typescript-loader": "^2.2.4",
     "babel-core": "^6.17.0",
     "babel-preset-latest": "^6.16.0",
