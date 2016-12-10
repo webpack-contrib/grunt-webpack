@@ -8,9 +8,6 @@ const gruntOptions = {
   storeStatsTo: null,
   inline: false,
   hot: false,
-};
-
-const webpackOptions = {
   stats: {},
 };
 
@@ -54,7 +51,6 @@ function mergeOptions(defaultOptions, options, targetOptions) {
 }
 
 exports.gruntOptions = gruntOptions;
-exports.webpackOptions = webpackOptions;
 exports.webpackDevServerOptions = webpackDevServerOptions;
 
 exports.mergeOptions = mergeOptions;
