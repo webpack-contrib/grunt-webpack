@@ -8,7 +8,16 @@ const gruntOptions = {
   storeStatsTo: null,
   inline: false,
   hot: false,
-  stats: {},
+  stats: {
+    colors: true,
+    hash: false,
+    timings: false,
+    assets: true,
+    chunks: false,
+    chunkModules: false,
+    modules: false,
+    children: true,
+  },
 };
 
 const webpackDevServerOptions = {
@@ -21,16 +30,6 @@ const webpackDevServerOptions = {
       path: '/'
     }
   },
-  stats: {
-    colors: true,
-    hash: false,
-    timings: false,
-    assets: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-    children: true
-  }
 };
 
 function mergeCustomize(a, b) {

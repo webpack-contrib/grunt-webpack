@@ -1,5 +1,6 @@
 'use strict';
 const webpack = require('webpack');
+const defaults = require('../src/options/default');
 const OptionHelper = require('../src/options/WebpackOptionHelper');
 const CachePluginFactory = require('../src/plugins/CachePluginFactory');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
@@ -33,27 +34,23 @@ module.exports = (grunt) => {
       if (opts.cache) cachePluginFactory.updateDependencies(this.target, compiler);
       if (err) return done(err);
 
-      const defaultStatsOptions = {
-        colors: true,
-        hash: false,
-        timings: false,
-        assets: true,
-        chunks: false,
-        chunkModules: false,
-        modules: false,
-        children: true
-      };
-
-      if (opts.stats || stats.hasErrors()) {
-        grunt.log.writeln(stats.toString(Object.assign(defaultStatsOptions, opts.stats)));
+      if (opts.stats && !stats.hasErrors()) {
+        grunt.log.writeln(stats.toString(opts.stats));
       }
 
       if (typeof opts.storeStatsTo === 'string') {
-        grunt.config.set(opts.storeStatsTo, stats.toJson(Object.assign(defaultStatsOptions, opts.stats)));
+        grunt.config.set(opts.storeStatsTo, stats.toJson(opts.stats));
       }
 
-      if (opts.failOnError && stats.hasErrors()) {
-        return done(false);
+      if (stats.hasErrors()) {
+        // in case opts.stats === false we still want to display errors.
+        grunt.log.writeln(stats.toString(opts.stats || defaults.gruntOptions.stats));
+        if (opts.failOnError) {
+          // construct error without stacktrace, as the stack is not relevant here
+          const error = new Error();
+          error.stack = null;
+          return done(error);
+        }
       }
 
       if (!opts.watch) done();
