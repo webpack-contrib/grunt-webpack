@@ -5,7 +5,7 @@ const OptionHelper = require('./OptionHelper');
 class WebpackOptionHelper extends OptionHelper {
 
   getDefaultOptions() {
-    return defaults.webpackDevServerOptions;
+    return Object.assign({}, defaults.gruntOptions, defaults.webpackDevServerOptions);
   }
 
   getWebpackOptions() {
