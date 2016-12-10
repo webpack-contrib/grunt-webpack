@@ -4,7 +4,7 @@ const mergeWith = require('lodash/mergeWith');
 
 const gruntOptions = {
   failOnError: true,
-  progress: true,
+  progress: process.stdout.isTTY,
   storeStatsTo: null,
   inline: false,
   hot: false,
