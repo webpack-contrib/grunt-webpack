@@ -1,4 +1,4 @@
-let test = (a: string) => {
+var test = function(a) {
     console.log(a);
 }
 

@@ -2,16 +2,13 @@ const path = require('path');
 
 const config = {
     entry: {
-        'main': './main.ts',
-    },
-    resolve: {
-        extensions: ['.ts', '.js'],
+        'main': './main.js',
     },
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                use: ['awesome-typescript-loader'],
+                test: /\.js/,
+                use: ['babel-loader'],
             },
         ]
     },

@@ -37,8 +37,8 @@
   },
   "devDependencies": {
     "ava": "^0.17.0",
-    "awesome-typescript-loader": "^3.0.0-beta",
     "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.9",
     "babel-preset-latest": "^6.16.0",
     "codecov": "^1.0.1",
     "eslint": "^3.6.1",
@@ -46,7 +46,6 @@
     "glob": "^7.0.5",
     "grunt": "^1.0.0",
     "nyc": "^10.0.0",
-    "typescript": "^2.0.8",
     "webpack": "^2.1.0-beta"
   },
   "dependencies": {
