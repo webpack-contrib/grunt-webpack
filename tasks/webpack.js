@@ -1,6 +1,5 @@
 'use strict';
 const webpack = require('webpack');
-const defaults = require('../src/options/default');
 const OptionHelper = require('../src/options/WebpackOptionHelper');
 const CachePluginFactory = require('../src/plugins/CachePluginFactory');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
@@ -44,7 +43,7 @@ module.exports = (grunt) => {
 
       if (stats.hasErrors()) {
         // in case opts.stats === false we still want to display errors.
-        grunt.log.writeln(stats.toString(opts.stats || defaults.gruntOptions.stats));
+        grunt.log.writeln(stats.toString(opts.stats || 'errors-only'));
         if (opts.failOnError) {
           // construct error without stacktrace, as the stack is not relevant here
           const error = new Error();
