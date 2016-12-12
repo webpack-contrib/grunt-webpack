@@ -25,8 +25,8 @@ ajv-keywords@^1.0.0, ajv-keywords@^1.1.1:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-1.2.0.tgz#676c4f087bfe1e8b12dca6fda2f3c74f417b099c"
 
 ajv@^4.7.0:
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.9.2.tgz#3f7dcda95b0c34bceb2d69945117d146219f1a2c"
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-4.10.0.tgz#7ae6169180eb199192a8b9a19fd0f47fc9ac8764"
   dependencies:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
@@ -303,8 +303,8 @@ ava@^0.17.0:
     update-notifier "^1.0.0"
 
 awesome-typescript-loader@^3.0.0-beta:
-  version "3.0.0-beta.10"
-  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.0.0-beta.10.tgz#2e07b2a30ad4b02717e13421bc6952d2100acab9"
+  version "3.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/awesome-typescript-loader/-/awesome-typescript-loader-3.0.0-beta.12.tgz#5569f9ccb6c8108ddb61f2465bad10a98669e61e"
   dependencies:
     colors "^1.1.2"
     enhanced-resolve "^2.3.0"
