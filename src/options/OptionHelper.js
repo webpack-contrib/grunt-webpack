@@ -29,6 +29,7 @@ class OptionHelper {
 
   get(name) {
     const options = this.getOptions();
+    let option = undefined;
 
     if (Array.isArray(options)) {
       let value = undefined;
@@ -37,10 +38,12 @@ class OptionHelper {
         return value != undefined;
       });
 
-      return value;
+      option = value;
+    } else {
+      option = options[name];
     }
 
-    return options[name];
+    return typeof option === 'function' ? option(options) : option;
   }
 
   getWithPlugins(ns) {

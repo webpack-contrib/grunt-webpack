@@ -6,6 +6,10 @@ const gruntOptions = {
   failOnError: true,
   progress: process.stdout.isTTY,
   storeStatsTo: null,
+  keepalive: (options) => {
+    // if watch enabled also default to keepalive true
+    return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
+  },
   inline: false,
   hot: false,
   stats: {
@@ -30,6 +34,7 @@ const webpackDevServerOptions = {
       path: '/'
     }
   },
+  keepalive: true,
 };
 
 function mergeCustomize(a, b) {

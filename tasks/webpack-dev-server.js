@@ -25,7 +25,7 @@ yarn add webpack-dev-server`);
   const hotModuleReplacementPluginFactory = new HotModuleReplacementPluginFactory(grunt);
 
   grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask() {
-    this.async();
+    const done = this.async();
     const optionHelper = new OptionHelper(grunt, this);
 
     const opts = {
@@ -33,6 +33,7 @@ yarn add webpack-dev-server`);
       hot: optionHelper.get('hot'),
       https: optionHelper.get('https'),
       inline: optionHelper.get('inline'),
+      keepalive: optionHelper.get('keepalive'),
       port: optionHelper.get('port'),
       progress: optionHelper.get('progress')
     };
@@ -67,6 +68,7 @@ yarn add webpack-dev-server`);
 
     (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
       grunt.log.writeln(`\rwebpack-dev-server on port ${opts.port}  `);
+      if (!opts.keepalive) done();
     });
   });
 };
