@@ -62,6 +62,9 @@ webpack: {
 	},
 	// Use this when you need to fallback to poll based watching (webpack 1.9.1+ only)
 
+	keepalive: true, // don't finish the grunt task
+	// defaults to true for watch and dev-server otherwise false
+
 	inline: true,  // embed the webpack-dev-server runtime into the bundle
 	// Defaults to false
 

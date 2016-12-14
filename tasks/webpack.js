@@ -16,6 +16,7 @@ module.exports = (grunt) => {
     const opts = {
       cache: watch ? false : optionHelper.get('cache'),
       failOnError: optionHelper.get('failOnError'),
+      keepalive: optionHelper.get('keepalive'),
       progress: optionHelper.get('progress'),
       stats: optionHelper.get('stats'),
       storeStatsTo: optionHelper.get('storeStatsTo'),
@@ -52,7 +53,7 @@ module.exports = (grunt) => {
         }
       }
 
-      if (!opts.watch) done();
+      if (!opts.keepalive) done();
     };
 
     if (opts.watch) {
