@@ -90,10 +90,6 @@ class OptionHelper {
     const result = Object.assign({}, options);
     Object.keys(defaults.gruntOptions).forEach(key => delete result[key]);
 
-    // ensure cache is disabled, as we add our own CachePlugin to support
-    // multiple targets in one run with different caches
-    result.cache = false;
-
     return result;
   }
 }
