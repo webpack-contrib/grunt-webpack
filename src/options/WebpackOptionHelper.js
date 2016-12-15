@@ -15,6 +15,10 @@ class WebpackOptionHelper extends OptionHelper {
       return options.map((opt) => this.filterGruntOptions(opt));
     }
 
+    // ensure cache is disabled, as we add our own CachePlugin to support
+    // multiple targets in one run with different caches
+    options.cache = false;
+
     return this.filterGruntOptions(options);
   }
 }
