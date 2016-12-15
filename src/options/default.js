@@ -11,7 +11,9 @@ const gruntOptions = {
     return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
   },
   inline: false,
-  hot: false,
+};
+
+const webpackOptions = {
   stats: {
     colors: true,
     hash: false,
@@ -27,6 +29,7 @@ const gruntOptions = {
 const webpackDevServerOptions = {
   port: 8080,
   host: 'localhost',
+  hot: false,
   contentBase: '.',
   webpack: {
     context: '.',
@@ -35,6 +38,16 @@ const webpackDevServerOptions = {
     }
   },
   keepalive: true,
+  stats: {
+    colors: true,
+    hash: false,
+    timings: false,
+    assets: true,
+    chunks: false,
+    chunkModules: false,
+    modules: false,
+    children: true
+  },
 };
 
 function mergeCustomize(a, b) {
@@ -55,6 +68,7 @@ function mergeOptions(defaultOptions, options, targetOptions) {
 }
 
 exports.gruntOptions = gruntOptions;
+exports.webpackOptions = webpackOptions;
 exports.webpackDevServerOptions = webpackDevServerOptions;
 
 exports.mergeOptions = mergeOptions;
