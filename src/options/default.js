@@ -32,7 +32,6 @@ const webpackDevServerOptions = {
   hot: false,
   contentBase: '.',
   webpack: {
-    context: '.',
     output: {
       path: '/'
     }
