@@ -12,12 +12,18 @@ class WebpackOptionHelper extends OptionHelper {
     const options = this.getOptions();
 
     if (Array.isArray(options)) {
-      return options.map((opt) => this.filterGruntOptions(opt));
+      return options.map((opt) => this.filterOptions(opt));
     }
 
-    // ensure cache is disabled, as we add our own CachePlugin to support
-    // multiple targets in one run with different caches
-    options.cache = false;
+    return this.filterOptions(options);
+  }
+
+  filterOptions(options) {
+    if (!options.watch) {
+      // ensure cache is disabled in non watch mode, as we add our own CachePlugin to support
+      // multiple targets in one run with different caches
+      options.cache = false;
+    }
 
     return this.filterGruntOptions(options);
   }
