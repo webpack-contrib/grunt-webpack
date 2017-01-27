@@ -3,7 +3,7 @@ BEFORE YOU SUBMIT please read the following:
 
 If you have a support request or question please submit them to one of this resources:
 
-* Gitter: https://gitter.im/webpack/grunt-webpack
+* Gitter: https://gitter.im/webpack-contrib/grunt-webpack
 * StackOverflow: http://stackoverflow.com/questions/tagged/webpack+gruntjs using the tags `[webpack]` and `[gruntjs]`
 
 Issues on github are only related to problems of grunt-webpack itself and we cannot answer 
