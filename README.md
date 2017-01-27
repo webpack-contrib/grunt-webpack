@@ -20,25 +20,46 @@
 
 <h2 align="center">Install</h2>
 
-Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with:
+Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started). You also need to install webpack yourself, this grunt plugin does not install webpack itself.
 
 ```bash
-npm install grunt-webpack --save-dev
+yarn add webpack grunt-webpack
+```
+
+If you also want to use the webpack-dev-server task you also need to install `webpack-dev-server`
+
+```bash
+yarn add webpack-dev-server
 ```
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
 
 ```javascript
-grunt.loadNpmTasks('grunt-webpack');
+module.exports = function(grunt) {
+
+  // Project configuration.
+  grunt.initConfig({ ... });
+
+  grunt.loadNpmTasks('grunt-webpack');
+};
 ```
 
-<h2 align="center">Usage</h2>
+<h2 align="center">Configuration</h2>
 
-There are two tasks available
-- `webpack`.
-- `webpack-dev-server`: see [webpack-dev-server doc](http://webpack.github.io/docs/webpack-dev-server.html#api) for available options.
+<h2 align="center">webpack</h2>
 
-<h2 align="center">Configuration Example</h2>
+<h3 align="center">Configuration</h3>
+
+<h3 align="center">Examples</h3>
+
+<h2 align="center">webpack-dev-server</h2>
+
+<h3 align="center">Configuration</h3>
+
+<h3 align="center">Examples</h3>
+
+
+<h3 align="center">old</h3>
 
 ``` javascript
 webpack: {
