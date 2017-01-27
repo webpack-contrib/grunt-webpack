@@ -54,7 +54,12 @@ class OptionHelper {
         this.fixPlugins(options, ns.concat([`${index}`, 'plugins']));
       });
     } else {
-      this.fixPlugins(obj, ns.concat(['plugins']));
+      if (obj.webpack) {
+        // handle webpack-dev-server options
+        this.fixPlugins(obj.webpack, ns.concat(['webpack', 'plugins']));
+      } else {
+        this.fixPlugins(obj, ns.concat(['plugins']));
+      }
     }
 
     return obj;
