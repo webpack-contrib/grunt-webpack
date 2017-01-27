@@ -30,12 +30,6 @@ const webpackDevServerOptions = {
   port: 8080,
   host: 'localhost',
   hot: false,
-  contentBase: '.',
-  webpack: {
-    output: {
-      path: '/'
-    }
-  },
   keepalive: true,
   stats: {
     colors: true,
