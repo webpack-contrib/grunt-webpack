@@ -46,7 +46,7 @@
     "glob": "^7.0.5",
     "grunt": "^1.0.0",
     "nyc": "^10.0.0",
-    "webpack": "^2.2.0-rc"
+    "webpack": "^2.2.0"
   },
   "dependencies": {
     "lodash": "^4.7.0"
