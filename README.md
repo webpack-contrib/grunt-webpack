@@ -44,22 +44,64 @@ module.exports = function(grunt) {
 };
 ```
 
-<h2 align="center">Configuration</h2>
+## Configuration
 
-<h2 align="center">webpack</h2>
+### Both Tasks
 
-<h3 align="center">Configuration</h3>
+#### progress
+Type: `bool`
+Default: `true` (`false` if no TTY present)
 
-<h3 align="center">Examples</h3>
+Activates or deactivates the progress output of webpack.
 
-<h2 align="center">webpack-dev-server</h2>
+#### keepalive
+Type: `bool`
+Default: `false` (`true` if watch mode is used and for webpack-dev-server)
 
-<h3 align="center">Configuration</h3>
+Activates or deactivates the progress output of webpack.
 
-<h3 align="center">Examples</h3>
+### Webpack Task
+
+#### failOnError
+Type: `bool`
+Default: `true` (`false` if watch mode is used)
+
+> TODO this is not true currently, it is not disabled when watchmode used
+
+Terminate the grunt process when an error happens if set to `true`. If set to `false` the grunt process will not be immediately terminated on error and instead still run tasks scheduled to run after the webpack task.
+
+#### storeStatsTo
+Type: `string`
+Default: `null`
+
+When set the stats from webpack will be written to a variable with the name provided in this option. The variable can later be used inside of other grunt tasks with template tags <%= %>.
+
+```js
+...
+storeStatsTo: "webpackStats"
+
+...
+
+<%= webpackStats.hash %>
+...
+```
+
+> For more information about grunt template tags have a look at the [grunt docs][2].
+
+### Webpack-dev-server Task
+
+#### inline
+Type: `bool`
+Default: `false`
+
+Enable inline mode to include client scripts in bundle.
+
+> see the [webpack documentation][1] for more information about this option.
+
+## Examples
 
 
-<h3 align="center">old</h3>
+### old
 
 ``` javascript
 webpack: {
@@ -152,6 +194,9 @@ webpack: {
   <tbody>
 </table>
 
+
+[1]: https://webpack.js.org/configuration/dev-server/#devserver-inline-cli-only
+[2]: http://gruntjs.com/api/grunt.template
 
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
