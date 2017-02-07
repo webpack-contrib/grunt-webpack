@@ -44,7 +44,10 @@ module.exports = function(grunt) {
 };
 ```
 
-## Configuration
+<h2 align="center">Configuration</h2>
+
+`webpack-grunt` offers two different tasks `webpack` and `webpack-dev-server`. Both support all webpack options as 
+can be seen in the [webpack documentation][3]. For exceptions and additions see this list.
 
 ### Both Tasks
 
@@ -74,7 +77,7 @@ Terminate the grunt process when an error happens if set to `true`. If set to `f
 Type: `string`
 Default: `null`
 
-When set the stats from webpack will be written to a variable with the name provided in this option. The variable can later be used inside of other grunt tasks with template tags <%= %>.
+When set the stats from webpack will be written to a variable with the name provided in this option. The variable can later be used inside of other grunt tasks with template tags `<%= %>`.
 
 ```js
 ...
@@ -90,16 +93,9 @@ storeStatsTo: "webpackStats"
 
 ### Webpack-dev-server Task
 
-#### inline
-Type: `bool`
-Default: `false`
+The webpack-dev-server options [`host`][5], [`hotOnly`][6], [`inline`][1], [`port`][4] and [`public`][7] which are usually only available in the CLI can also be used in this grunt-plugin.
 
-Enable inline mode to include client scripts in bundle.
-
-> see the [webpack documentation][1] for more information about this option.
-
-## Examples
-
+<h2 align="center">Examples</h2>
 
 ### old
 
@@ -194,9 +190,13 @@ webpack: {
   <tbody>
 </table>
 
-
 [1]: https://webpack.js.org/configuration/dev-server/#devserver-inline-cli-only
 [2]: http://gruntjs.com/api/grunt.template
+[3]: https://webpack.js.org/configuration/
+[4]: https://webpack.js.org/configuration/dev-server/#devserver-port-cli-only
+[5]: https://webpack.js.org/configuration/dev-server/#devserver-host-cli-only
+[6]: https://webpack.js.org/configuration/dev-server/#devserver-hotonly-cli-only
+[7]: https://webpack.js.org/configuration/dev-server/#devserver-public-cli-only
 
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
