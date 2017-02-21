@@ -14,8 +14,9 @@
   </a>
   <h1>Grunt Webpack</h1>
   <p>Use Webpack with Grunt.<p>
-  **This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack-contrib/grunt-webpack/tree/1.0).**
 </div>
+
+  **This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack-contrib/grunt-webpack/tree/1.0).**
 
 <h2 align="center">Install</h2>
 
