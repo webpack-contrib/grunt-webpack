@@ -1,12 +1,26 @@
-# grunt-webpack [![Build Status](https://travis-ci.org/webpack-contrib/grunt-webpack.svg?branch=master)](https://travis-ci.org/webpack-contrib/grunt-webpack) [![codecov](https://codecov.io/gh/webpack-contrib/grunt-webpack/branch/master/graph/badge.svg)](https://codecov.io/gh/webpack-contrib/grunt-webpack)
+[![npm][npm]][npm-url]
+[![deps][deps]][deps-url]
+[![test][test]][test-url]
+[![coverage][cover]][cover-url]
+[![chat][chat]][chat-url]
 
-**This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack-contrib/grunt-webpack/tree/1.0).** 
+<div align="center">
+  <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
+  <img width="200" height="200"
+    src="https://cdn.worldvectorlogo.com/logos/grunt.svg">
+  <a href="https://github.com/webpack/webpack">
+    <img width="200" height="200" vspace="" hspace="25"
+      src="https://cdn.rawgit.com/webpack/media/e7485eb2/logo/icon.svg">
+  </a>
+  <h1>Grunt Webpack</h1>
+  <p>Use Webpack with Grunt.<p>
+</div>
 
-Use [webpack](https://github.com/webpack/webpack) with grunt.
+  **This is the readme for version 2.0 which is currently available as beta version. For the 1.0 readme visit [here](https://github.com/webpack-contrib/grunt-webpack/tree/1.0).**
 
-## Getting Started
+<h2 align="center">Install</h2>
 
-Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with: 
+Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started) with:
 
 ```bash
 npm install grunt-webpack --save-dev
@@ -18,13 +32,13 @@ Then add this line to your project's `Gruntfile.js` gruntfile:
 grunt.loadNpmTasks('grunt-webpack');
 ```
 
-## Tasks
+<h2 align="center">Usage</h2>
 
 There are two tasks available
 - `webpack`.
 - `webpack-dev-server`: see [webpack-dev-server doc](http://webpack.github.io/docs/webpack-dev-server.html#api) for available options.
 
-## Configuration Example
+<h2 align="center">Configuration Example</h2>
 
 ``` javascript
 webpack: {
@@ -78,9 +92,57 @@ webpack: {
 
 `grunt-webpack` uses the [webpack options](http://webpack.github.io/docs/configuration.html).
 
+<h2 align="center">Maintainers</h2>
 
-## License
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <img width="150" height="150"
+        src="https://avatars1.githubusercontent.com/u/231804?v=3&s=150">
+        </br>
+        <a href="https://github.com/danez">Daniel Tschinder</a>
+      </td>
+      <td align="center">
+        <img width="150" height="150"
+        src="https://avatars3.githubusercontent.com/u/166921?v=3&s=150">
+        </br>
+        <a href="https://github.com/bebraw">Juho Vepsäläinen</a>
+      </td>
+      <td align="center">
+        <img width="150" height="150"
+        src="https://avatars2.githubusercontent.com/u/8420490?v=3&s=150">
+        </br>
+        <a href="https://github.com/d3viant0ne">Joshua Wiens</a>
+      </td>
+      <td align="center">
+        <img width="150" height="150"
+        src="https://avatars3.githubusercontent.com/u/533616?v=3&s=150">
+        </br>
+        <a href="https://github.com/SpaceK33z">Kees Kluskens</a>
+      </td>
+      <td align="center">
+        <img width="150" height="150"
+        src="https://avatars3.githubusercontent.com/u/3408176?v=3&s=150">
+        </br>
+        <a href="https://github.com/TheLarkInn">Sean Larkin</a>
+      </td>
+    </tr>
+  <tbody>
+</table>
 
-Copyright (c) JS Foundation
 
-MIT (http://opensource.org/licenses/mit-license.php)
+[npm]: https://img.shields.io/npm/v/grunt-webpack.svg
+[npm-url]: https://npmjs.com/package/grunt-webpack
+
+[deps]: https://david-dm.org/webpack-contrib/grunt-webpack.svg
+[deps-url]: https://david-dm.org/webpack-contrib/grunt-webpack
+
+[chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
+[chat-url]: https://gitter.im/webpack/webpack
+
+[test]: https://travis-ci.org/webpack-contrib/grunt-webpack.svg?branch=master
+[test-url]: https://travis-ci.org/webpack-contrib/grunt-webpack
+
+[cover]: https://codecov.io/gh/webpack-contrib/grunt-webpack/branch/master/graph/badge.svg
+[cover-url]: https://codecov.io/gh/webpack-contrib/grunt-webpack
