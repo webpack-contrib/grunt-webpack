@@ -102,7 +102,7 @@ class OptionHelper {
 
   resolvePaths(obj) {
     // Use grunt to expand the path of the following properties
-    const props = ['entry', 'output.path', 'filename'];
+    const props = ['entry', 'output.path', 'output.filename'];
 
     _.each(props, (prop) => {
       if (_.has(obj, prop)) {
