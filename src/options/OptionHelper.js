@@ -1,4 +1,5 @@
 'use strict';
+const _ = require('lodash');
 const defaults = require('./default');
 
 class OptionHelper {
@@ -54,6 +55,7 @@ class OptionHelper {
         this.fixPlugins(options, ns.concat([`${index}`, 'plugins']));
       });
     } else {
+      this.resolvePaths(obj);
       if (obj.webpack) {
         // handle webpack-dev-server options
         this.fixPlugins(obj.webpack, ns.concat(['webpack', 'plugins']));
@@ -94,6 +96,45 @@ class OptionHelper {
   filterGruntOptions(options) {
     const result = Object.assign({}, options);
     Object.keys(defaults.gruntOptions).forEach(key => delete result[key]);
+
+    return result;
+  }
+
+  resolvePaths(obj) {
+    // Use grunt to expand the path of the following properties
+    const props = ['entry', 'output.path', 'filename'];
+
+    _.each(props, (prop) => {
+      if (_.has(obj, prop)) {
+        _.set(obj, prop, this.expandPath(_.get(obj, prop)));
+      }
+    });
+
+    return obj;
+  }
+
+  expandPath(paths) {
+    let result = paths;
+
+    if (_.isString(paths)) {
+      if (_.startsWith(paths, '.') || _.startsWith(paths, '/')) {
+        result = this.grunt.file.expand({ cwd: process.cwd() }, paths);
+        if (!result || result.length < 1) {
+          result = this.grunt.template.process(paths);
+        }
+        if (result && (result.length === 1)) {
+          result = result[0];
+        }
+      }
+    } else if (Array.isArray(paths)) {
+      result = _.map(paths, (path) => {
+        return this.expandPath(path);
+      });
+    } else if (_.isObject(paths)) {
+      _.each(paths, (path, key) => {
+        result[key] = this.expandPath(path);
+      });
+    }
 
     return result;
   }

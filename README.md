@@ -44,7 +44,7 @@ There are two tasks available
 webpack: {
   someName: {
 	// webpack options
-	entry: "./client/lib/index.js",
+	entry: "./client/lib/index.js", // you may use grunt's templating <%= project.src %>/index.js
 	output: {
 		path: "asserts/",
 		filename: "[hash].js",
