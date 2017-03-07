@@ -128,7 +128,7 @@ class OptionHelper {
         }
 
         // If the result is an array of only 1 item, we'll just return that first item rather than the array
-        if (_.isArray(result) && (result.length === 1)) {
+        if (Array.isArray(result) && (result.length === 1)) {
           result = result[0];
         }
       }
