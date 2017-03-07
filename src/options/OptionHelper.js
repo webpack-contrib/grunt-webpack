@@ -102,7 +102,7 @@ class OptionHelper {
 
   resolvePaths(obj) {
     // Use grunt to expand the path of the following properties
-    const props = ['entry', 'output.path', 'output.filename'];
+    const props = ['entry'];
 
     _.each(props, (prop) => {
       if (_.has(obj, prop)) {
@@ -127,9 +127,11 @@ class OptionHelper {
         }
       }
     } else if (Array.isArray(paths)) {
-      result = _.map(paths, (path) => {
+      result = _.flatten(_.map(paths, (path) => {
         return this.expandPath(path);
-      });
+      }));
+
+      this.grunt.log.write(JSON.stringify(result));
     } else if (_.isObject(paths)) {
       _.each(paths, (path, key) => {
         result[key] = this.expandPath(path);
