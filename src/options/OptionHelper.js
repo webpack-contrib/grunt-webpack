@@ -119,19 +119,24 @@ class OptionHelper {
     if (_.isString(paths)) {
       if (_.startsWith(paths, '.') || _.startsWith(paths, '/')) {
         result = this.grunt.file.expand({ cwd: process.cwd() }, paths);
+
+        // Since the path to the file doesn't require an extension, the above will likely not find any files mataching
+        // the pattern if that is the case. In such a scenario, we'll just do any template string replacements and
+        // return as is.
         if (!result || result.length < 1) {
           result = this.grunt.template.process(paths);
         }
-        if (result && (result.length === 1)) {
+
+        // If the result is an array of only 1 item, we'll just return that first item rather than the array
+        if (_.isArray(result) && (result.length === 1)) {
           result = result[0];
         }
       }
     } else if (Array.isArray(paths)) {
+      // Flatten the array because an array of array of paths is not a valid type of configuration
       result = _.flatten(_.map(paths, (path) => {
         return this.expandPath(path);
       }));
-
-      this.grunt.log.write(JSON.stringify(result));
     } else if (_.isObject(paths)) {
       _.each(paths, (path, key) => {
         result[key] = this.expandPath(path);
