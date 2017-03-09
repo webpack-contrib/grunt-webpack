@@ -118,7 +118,7 @@ class OptionHelper {
 
     if (_.isString(paths)) {
       if (_.startsWith(paths, '.') || _.startsWith(paths, '/')) {
-        result = this.grunt.file.expand({ cwd: process.cwd() }, paths);
+        result = this.grunt.file.expand({}, paths);
 
         // Since the path to the file doesn't require an extension, the above will likely not find any files mataching
         // the pattern if that is the case. In such a scenario, we'll just do any template string replacements and
