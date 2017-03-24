@@ -21,14 +21,6 @@ class WebpackOptionHelper extends OptionHelper {
   getWebpackDevServerOptions() {
     const options = this.getOptions();
 
-    if (Array.isArray(options)) {
-      return options.map((opt) => {
-        delete options.webpack;
-
-        return this.filterGruntOptions(opt);
-      });
-    }
-
     delete options.webpack;
 
     return this.filterGruntOptions(options);
