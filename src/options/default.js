@@ -11,7 +11,7 @@ const gruntOptions = {
   storeStatsTo: null,
   keepalive: (options) => {
     // if watch enabled also default to keepalive true
-    return Array.isArray(options) ? options.some(option => option.watch) : options.watch;
+    return Array.isArray(options) ? options.some(option => option.watch) : !!options.watch;
   },
 };
 
@@ -28,7 +28,7 @@ const webpackOptions = {
   },
   cache: (options) => {
     // if watch enabled also default to cache true
-    return Array.isArray(options) ? options.some(option => option.watch) : options.watch;
+    return Array.isArray(options) ? options.some(option => option.watch) : !!options.watch;
   }
 };
 
