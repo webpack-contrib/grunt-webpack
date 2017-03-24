@@ -2,7 +2,6 @@
 const webpack = require('webpack');
 const OptionHelper = require('../src/options/WebpackDevServerOptionHelper');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
-const HotModuleReplacementPluginFactory = require('../src/plugins/HotModuleReplacementPluginFactory');
 
 module.exports = (grunt) => {
   let WebpackDevServer;
@@ -22,7 +21,6 @@ yarn add webpack-dev-server`);
   }
 
   const processPluginFactory = new ProgressPluginFactory(grunt);
-  const hotModuleReplacementPluginFactory = new HotModuleReplacementPluginFactory(grunt);
 
   grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask() {
     const done = this.async();
@@ -45,7 +43,10 @@ yarn add webpack-dev-server`);
       const devClient = [
         `webpack-dev-server/client?${protocol}://${opts.host}:${opts.port}`
       ];
-      if (opts.hot) devClient.push('webpack/hot/dev-server');
+      if (opts.hot) {
+        devClient.push('webpack/hot/dev-server');
+        webpackOptions.plugins.plush(new webpack.HotModuleReplacementPlugin());
+      }
 
       // TODO can ww extract that and make it nice
       [].concat(webpackOptions).forEach((webpackOptions) => {
@@ -62,9 +63,6 @@ yarn add webpack-dev-server`);
     const compiler = webpack(webpackOptions);
 
     if (opts.progress) processPluginFactory.addPlugin(this.target, compiler);
-
-    // TODO does this work? or do we add the module in the initial config?
-    if (opts.inline && opts.hot) hotModuleReplacementPluginFactory.addPlugin(this.target, compiler);
 
     (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
       grunt.log.writeln(`\rwebpack-dev-server on port ${opts.port}  `);
