@@ -1,5 +1,6 @@
 'use strict';
 const webpack = require('webpack');
+const pkg = require('../package.json');
 const OptionHelper = require('../src/options/WebpackOptionHelper');
 const CachePluginFactory = require('../src/plugins/CachePluginFactory');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
@@ -35,7 +36,12 @@ module.exports = (grunt) => {
       if (err) return done(err);
 
       if (opts.stats && !stats.hasErrors()) {
-        grunt.log.writeln(stats.toString(opts.stats));
+        grunt.log.writeln(
+          stats
+            .toString(opts.stats)
+            // add plugin version with and without colors
+            .replace(/(\n(.*)Version: webpack (.*)\d+\.\d+\.\d+(.*))\n/, `$1$2 / grunt-webpack $3${pkg.version}$4\n`)
+        );
       }
 
       if (typeof opts.storeStatsTo === 'string') {
