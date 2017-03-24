@@ -67,15 +67,14 @@ Activates or deactivates the progress output of webpack.
 Type: `bool`
 Default: `false` (`true` if watch mode is used and for webpack-dev-server)
 
-When set to true the grunt process will be kept alive after webpack is finished.
-
+When set to true the grunt process will be kept alive after webpack task is finished. This is especially usefull for `watch` and `webpack-dev-server` as these usually need to run as long as not manually killed.
 ### Webpack Task
 
 #### failOnError
 Type: `bool`
 Default: `true` (`false` if watch mode is used)
 
-Terminate the grunt process when an error happens if set to `true`. If set to `false` the grunt process will not be immediately terminated on error and instead still run tasks scheduled to run after the webpack task.
+Will terminate the grunt process when an error happens if set to `true`. If set to `false` the grunt process will not be immediately terminated on error and instead continue to run.
 
 #### storeStatsTo
 Type: `string`
