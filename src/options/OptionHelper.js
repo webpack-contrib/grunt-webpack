@@ -1,5 +1,6 @@
 'use strict';
-const _ = require('lodash');
+const get = require('lodash/get');
+const set = require('lodash/set');
 const defaults = require('./default');
 
 class OptionHelper {
@@ -71,11 +72,11 @@ class OptionHelper {
 
     pluginProps.forEach(prop => {
       const path = prop.join('.');
-      if (_.get(obj, path)) {
+      if (get(obj, path)) {
         // getRaw must be used or grunt.config will clobber the types (i.e.
         // the array won't a BannerPlugin, it will contain an Object)
         const plugins = this.grunt.config.getRaw(ns.concat(prop));
-        _.set(obj, path, plugins.map(plugin => this.fixPlugin(plugin)));
+        set(obj, path, plugins.map(plugin => this.fixPlugin(plugin)));
       }
     });
 

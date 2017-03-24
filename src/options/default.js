@@ -17,14 +17,9 @@ const gruntOptions = {
 
 const webpackOptions = {
   stats: {
+    cached: false,
+    cachedAssets: false,
     colors: true,
-    hash: false,
-    timings: false,
-    assets: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-    children: true,
   },
   cache: (options) => {
     // if watch enabled also default to cache true
@@ -37,15 +32,11 @@ const webpackDevServerOptions = {
   host: 'localhost',
   inline: true,
   keepalive: true,
+  publicPath: '/',
   stats: {
     colors: true,
-    hash: false,
-    timings: false,
-    assets: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-    children: true
+    cached: false,
+    cachedAssets: false
   },
 };
 
