@@ -131,10 +131,10 @@ On the command line you can then do the following.
 
 ```bash
 # Run webpack with the `prod` target
-> grunt webpack:prod
+> NODE_ENV='production' grunt webpack:prod
 
 # Run webpack with the `dev` target
-> grunt webpack:prod
+> grunt webpack:dev
 
 # Run webpack for all targets
 > grunt webpack
