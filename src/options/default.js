@@ -20,13 +20,6 @@ const webpackOptions = {
     cached: false,
     cachedAssets: false,
     colors: true,
-    hash: true,
-    timings: true,
-    assets: true,
-    chunks: false,
-    chunkModules: false,
-    modules: true,
-    children: true,
   },
   cache: (options) => {
     // if watch enabled also default to cache true
