@@ -28,7 +28,7 @@ module.exports = (grunt) => {
     const compiler = webpack(webpackOptions);
 
     if (opts.cache) cachePluginFactory.addPlugin(this.target, compiler);
-    if (opts.progress) processPluginFactory.addPlugin(this.target, compiler);
+    if (opts.progress) processPluginFactory.addPlugin(compiler, webpackOptions);
 
     const handler = (err, stats) => {
       if (opts.cache) cachePluginFactory.updateDependencies(this.target, compiler);

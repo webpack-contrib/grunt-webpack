@@ -41,7 +41,7 @@ npm install --save-dev webpack-dev-server
 
     const compiler = webpack(webpackOptions);
 
-    if (opts.progress) processPluginFactory.addPlugin(this.target, compiler);
+    if (opts.progress) processPluginFactory.addPlugin(compiler, webpackOptions);
 
     (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
       grunt.log.writeln(`\rwebpack-dev-server listening on ${opts.host}:${opts.port}`);
