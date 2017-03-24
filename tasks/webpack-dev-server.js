@@ -45,7 +45,7 @@ yarn add webpack-dev-server`);
       ];
       if (opts.hot) {
         devClient.push('webpack/hot/dev-server');
-        webpackOptions.plugins.plush(new webpack.HotModuleReplacementPlugin());
+        webpackOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
       }
 
       // TODO can ww extract that and make it nice
