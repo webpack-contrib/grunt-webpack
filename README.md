@@ -101,59 +101,44 @@ The webpack-dev-server options [`host`][5], [`hotOnly`][6], [`inline`][1], [`por
 
 <h2 align="center">Examples</h2>
 
-### old
+### Webpack
+
+This is a simple example that requires the webpack config from the config file.
+It also disables stats in non 'development' environments and enables watch in development.
 
 ``` javascript
-webpack: {
-  someName: {
-	// webpack options
-	entry: "./client/lib/index.js",
-	output: {
-		path: "asserts/",
-		filename: "[hash].js",
-	},
+const webpackConfig = require('./webpack.config');
 
-	stats: {
-		// Configure the console output
-		colors: false,
-		modules: true,
-		reasons: true
-	},
-	// stats: false disables the stats output
+module.exports = function(grunt) {
+  grunt.initConfig({
+    webpack: {
+      options: {
+        stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+      },
+      prod: webpackConfig,
+      dev: Object.assign({ watch: true }, webpackConfig);
+    }
+  });
 
-	storeStatsTo: "xyz", // writes the status to a variable named xyz
-	// you may use it later in grunt i.e. <%= xyz.hash %>
-
-	progress: false, // Don't show progress
-	// Defaults to true
-
-	failOnError: false, // don't report error to grunt if webpack find errors
-	// Use this if webpack errors are tolerable and grunt should continue
-
-	watch: true, // use webpacks watcher
-	// You need to keep the grunt process alive
-
-	watchOptions: {
-		aggregateTimeout: 500,
-		poll: true
-	},
-	// Use this when you need to fallback to poll based watching (webpack 1.9.1+ only)
-
-	keepalive: true, // don't finish the grunt task
-	// defaults to true for watch and dev-server otherwise false
-
-	inline: true,  // embed the webpack-dev-server runtime into the bundle
-	// Defaults to false
-
-	hot: true, // adds the HotModuleReplacementPlugin and switch the server to hot mode
-	// Use this in combination with the inline option
-
-  },
-  anotherName: {...}
-}
+  grunt.loadNpmTasks('grunt-webpack');
+};
 ```
 
-`grunt-webpack` uses the [webpack options](http://webpack.github.io/docs/configuration.html).
+> The webpack task in this example has two targets called `prod` and `dev`. They can be renamed to everything besides `options`. See the [grunt docs][2] for more information about targets.
+
+
+On the command line you can then do the following.
+
+```bash
+# Run webpack with the `prod` target
+> grunt webpack:prod
+
+# Run webpack with the `dev` target
+> grunt webpack:prod
+
+# Run webpack for all targets
+> grunt webpack
+```
 
 <h2 align="center">Maintainers</h2>
 
@@ -201,6 +186,7 @@ webpack: {
 [5]: https://webpack.js.org/configuration/dev-server/#devserver-host-cli-only
 [6]: https://webpack.js.org/configuration/dev-server/#devserver-hotonly-cli-only
 [7]: https://webpack.js.org/configuration/dev-server/#devserver-public-cli-only
+[8]: https://gruntjs.com/configuring-tasks#task-configuration-and-targets
 
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
