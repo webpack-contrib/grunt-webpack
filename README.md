@@ -23,13 +23,19 @@
 Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started). You also need to install webpack yourself, this grunt plugin does not install webpack itself.
 
 ```bash
-yarn add webpack grunt-webpack
+yarn add webpack grunt-webpack --dev
+```
+
+You can still use npm
+
+```bash
+npm i webpack grunt-webpack --save-dev
 ```
 
 If you also want to use the webpack-dev-server task you also need to install `webpack-dev-server`
 
 ```bash
-yarn add webpack-dev-server
+yarn add webpack-dev-server --dev
 ```
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
@@ -61,15 +67,13 @@ Activates or deactivates the progress output of webpack.
 Type: `bool`
 Default: `false` (`true` if watch mode is used and for webpack-dev-server)
 
-Activates or deactivates the progress output of webpack.
+When set to true the grunt process will be kept alive after webpack is finished.
 
 ### Webpack Task
 
 #### failOnError
 Type: `bool`
 Default: `true` (`false` if watch mode is used)
-
-> TODO this is not true currently, it is not disabled when watchmode used
 
 Terminate the grunt process when an error happens if set to `true`. If set to `false` the grunt process will not be immediately terminated on error and instead still run tasks scheduled to run after the webpack task.
 

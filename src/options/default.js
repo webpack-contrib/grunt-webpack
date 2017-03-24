@@ -3,12 +3,15 @@
 const mergeWith = require('lodash/mergeWith');
 
 const gruntOptions = {
-  failOnError: true,
+  failOnError: (options) => {
+    // if watch enabled also default to failOnError false
+    return Array.isArray(options) ? options.every(option => !option.watch) : !options.watch;
+  },
   progress: process.stdout.isTTY,
   storeStatsTo: null,
   keepalive: (options) => {
     // if watch enabled also default to keepalive true
-    return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
+    return Array.isArray(options) ? options.some(option => option.watch) : options.watch;
   },
 };
 
@@ -25,7 +28,7 @@ const webpackOptions = {
   },
   cache: (options) => {
     // if watch enabled also default to cache true
-    return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
+    return Array.isArray(options) ? options.some(option => option.watch) : options.watch;
   }
 };
 
