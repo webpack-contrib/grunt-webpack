@@ -13,11 +13,16 @@ module.exports = (grunt) => {
         `webpack-dev-server is currently not installed, this task will do nothing.
 
 To fix this problem install webpack-dev-server by doing either
-npm install --save webpack-dev-server 
-or 
-yarn add webpack-dev-server`);
+yarn add webpack-dev-server --dev
+or
+npm install --save-dev webpack-dev-server 
+`);
     });
     return;
+  }
+
+  if (typeof WebpackDevServer.addDevServerEntrypoints !== 'function') {
+    grunt.fail.fatal('webpack-dev-server is outdated. Please ensure you have at least version 2.4.0 installed.');
   }
 
   const processPluginFactory = new ProgressPluginFactory(grunt);
@@ -25,39 +30,13 @@ yarn add webpack-dev-server`);
   grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask() {
     const done = this.async();
     const optionHelper = new OptionHelper(grunt, this);
-
-    const opts = {
-      host: optionHelper.get('host'),
-      hot: optionHelper.get('hot'),
-      https: optionHelper.get('https'),
-      inline: optionHelper.get('inline'),
-      keepalive: optionHelper.get('keepalive'),
-      port: optionHelper.get('port'),
-      progress: optionHelper.get('progress')
-    };
-
+    const opts = optionHelper.getOptions();
     const webpackOptions = optionHelper.getWebpackOptions();
 
-    if (opts.inline) {
-      const protocol = opts.https ? 'https' : 'http';
-      const devClient = [
-        `webpack-dev-server/client?${protocol}://${opts.host}:${opts.port}`
-      ];
-      if (opts.hot) {
-        devClient.push('webpack/hot/dev-server');
-        webpackOptions.plugins.plush(new webpack.HotModuleReplacementPlugin());
-      }
+    WebpackDevServer.addDevServerEntrypoints(webpackOptions, opts);
 
-      // TODO can ww extract that and make it nice
-      [].concat(webpackOptions).forEach((webpackOptions) => {
-        if (typeof webpackOptions.entry === 'object' && !Array.isArray(webpackOptions.entry)) {
-          Object.keys(webpackOptions.entry).forEach((key) => {
-            webpackOptions.entry[key] = devClient.concat(webpackOptions.entry[key]);
-          });
-        } else {
-          webpackOptions.entry = devClient.concat(webpackOptions.entry);
-        }
-      });
+    if (opts.inline && (opts.hotOnly || opts.hot)) {
+      webpackOptions.plugins.plush(new webpack.HotModuleReplacementPlugin());
     }
 
     const compiler = webpack(webpackOptions);
@@ -65,7 +44,7 @@ yarn add webpack-dev-server`);
     if (opts.progress) processPluginFactory.addPlugin(this.target, compiler);
 
     (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
-      grunt.log.writeln(`\rwebpack-dev-server on port ${opts.port}  `);
+      grunt.log.writeln(`\rwebpack-dev-server listening on ${opts.host}:${opts.port}`);
       if (!opts.keepalive) done();
     });
   });

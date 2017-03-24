@@ -10,7 +10,6 @@ const gruntOptions = {
     // if watch enabled also default to keepalive true
     return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
   },
-  inline: false,
 };
 
 const webpackOptions = {
@@ -24,12 +23,16 @@ const webpackOptions = {
     modules: false,
     children: true,
   },
+  cache: (options) => {
+    // if watch enabled also default to cache true
+    return Array.isArray(options) ? options.some(option => option.watch) : Boolean(options.watch);
+  }
 };
 
 const webpackDevServerOptions = {
   port: 8080,
   host: 'localhost',
-  hot: false,
+  inline: true,
   keepalive: true,
   stats: {
     colors: true,
