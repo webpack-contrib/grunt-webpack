@@ -138,7 +138,7 @@ On the command line you can then do the following.
 > grunt webpack
 ```
 
-> For more examples ind information have a look at the [webpack documentation][9] which mostly also applies here besides the noted differences above.
+> For more examples and information have a look at the [webpack documentation][9] which mostly also applies here besides the noted differences above.
 
 <h2 align="center">Maintainers</h2>
 
