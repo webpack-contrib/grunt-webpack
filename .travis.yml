@@ -2,18 +2,24 @@ language: node_js
 sudo: false
 node_js:
   - "4"
-  - "5"
   - "6"
   - "7"
+
+env:
+  - JOB=test
 
 matrix:
   fast_finish: true
   include:
-    - node_js: "'lts/*'"
-      env: LINT=true
+    - node_js: "lts/*"
+      env: JOB=lint
+    - node_js: "lts/*"
+      env: JOB=test-coverage
 
 script:
-  - 'if [ -n "${LINT-}" ]; then npm run lint ; fi'
-  - 'if [ -z "${LINT-}" ]; then npm run test-ci ; fi'
+  - 'if [ "$JOB" = "lint" ]; then yarn run lint ; fi'
+  - 'if [ "$JOB" = "test" ]; then yarn run test-only ; fi'
+  - 'if [ "$JOB" = "test-coverage" ]; then yarn run test-coverage ; fi'
 
-after_success: 'if [ -z "${LINT-}" ]; then npm run coverage ; fi'
+after_success:
+ - 'if [ "$JOB" = "test-coverage" ]; then bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json ; fi'

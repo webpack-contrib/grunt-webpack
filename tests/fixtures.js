@@ -14,12 +14,15 @@ const files = glob.sync(path.join(__dirname, 'fixtures/**/Gruntfile.js'), { dot:
 const tests = new Map();
 
 function runExec(code, opts) {
-  const sandbox = {
-    fs,
-    path,
-    assertGrunt: assertGruntFactory(opts.t, opts.returnCode, opts.stdout),
-    ...opts,
-  };
+  const sandbox = Object.assign(
+    {
+      fs,
+      path,
+      assertGrunt: assertGruntFactory(opts.t, opts.returnCode, opts.stdout),
+    },
+    opts
+  );
+
   const execCode = transform(
     code,
     {
@@ -34,7 +37,7 @@ function runExec(code, opts) {
   ).code;
 
   let fn = new Function(...Object.keys(sandbox), execCode);
-  return fn.apply(null, Object.values(sandbox));
+  return fn.apply(null, Object.keys(sandbox).map(key => sandbox[key]));
 }
 
 files.forEach((file) => {
