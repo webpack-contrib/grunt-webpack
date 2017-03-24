@@ -2,7 +2,6 @@
 const webpack = require('webpack');
 const OptionHelper = require('../src/options/WebpackDevServerOptionHelper');
 const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
-const createDomain = require('webpack-dev-server/lib/util/createDomain');
 
 function colorInfo(useColor, msg) {
   // Make text blue and bold, so it *pops*
@@ -46,6 +45,7 @@ npm install --save-dev webpack-dev-server
     grunt.fail.fatal('webpack-dev-server is outdated. Please ensure you have at least version 2.4.0 installed.');
   }
 
+  const createDomain = require('webpack-dev-server/lib/util/createDomain');
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
   grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask() {
