@@ -1,4 +1,5 @@
 'use strict';
+const _ = require('lodash');
 const defaults = require('./default');
 
 class OptionHelper {
@@ -51,27 +52,32 @@ class OptionHelper {
 
     if (Array.isArray(obj)) {
       obj.forEach((options, index) => {
-        this.fixPlugins(options, ns.concat([`${index}`, 'plugins']));
+        this.fixPlugins(options, ns.concat([`${index}`]));
       });
     } else {
-      if (obj.webpack) {
-        // handle webpack-dev-server options
-        this.fixPlugins(obj.webpack, ns.concat(['webpack', 'plugins']));
-      } else {
-        this.fixPlugins(obj, ns.concat(['plugins']));
-      }
+      this.fixPlugins(obj, ns);
     }
 
     return obj;
   }
 
   fixPlugins(obj, ns) {
-    if (obj.plugins) {
-      // getRaw must be used or grunt.config will clobber the types (i.e.
-      // the array won't a BannerPlugin, it will contain an Object)
-      const plugins = this.grunt.config.getRaw(ns);
-      obj.plugins = plugins.map(plugin => this.fixPlugin(plugin));
-    }
+    const pluginProps = [
+      ['plugins'],
+      ['resolve', 'plugins'],
+      ['webpack', 'plugins'],
+      ['webpack', 'resolve', 'plugins']
+    ];
+
+    pluginProps.forEach(prop => {
+      const path = prop.join('.');
+      if (_.get(obj, path)) {
+        // getRaw must be used or grunt.config will clobber the types (i.e.
+        // the array won't a BannerPlugin, it will contain an Object)
+        const plugins = this.grunt.config.getRaw(ns.concat(prop));
+        _.set(obj, path, plugins.map(plugin => this.fixPlugin(plugin)));
+      }
+    });
 
     return obj;
   }
