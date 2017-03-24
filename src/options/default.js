@@ -17,6 +17,8 @@ const gruntOptions = {
 
 const webpackOptions = {
   stats: {
+    cached: false,
+    cachedAssets: false,
     colors: true,
     hash: true,
     timings: true,
@@ -37,15 +39,11 @@ const webpackDevServerOptions = {
   host: 'localhost',
   inline: true,
   keepalive: true,
+  publicPath: '/',
   stats: {
     colors: true,
-    hash: false,
-    timings: false,
-    assets: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
-    children: true
+    cached: false,
+    cachedAssets: false
   },
 };
 
