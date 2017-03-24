@@ -126,7 +126,6 @@ module.exports = function(grunt) {
 
 > The webpack task in this example has two targets called `prod` and `dev`. They can be renamed to everything besides `options`. See the [grunt docs][2] for more information about targets.
 
-
 On the command line you can then do the following.
 
 ```bash
@@ -139,6 +138,8 @@ On the command line you can then do the following.
 # Run webpack for all targets
 > grunt webpack
 ```
+
+> For more examples ind information have a look at the [webpack documentation][9] which mostly also applies here besides the noted differences above.
 
 <h2 align="center">Maintainers</h2>
 
@@ -187,6 +188,7 @@ On the command line you can then do the following.
 [6]: https://webpack.js.org/configuration/dev-server/#devserver-hotonly-cli-only
 [7]: https://webpack.js.org/configuration/dev-server/#devserver-public-cli-only
 [8]: https://gruntjs.com/configuring-tasks#task-configuration-and-targets
+[9]: https://webpack.js.org/guides/get-started/
 
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
