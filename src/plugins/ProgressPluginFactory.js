@@ -11,7 +11,7 @@ class ProgressPluginFactory {
   }
 
   addPlugin(compiler, options) {
-    compiler.apply(new ProgressPlugin((percentage, msg) => {
+    compiler.apply(new ProgressPlugin(function (percentage, msg) {
       let state = msg;
       const details = Array.prototype.slice.call(arguments, 2);
       if (percentage < 1) {
@@ -49,7 +49,7 @@ class ProgressPluginFactory {
 
       this.goToLineStart(msg);
       this.grunt.log.write(msg);
-    }));
+    }.bind(this)));
   }
 
   goToLineStart(nextMessage) {

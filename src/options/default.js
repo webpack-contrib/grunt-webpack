@@ -18,12 +18,12 @@ const gruntOptions = {
 const webpackOptions = {
   stats: {
     colors: true,
-    hash: false,
-    timings: false,
+    hash: true,
+    timings: true,
     assets: true,
     chunks: false,
     chunkModules: false,
-    modules: false,
+    modules: true,
     children: true,
   },
   cache: (options) => {
