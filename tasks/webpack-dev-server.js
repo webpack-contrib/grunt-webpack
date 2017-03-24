@@ -36,7 +36,7 @@ npm install --save-dev webpack-dev-server
     WebpackDevServer.addDevServerEntrypoints(webpackOptions, opts);
 
     if (opts.inline && (opts.hotOnly || opts.hot)) {
-      webpackOptions.plugins.plush(new webpack.HotModuleReplacementPlugin());
+      webpackOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
     const compiler = webpack(webpackOptions);
