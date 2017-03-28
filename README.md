@@ -144,7 +144,7 @@ On the command line you can then do the following.
 
 ### Circular reference detected (.plugins)
 
-If you encounter this message it means that one of the plugins which are present in your config  have circular references.
+If you encounter this message it means that one of the plugins which are present in your config have circular references.
 This is totally fine for webpack, but sadly grunt cannot handle these.
 
 To workaround this problem use lazy config loading, by wrapping your config inside a function.
