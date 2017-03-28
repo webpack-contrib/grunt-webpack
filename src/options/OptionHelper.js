@@ -1,6 +1,5 @@
 'use strict';
-const get = require('lodash/get');
-const set = require('lodash/set');
+const cloneDeepWith = require('lodash/cloneDeepWith');
 const defaults = require('./default');
 
 class OptionHelper {
@@ -49,38 +48,19 @@ class OptionHelper {
   }
 
   getWithPlugins(ns) {
-    const obj = this.grunt.config(ns) || {};
+    let obj = this.grunt.config.getRaw(ns) || {};
 
-    if (Array.isArray(obj)) {
-      obj.forEach((options, index) => {
-        this.fixPlugins(options, ns.concat([`${index}`]));
-      });
-    } else {
-      this.fixPlugins(obj, ns);
+    if (typeof obj === 'function') {
+      obj = obj();
     }
 
-    return obj;
-  }
-
-  fixPlugins(obj, ns) {
-    const pluginProps = [
-      ['plugins'],
-      ['resolve', 'plugins'],
-      ['webpack', 'plugins'],
-      ['webpack', 'resolve', 'plugins']
-    ];
-
-    pluginProps.forEach(prop => {
-      const path = prop.join('.');
-      if (get(obj, path)) {
-        // getRaw must be used or grunt.config will clobber the types (i.e.
-        // the array won't a BannerPlugin, it will contain an Object)
-        const plugins = this.grunt.config.getRaw(ns.concat(prop));
-        set(obj, path, plugins.map(plugin => this.fixPlugin(plugin)));
+    return cloneDeepWith(obj, function (value, key) {
+      if (typeof value === 'string') {
+        return this.grunt.config.process(value);
+      } else if (Array.isArray(value) && key === 'plugins') {
+        return value.map(plugin => this.fixPlugin(plugin));
       }
-    });
-
-    return obj;
+    }.bind(this));
   }
 
   fixPlugin(plugin) {
@@ -91,7 +71,9 @@ class OptionHelper {
     const instance = Object.create(plugin);
     Object.keys(plugin).forEach((key) => {
       if (typeof plugin[key] === 'string') {
-        instance[key] = this.grunt.template.process(plugin[key]);
+        instance[key] = this.grunt.config.process(plugin[key]);
+      } else {
+        instance[key] = plugin[key];
       }
     });
 

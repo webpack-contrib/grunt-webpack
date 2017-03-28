@@ -8,15 +8,17 @@ plugin.circle = plugin;
 module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
-      test: {
-        entry: path.join(__dirname, "entry"),
-        output: {
-          path: __dirname,
-          filename: "output.js",
-        },
-        plugins: [
-          plugin,
-        ],
+      test: function() {
+        return {
+          entry: path.join(__dirname, "entry"),
+          output: {
+            path: __dirname,
+            filename: "output.js",
+          },
+          plugins: [
+            plugin,
+          ]
+        };
       },
     },
   });
