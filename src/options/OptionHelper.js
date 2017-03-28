@@ -1,5 +1,5 @@
 'use strict';
-const cloneDeepWith = require('lodash/cloneDeepWith');
+const deepForEach = require('deep-for-each');
 const defaults = require('./default');
 
 class OptionHelper {
@@ -54,13 +54,15 @@ class OptionHelper {
       obj = obj();
     }
 
-    return cloneDeepWith(obj, function (value, key) {
+    deepForEach(obj, function (value, key, parent) {
       if (typeof value === 'string') {
-        return this.grunt.config.process(value);
+        parent[key] = this.grunt.config.process(value);
       } else if (Array.isArray(value) && key === 'plugins') {
-        return value.map(plugin => this.fixPlugin(plugin));
+        parent[key] = value.map(plugin => this.fixPlugin(plugin));
       }
     }.bind(this));
+
+    return obj;
   }
 
   fixPlugin(plugin) {

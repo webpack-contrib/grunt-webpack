@@ -47,6 +47,7 @@
     "webpack": "^2.2.0"
   },
   "dependencies": {
+    "deep-for-each": "^1.0.5",
     "lodash": "^4.7.0"
   },
   "ava": {
