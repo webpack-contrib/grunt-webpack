@@ -7,7 +7,6 @@ module.exports = function (grunt) {
     webpack: {
       options: {
         plugins: [
-          new webpack.optimize.DedupePlugin(),
           new webpack.optimize.UglifyJsPlugin(),
         ],
       },

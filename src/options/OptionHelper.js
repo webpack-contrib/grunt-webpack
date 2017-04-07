@@ -4,19 +4,20 @@ const defaults = require('./default');
 
 class OptionHelper {
 
-  constructor(grunt, task) {
+  constructor(grunt, taskName, target) {
     this.grunt = grunt;
-    this.task = task;
+    this.taskName = taskName;
+    this.target = target;
   }
 
   generateOptions() {
-    const baseOptions = this.getWithPlugins([this.task.name, 'options']);
+    const baseOptions = this.getWithPlugins([this.taskName, 'options']);
     if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
 
     return defaults.mergeOptions(
       this.getDefaultOptions(),
       baseOptions,
-      this.getWithPlugins([this.task.name, this.task.target])
+      this.getWithPlugins([this.taskName, this.target])
     );
   }
 
