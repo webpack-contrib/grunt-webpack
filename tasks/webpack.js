@@ -9,10 +9,10 @@ module.exports = (grunt) => {
   const cachePluginFactory = new CachePluginFactory();
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
-  grunt.registerTask('webpack', 'Run webpack.', function webpackTask(target) {
+  grunt.registerTask('webpack', 'Run webpack.', function webpackTask(cliTarget) {
     const done = this.async();
 
-    const targets = target ? [target] : Object.keys(grunt.config([this.name]));
+    const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
     targets.forEach((target) => {
       if (target === 'options') return;
 

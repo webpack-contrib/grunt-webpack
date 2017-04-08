@@ -48,27 +48,32 @@ npm install --save-dev webpack-dev-server
   const createDomain = require('webpack-dev-server/lib/util/createDomain');
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
-  grunt.registerMultiTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask() {
+  grunt.registerTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask(cliTarget) {
     const done = this.async();
-    const optionHelper = new OptionHelper(grunt, this);
-    const opts = optionHelper.getOptions();
-    const webpackOptions = optionHelper.getWebpackOptions();
 
-    WebpackDevServer.addDevServerEntrypoints(webpackOptions, opts);
+    const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
+    targets.forEach((target) => {
+      if (target === 'options') return;
+      const optionHelper = new OptionHelper(grunt, this.name, target);
+      const opts = optionHelper.getOptions();
+      const webpackOptions = optionHelper.getWebpackOptions();
 
-    if (opts.inline && (opts.hotOnly || opts.hot)) {
-      webpackOptions.plugins = webpackOptions.plugins || [];
-      webpackOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
-    }
+      WebpackDevServer.addDevServerEntrypoints(webpackOptions, opts);
 
-    const compiler = webpack(webpackOptions);
+      if (opts.inline && (opts.hotOnly || opts.hot)) {
+        webpackOptions.plugins = webpackOptions.plugins || [];
+        webpackOptions.plugins.push(new webpack.HotModuleReplacementPlugin());
+      }
 
-    if (opts.progress) processPluginFactory.addPlugin(compiler, webpackOptions);
+      const compiler = webpack(webpackOptions);
 
-    (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
-      const uri = createDomain(opts) + (opts.inline !== false || opts.lazy === true ? '/' : '/webpack-dev-server/');
-      reportReadiness(uri, opts, grunt);
-      if (!opts.keepalive) done();
+      if (opts.progress) processPluginFactory.addPlugin(compiler, webpackOptions);
+
+      (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
+        const uri = createDomain(opts) + (opts.inline !== false || opts.lazy === true ? '/' : '/webpack-dev-server/');
+        reportReadiness(uri, opts, grunt);
+        if (!opts.keepalive) done();
+      });
     });
   });
 };
