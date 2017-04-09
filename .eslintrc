@@ -9,6 +9,8 @@
   },
   "rules": {
     "arrow-spacing": ["error", { "before": true, "after": true }],
+    "eol-last": "error",
+    "linebreak-style": "error",
     "keyword-spacing": [
       "error", {
       "before": true,
