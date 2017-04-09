@@ -123,7 +123,7 @@ module.exports = function(grunt) {
 };
 ```
 
-> The webpack task in this example has two targets called `prod` and `dev`. They can be renamed to everything besides `options`. See the [grunt docs][7] for more information about targets.
+> The webpack task in this example has two targets called `prod` and `dev`. They can be renamed to everything besides `options`. See the [grunt docs][8] for more information about targets.
 
 On the command line you can then do the following.
 
