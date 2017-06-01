@@ -13,6 +13,8 @@ module.exports = (grunt) => {
     const done = this.async();
 
     const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
+    let runningTargetCount = targets.length;
+
     targets.forEach((target) => {
       if (target === 'options') return;
 
@@ -64,7 +66,13 @@ module.exports = (grunt) => {
           }
         }
 
-        if (!opts.keepalive) done();
+        if (!opts.keepalive) {
+          runningTargetCount -= 1;
+
+          if (runningTargetCount === 0) {
+            done();
+          }
+        }
       };
 
       if (opts.watch) {
