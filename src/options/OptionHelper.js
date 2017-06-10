@@ -71,7 +71,7 @@ class OptionHelper {
 
     // Operate on a copy of the plugin, since the webpack task
     // can be called multiple times for one instance of a plugin
-    const instance = Object.create(plugin);
+    const instance = Array.isArray(plugin) ? [] : Object.create(plugin);
     Object.keys(plugin).forEach((key) => {
       if (typeof plugin[key] === 'string') {
         instance[key] = this.grunt.config.process(plugin[key]);
