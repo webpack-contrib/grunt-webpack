@@ -35,7 +35,7 @@ module.exports = (grunt) => {
 To fix this problem install webpack-dev-server by doing either
 yarn add webpack-dev-server --dev
 or
-npm install --save-dev webpack-dev-server 
+npm install --save-dev webpack-dev-server
 `);
     });
     return;
@@ -52,6 +52,9 @@ npm install --save-dev webpack-dev-server
     const done = this.async();
 
     const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
+    let runningTargetCount = targets.length;
+    let keepalive = false;
+
     targets.forEach((target) => {
       if (target === 'options') return;
       const optionHelper = new OptionHelper(grunt, this.name, target);
@@ -72,7 +75,8 @@ npm install --save-dev webpack-dev-server
       (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
         const uri = createDomain(opts) + (opts.inline !== false || opts.lazy === true ? '/' : '/webpack-dev-server/');
         reportReadiness(uri, opts, grunt);
-        if (!opts.keepalive) done();
+        keepalive = keepalive || opts.keepalive;
+        if (--runningTargetCount === 0 && !keepalive) done();
       });
     });
   });
