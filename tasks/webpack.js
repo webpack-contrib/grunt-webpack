@@ -13,6 +13,9 @@ module.exports = (grunt) => {
     const done = this.async();
 
     const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
+    let runningTargetCount = targets.length;
+    let keepalive = false;
+
     targets.forEach((target) => {
       if (target === 'options') return;
 
@@ -64,7 +67,9 @@ module.exports = (grunt) => {
           }
         }
 
-        if (!opts.keepalive) done();
+        keepalive = keepalive || opts.keepalive;
+
+        if (--runningTargetCount === 0 && !keepalive) done();
       };
 
       if (opts.watch) {
