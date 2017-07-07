@@ -2,6 +2,13 @@
 const deepForEach = require('deep-for-each');
 const defaults = require('./default');
 
+const PLUGIN_PROPS = [
+  'plugins',
+  'resolve.plugins',
+  'webpack.plugins',
+  'webpack.resolve.plugins'
+];
+
 class OptionHelper {
 
   constructor(grunt, taskName, target) {
@@ -55,10 +62,10 @@ class OptionHelper {
       obj = obj();
     }
 
-    deepForEach(obj, function (value, key, parent) {
+    deepForEach(obj, function (value, key, parent, path) {
       if (typeof value === 'string') {
         parent[key] = this.grunt.config.process(value);
-      } else if (Array.isArray(value) && key === 'plugins') {
+      } else if (PLUGIN_PROPS.indexOf(path) !== -1 && Array.isArray(value)) {
         parent[key] = value.map(plugin => this.fixPlugin(plugin));
       }
     }.bind(this));
