@@ -25,6 +25,12 @@ class WebpackOptionHelper extends OptionHelper {
       options.cache = false;
     }
 
+    // ensure that when we send the cache option to webpack in watch mode it is not the function
+    // TODO: this is workaround and should be handled in a more generic way
+    if (typeof options.cache === 'function') {
+      options.cache = options.cache(options);
+    }
+
     return this.filterGruntOptions(options);
   }
 }
