@@ -56,7 +56,11 @@ npm install --save-dev webpack-dev-server
     let keepalive = false;
 
     targets.forEach((target) => {
-      if (target === 'options') return;
+      if (target === 'options') {
+        runningTargetCount--;
+        return;
+      }
+
       const optionHelper = new OptionHelper(grunt, this.name, target);
       const opts = optionHelper.getOptions();
       const webpackOptions = optionHelper.getWebpackOptions();
