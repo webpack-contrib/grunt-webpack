@@ -149,7 +149,7 @@ module.exports = function(grunt) {
         }, statsOptions)));
       }
       if(typeof storeStatsTo === "string") {
-        grunt.config.set(storeStatsTo, stats.toJson());
+        grunt.config.set(storeStatsTo, stats.toJson(statsOptions));
       }
       if(failOnError && stats.hasErrors()) {
         return done(false);
