@@ -38,7 +38,7 @@
     "ava": "^0.22.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^7.0.0",
-    "babel-preset-latest": "^6.16.0",
+    "babel-preset-env": "^1.6.0",
     "eslint": "^4.2.0",
     "fs-extra": "^4.0.2",
     "glob": "^7.0.5",

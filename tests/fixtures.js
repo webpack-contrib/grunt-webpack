@@ -1,7 +1,7 @@
 import test from 'ava';
 import path from 'path';
 import { transform } from 'babel-core';
-import latestPreset from 'babel-preset-latest';
+import envPreset from 'babel-preset-env';
 import fs from 'fs-extra';
 import glob from 'glob';
 import { spawn } from 'child_process';
@@ -31,7 +31,7 @@ function runExec(code, opts) {
       compact: true,
       comments: false,
       presets: [
-        latestPreset,
+        [envPreset, { targets: { node: 'current'} }]
       ]
     }
   ).code;
