@@ -6,7 +6,7 @@
   },
   "env": {
     "node": true,
-    "es6": true,
+    "es6": true
   },
   "rules": {
     "arrow-spacing": ["error", { "before": true, "after": true }],
