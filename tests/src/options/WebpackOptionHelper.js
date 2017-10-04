@@ -36,3 +36,14 @@ test('cache is disabled in normal mode', (t) => {
 
   t.false(result.cache);
 });
+
+test('watch options is part of webpack options', (t) => {
+  const options = { watch: true, watchOptions: { aggregateTimeout: 300, poll: 1000 } };
+  const helper = new WebpackOptionHelper();
+
+  helper.getOptions = () => options;
+
+  const result = helper.getWebpackOptions();
+
+  t.deepEqual(result, { watch: true, watchOptions: { aggregateTimeout: 300, poll: 1000 } });
+});
