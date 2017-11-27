@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 
 <h2 align="center">Configuration</h2>
 
-`webpack-grunt` offers two different tasks `webpack` and `webpack-dev-server`. Both support all webpack options as 
+`webpack-grunt` offers two different tasks `webpack` and `webpack-dev-server`. Both support all webpack options as
 can be seen in the [webpack documentation][3]. For exceptions and additions see this list.
 
 ### Both Tasks
@@ -65,10 +65,23 @@ Activates or deactivates the progress output of webpack.
 
 #### keepalive
 Type: `bool`
-Default: `false` (`true` if watch mode is used and for webpack-dev-server)
+Default: `false` (`true` if watch mode is used and for `webpack-dev-server` task)
 
-When set to true the grunt process will be kept alive after webpack task is finished. This is especially useful for `watch` and `webpack-dev-server` as these usually need to run as long as not manually killed.
+When set to true the grunt process/task will be kept alive after webpack task is finished. This is especially useful for `watch` and `webpack-dev-server` as these usually need to run as long as not manually killed.
+
 ### Webpack Task
+
+#### watch
+Type: `bool`
+Default: `undefined`
+
+> Turn on watch mode. This means that after the initial build, webpack will continue to watch for changes in any of the resolved files.
+
+Turning on watch mode also sets the following defaults:
+
+- Default `cache` to `true`
+- Default `keepalive` to `true`
+- Default `failOnError` to `false`
 
 #### failOnError
 Type: `bool`
