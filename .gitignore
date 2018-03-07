@@ -3,3 +3,4 @@ coverage
 node_modules
 npm-debug.log
 tests/tmp
+yarn-error.log
