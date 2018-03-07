@@ -35,19 +35,19 @@
     "test-only": "ava"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.25.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.6.0",
     "eslint": "^4.2.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^5.0.0",
     "glob": "^7.0.5",
     "grunt": "^1.0.0",
     "nyc": "^11.0.3",
     "webpack": "^3.0.0"
   },
   "dependencies": {
-    "deep-for-each": "^1.0.5",
+    "deep-for-each": "^2.0.2",
     "lodash": "^4.7.0"
   },
   "ava": {
