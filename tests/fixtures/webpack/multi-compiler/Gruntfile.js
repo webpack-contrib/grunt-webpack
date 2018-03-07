@@ -6,9 +6,9 @@ module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
       options: {
-        plugins: [
-          new webpack.optimize.UglifyJsPlugin(),
-        ],
+        optimization: {
+          minimize: true,
+        },
       },
       test: [
         {
