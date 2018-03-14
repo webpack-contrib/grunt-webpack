@@ -77,7 +77,14 @@ npm install --save-dev webpack-dev-server
       if (opts.progress) processPluginFactory.addPlugin(compiler, webpackOptions);
 
       (new WebpackDevServer(compiler, optionHelper.getWebpackDevServerOptions())).listen(opts.port, opts.host, () => {
-        const uri = createDomain(opts) + (opts.inline !== false || opts.lazy === true ? '/' : '/webpack-dev-server/');
+        const app = {
+          address() {
+            return { port: opts.port };
+          }
+        };
+
+        const suffix = opts.inline !== false || opts.lazy === true ? '/' : '/webpack-dev-server/';
+        const uri = createDomain(opts, app) + suffix;
         reportReadiness(uri, opts, grunt);
         keepalive = keepalive || opts.keepalive;
         if (--runningTargetCount === 0 && !keepalive) done();
