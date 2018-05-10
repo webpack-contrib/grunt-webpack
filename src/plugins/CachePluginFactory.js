@@ -12,7 +12,7 @@ class CachePluginFactory {
     if (!this.plugins[target]) {
       this.plugins[target] = new CachePlugin();
     }
-    compiler.apply(this.plugins[target]);
+    this.plugins[target].apply(compiler);
     if (this.dependencies[target]) {
       compiler._lastCompilationFileDependencies = this.dependencies[target].file;
       compiler._lastCompilationContextDependencies = this.dependencies[target].context;
