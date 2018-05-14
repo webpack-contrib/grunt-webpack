@@ -8,7 +8,7 @@ class ProgressPluginFactory {
   }
 
   addPlugin(compiler, options) {
-    compiler.apply(new ProgressPlugin({ profile: options.profile }));
+    (new ProgressPlugin({ profile: options.profile })).apply(compiler);
   }
 }
 
