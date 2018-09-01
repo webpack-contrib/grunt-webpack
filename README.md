@@ -44,7 +44,15 @@ Then add this line to your project's `Gruntfile.js` gruntfile:
 module.exports = function(grunt) {
 
   // Project configuration.
-  grunt.initConfig({ ... });
+  grunt.initConfig({ 
+    ...,
+    webpack: {
+      myConfig: {
+        // your webpack config
+      },
+    },
+    ...
+  });
 
   grunt.loadNpmTasks('grunt-webpack');
 };
