@@ -41,10 +41,10 @@
     "babel-preset-env": "^1.6.0",
     "eslint": "^4.2.0",
     "fs-extra": "^6.0.1",
-    "glob": "^7.0.5",
-    "grunt": "^1.0.0",
+    "glob": "^7.1.3",
+    "grunt": "^1.0.3",
     "nyc": "^11.0.3",
-    "webpack": "^4.1.0"
+    "webpack": "^4.17.1"
   },
   "dependencies": {
     "deep-for-each": "^2.0.2",
