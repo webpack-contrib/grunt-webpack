@@ -12,9 +12,19 @@ module.exports = (grunt) => {
   grunt.registerTask('webpack', 'Run webpack.', function webpackTask(cliTarget) {
     const done = this.async();
 
-    const targets = cliTarget ? [cliTarget] : Object.keys(grunt.config([this.name]));
+    const config = grunt.config([this.name]);
+    const targets = cliTarget
+      ? [cliTarget]
+      : config
+        ? Object.keys(config)
+        : [];
     let runningTargetCount = targets.length;
     let keepalive = false;
+
+    if (runningTargetCount === 0) {
+      done(new Error('No configuration was found for webpack. For further assistance on how to create the config refer to https://github.com/webpack-contrib/grunt-webpack/blob/master/README.md#grunt-webpack'));
+      return;
+    }
 
     targets.forEach((target) => {
       if (target === 'options') {
