@@ -45,7 +45,13 @@ npm install --save-dev webpack-dev-server
     grunt.fail.fatal('webpack-dev-server is outdated. Please ensure you have at least version 2.4.0 installed.');
   }
 
-  const createDomain = require('webpack-dev-server/lib/util/createDomain');
+  let createDomain;
+  try {
+    createDomain = require('webpack-dev-server/lib/utils/createDomain');
+  } catch (err) {
+    createDomain = require('webpack-dev-server/lib/util/createDomain');
+  }
+
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
   grunt.registerTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask(cliTarget) {
