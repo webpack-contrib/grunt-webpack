@@ -91,7 +91,7 @@ class OptionHelper {
           }
 
           return value;
-        }
+        };
       } else {
         instance[key] = plugin[key];
       }
