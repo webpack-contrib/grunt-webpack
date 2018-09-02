@@ -35,6 +35,7 @@ module.exports = (grunt) => {
       const optionHelper = new OptionHelper(grunt, this.name, target);
 
       const watch = optionHelper.get('watch');
+      const watchOptions = optionHelper.get('watchOptions');
       const opts = {
         cache: watch ? false : optionHelper.get('cache'),
         failOnError: optionHelper.get('failOnError'),
@@ -86,7 +87,7 @@ module.exports = (grunt) => {
       };
 
       if (opts.watch) {
-        compiler.watch(webpackOptions.watchOptions || {}, handler);
+        compiler.watch(watchOptions || {}, handler);
       } else {
         compiler.run(handler);
       }
