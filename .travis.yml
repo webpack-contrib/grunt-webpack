@@ -3,10 +3,12 @@ sudo: false
 node_js:
   - "8"
   - "6"
-
 env:
   - JOB=test
-
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
 matrix:
   fast_finish: true
   include:
@@ -14,11 +16,11 @@ matrix:
       env: JOB=lint
     - node_js: "10"
       env: JOB=test-coverage
-
+before_script:
+  - 'if [[ -n "$TRAVIS_TAG" ]] && [[ "$TRAVIS_JOB_NUMBER" == *.1 ]]; then yarn run create-github-release; fi'
 script:
   - 'if [ "$JOB" = "lint" ]; then yarn run lint ; fi'
   - 'if [ "$JOB" = "test" ]; then yarn run test-only ; fi'
   - 'if [ "$JOB" = "test-coverage" ]; then yarn run test-coverage ; fi'
-
 after_success:
  - 'if [ "$JOB" = "test-coverage" ]; then bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json ; fi'
