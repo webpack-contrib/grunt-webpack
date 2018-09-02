@@ -1,7 +1,7 @@
 import test from 'ava';
 import path from 'path';
-import { transform } from 'babel-core';
-import envPreset from 'babel-preset-env';
+import { transform } from '@babel/core';
+import envPreset from '@babel/preset-env';
 import fs from 'fs-extra';
 import glob from 'glob';
 import { spawn } from 'child_process';
