@@ -16,8 +16,6 @@
   <p>Use Webpack with Grunt.<p>
 </div>
 
-  **This is the readme for version 3.0.0. For the 1.0 readme visit [here](https://github.com/webpack-contrib/grunt-webpack/tree/1.0).**
-
 <h2 align="center">Install</h2>
 
 Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started). You also need to install webpack yourself, this grunt plugin does not install webpack itself.
