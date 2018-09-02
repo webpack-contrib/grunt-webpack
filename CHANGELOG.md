@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="3.1.3"></a>
+## [3.1.3](https://github.com/webpack-contrib/grunt-webpack/compare/v3.1.2...v3.1.3) (2018-09-02)
+
+
+### Bug Fixes
+
+* **dev-server:** compatibility with webpack-dev-server 3.1.7+ ([#166](https://github.com/webpack-contrib/grunt-webpack/issues/166)) ([218f46b](https://github.com/webpack-contrib/grunt-webpack/commit/218f46b))
+* Correctly create a function wrapper for plugins to be able to replace grunt templates ([a1ee19e](https://github.com/webpack-contrib/grunt-webpack/commit/a1ee19e)), closes [#163](https://github.com/webpack-contrib/grunt-webpack/issues/163)
+* Display proper error when no config was found. ([6326a10](https://github.com/webpack-contrib/grunt-webpack/commit/6326a10)), closes [#164](https://github.com/webpack-contrib/grunt-webpack/issues/164)
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/webpack-contrib/grunt-webpack/compare/v3.1.1...v3.1.2) (2018-05-14)
 
@@ -180,6 +196,3 @@
 
 <a name="1.0.10"></a>
 ## 1.0.10 (2015-06-27)
-
-
-
