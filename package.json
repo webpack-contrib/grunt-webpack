@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "deep-for-each": "^2.0.2",
-    "lodash": "^4.7.15"
+    "lodash": "^4.17.11"
   },
   "ava": {
     "files": [
