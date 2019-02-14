@@ -57,12 +57,13 @@ npm install --save-dev webpack-dev-server
   grunt.registerTask('webpack-dev-server', 'Start a webpack-dev-server.', function webpackDevServerTask(cliTarget) {
     const done = this.async();
 
-    const config = grunt.config([this.name]);
-    const targets = cliTarget
-      ? [cliTarget]
-      : config
-        ? Object.keys(config)
-        : [];
+    let targets;
+    if (cliTarget) {
+      targets = [cliTarget];
+    } else {
+      const config = grunt.config.getRaw([this.name]);
+      targets = config ? Object.keys(config) : [];
+    }
 
     let runningTargetCount = targets.length;
     let keepalive = false;
