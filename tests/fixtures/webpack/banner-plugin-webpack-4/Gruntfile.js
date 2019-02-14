@@ -4,24 +4,26 @@ const loadGruntWebpackTasks = require('../../../utils/loadGruntWebpackTasks');
 
 module.exports = function (grunt) {
   grunt.initConfig({
+    name: "Webpack",
+    outputFileName: "output.js",
     pkg: {
-      copyright: 'Webpack',
+      copyright: '<%= name %>',
       version: '6.55.345',
     },
     webpack: {
-      test: {
+      test: (config, grunt) =>({
         entry: path.join(__dirname, "entry"),
         output: {
           path: __dirname,
-          filename: "output.js",
+          filename: "<%= outputFileName %>",
         },
         plugins: [
           new webpack.BannerPlugin({
-            banner: '/*! <%= pkg.copyright %> - Version <%= pkg.version %> dated <%= grunt.template.today() %> */',
+            banner: `/*! ${config.pkg.copyright} - Version ${config.pkg.version} dated ${grunt.template.today()} */`,
             raw: true,
           }),
         ],
-      },
+      }),
     },
   });
 
