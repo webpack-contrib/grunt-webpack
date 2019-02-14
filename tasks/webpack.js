@@ -12,12 +12,13 @@ module.exports = (grunt) => {
   grunt.registerTask('webpack', 'Run webpack.', function webpackTask(cliTarget) {
     const done = this.async();
 
-    const config = grunt.config([this.name]);
-    const targets = cliTarget
-      ? [cliTarget]
-      : config
-        ? Object.keys(config)
-        : [];
+    let targets;
+    if (cliTarget) {
+      targets = [cliTarget];
+    } else {
+      const config = grunt.config.getRaw([this.name]);
+      targets = config ? Object.keys(config) : [];
+    }
     let runningTargetCount = targets.length;
     let keepalive = false;
 
