@@ -8,8 +8,7 @@ plugin.circle = plugin;
 module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
-      test: function() {
-        return {
+      test: {
           entry: path.join(__dirname, "entry"),
           output: {
             path: __dirname,
@@ -18,8 +17,7 @@ module.exports = function (grunt) {
           plugins: [
             plugin,
           ]
-        };
-      },
+        }
     },
   });
 
