@@ -3,7 +3,6 @@ const deepForEach = require('deep-for-each');
 const defaults = require('./default');
 
 class OptionHelper {
-
   constructor(grunt, taskName, target) {
     this.grunt = grunt;
     this.taskName = taskName;
@@ -12,7 +11,11 @@ class OptionHelper {
 
   generateOptions() {
     const baseOptions = this.getRawConfig([this.taskName, 'options']);
-    if (Array.isArray(baseOptions)) throw new Error('webpack.options must be an object, but array was provided');
+    if (Array.isArray(baseOptions)) {
+      throw new Error(
+        'webpack.options must be an object, but array was provided'
+      );
+    }
 
     return defaults.mergeOptions(
       this.getDefaultOptions(),
@@ -66,7 +69,7 @@ class OptionHelper {
 
   filterGruntOptions(options) {
     const result = Object.assign({}, options);
-    Object.keys(defaults.gruntOptions).forEach(key => delete result[key]);
+    Object.keys(defaults.gruntOptions).forEach((key) => delete result[key]);
 
     return result;
   }

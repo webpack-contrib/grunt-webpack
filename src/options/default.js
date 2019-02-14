@@ -5,13 +5,17 @@ const mergeWith = require('lodash/mergeWith');
 const gruntOptions = {
   failOnError: (options) => {
     // if watch enabled also default to failOnError false
-    return Array.isArray(options) ? options.every(option => !option.watch) : !options.watch;
+    return Array.isArray(options)
+      ? options.every((option) => !option.watch)
+      : !options.watch;
   },
   progress: process.stdout.isTTY,
   storeStatsTo: null,
   keepalive: (options) => {
     // if watch enabled also default to keepalive true
-    return Array.isArray(options) ? options.some(option => option.watch) : !!options.watch;
+    return Array.isArray(options)
+      ? options.some((option) => option.watch)
+      : !!options.watch;
   },
 };
 
@@ -23,8 +27,10 @@ const webpackOptions = {
   },
   cache: (options) => {
     // if watch enabled also default to cache true
-    return Array.isArray(options) ? options.some(option => option.watch) : !!options.watch;
-  }
+    return Array.isArray(options)
+      ? options.some((option) => option.watch)
+      : !!options.watch;
+  },
 };
 
 const webpackDevServerOptions = {
@@ -36,7 +42,7 @@ const webpackDevServerOptions = {
   stats: {
     colors: true,
     cached: false,
-    cachedAssets: false
+    cachedAssets: false,
   },
 };
 
@@ -49,9 +55,17 @@ function mergeCustomize(a, b) {
 function mergeOptions(defaultOptions, options, targetOptions) {
   let result;
   if (Array.isArray(targetOptions)) {
-    result = targetOptions.map(opt => mergeWith({}, defaultOptions, options, opt, mergeCustomize));
+    result = targetOptions.map((opt) =>
+      mergeWith({}, defaultOptions, options, opt, mergeCustomize)
+    );
   } else {
-    result = mergeWith({}, defaultOptions, options, targetOptions, mergeCustomize);
+    result = mergeWith(
+      {},
+      defaultOptions,
+      options,
+      targetOptions,
+      mergeCustomize
+    );
   }
 
   return result;

@@ -3,7 +3,6 @@ const defaults = require('./default');
 const OptionHelper = require('./OptionHelper');
 
 class WebpackOptionHelper extends OptionHelper {
-
   getDefaultOptions() {
     return Object.assign({}, defaults.gruntOptions, defaults.webpackOptions);
   }
