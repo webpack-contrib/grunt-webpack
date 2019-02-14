@@ -22,12 +22,8 @@ Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.c
 
 ```bash
 yarn add webpack grunt-webpack --dev
-```
-
-You can still use npm
-
-```bash
-npm i webpack grunt-webpack --save-dev
+// or
+// npm i webpack grunt-webpack --save-dev
 ```
 
 If you also want to use the webpack-dev-server task you also need to install `webpack-dev-server`
@@ -39,15 +35,15 @@ yarn add webpack-dev-server --dev
 Then add this line to your project's `Gruntfile.js` gruntfile:
 
 ```javascript
+const webpackConfig = require('./webpack.config.js');
+
 module.exports = function(grunt) {
 
   // Project configuration.
-  grunt.initConfig({ 
+  grunt.initConfig({
     ...,
     webpack: {
-      myConfig: {
-        // your webpack config
-      },
+      myConfig: webpackConfig,
     },
     ...
   });
@@ -121,11 +117,13 @@ The webpack-dev-server options [`host`][5], [`hotOnly`][6], [`inline`][1], [`por
 
 ### Webpack
 
+#### imported config
+
 This is a simple example that requires the webpack config from the config file.
 It also disables stats in non 'development' environments and enables watch in development.
 
 ``` javascript
-const webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config.js');
 
 module.exports = function(grunt) {
   grunt.initConfig({
@@ -159,25 +157,107 @@ On the command line you can then do the following.
 
 > For more examples and information have a look at the [webpack documentation][9] which mostly also applies here besides the noted differences above.
 
+#### Lazy config loading
+
+In some cases you might want to load the webpack config lazy. This can be done by specifying a function as the config value. The first paramter to this function will be the complete grunt config, which can be used in cases where grunt templates do not work (see below).
+
+```js
+const webpackConfig = require('./webpack.config.js');
+
+module.exports = function(grunt) {
+  grunt.initConfig({
+    webpack: {
+      myconfig: () => ({
+        entry: path.join(__dirname, "entry"),
+        output: {
+          path: __dirname,
+          filename: "output.js",
+        },
+      }),
+    },
+  });
+
+  grunt.loadNpmTasks('grunt-webpack');
+};
+```
+
+#### Grunt templates
+
+grunt-webpack supports grunt templates in all string values in it's configuration.
+
+In the next example we use a template for `output.filename`.
+
+```js
+const webpackConfig = require('./webpack.config.js');
+
+module.exports = function(grunt) {
+  grunt.initConfig({
+    outputFileName: "output.js",
+    webpack: {
+      myconfig: {
+        entry: path.join(__dirname, "entry"),
+        output: {
+          path: __dirname,
+          filename: "<%= outputFileName %>",
+        },
+      },
+    },
+  });
+
+  grunt.loadNpmTasks('grunt-webpack');
+};
+```
+
+For plugins we cannot support grunt template interpolation, as plugins are class instances which we cannot modify during runtime without breaking them. If you need to use template in a string option to a plugin, you can use lazy config loading and use the supplied config. You can also use grunt inside directly to access utility methods:
+
+```js
+const webpackConfig = require('./webpack.config.js');
+
+module.exports = function(grunt) {
+  grunt.initConfig({
+    name: "Webpack",
+    pkg: {
+      copyright: '<%= name %>',
+      version: '6.55.345',
+    },
+    webpack: {
+      myconfig: (config) => ({
+        entry: path.join(__dirname, "entry"),
+        output: {
+          path: __dirname,
+          filename: "output.js",
+        },
+        plugins: [
+          new webpack.BannerPlugin({
+            banner: `/*! ${config.pkg.copyright} - Version ${config.pkg.version} dated ${grunt.template.today()} */`,
+            raw: true,
+          }),
+        ],
+      }),
+    },
+  });
+
+  grunt.loadNpmTasks('grunt-webpack');
+};
+```
+
 <h2 align="center">Troubleshooting</h2>
 
 ### Circular reference detected (.plugins)
 
 If you encounter this message it means that one of the plugins which are present in your config have circular references.
-This is totally fine for webpack, but sadly grunt cannot handle these.
+This is not a bug in the plugin and is totally fine for webpack, but sadly grunt cannot handle these.
 
 To workaround this problem use lazy config loading, by wrapping your config inside a function.
 
 ```js
+const webpackConfig = require('./webpack.config.js');
+
 module.exports = function(grunt) {
   grunt.initConfig({
     webpack: {
-      myconfig: function() {
-        return {
-          plugins: [...]
-        };
-      }
-    }
+      myconfig: () => webpackConfig,
+    },
   });
 
   grunt.loadNpmTasks('grunt-webpack');

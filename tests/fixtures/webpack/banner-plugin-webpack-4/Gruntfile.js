@@ -11,7 +11,7 @@ module.exports = function (grunt) {
       version: '6.55.345',
     },
     webpack: {
-      test: (config, grunt) =>({
+      test: (config) =>({
         entry: path.join(__dirname, "entry"),
         output: {
           path: __dirname,

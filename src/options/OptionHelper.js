@@ -52,7 +52,7 @@ class OptionHelper {
     let obj = this.grunt.config.getRaw(ns) || {};
 
     if (typeof obj === 'function') {
-      obj = obj(this.grunt.config.get(), this.grunt);
+      obj = obj(this.grunt.config.get());
     }
 
     deepForEach(obj, (value, key, parent) => {
