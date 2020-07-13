@@ -50,7 +50,7 @@
     "grunt": "^1.0.3",
     "nyc": "^13.0.1",
     "prettier": "^1.16.4",
-    "standard-version": "^4.4.0",
+    "standard-version": "^8.0.1",
     "webpack": "^4.17.1"
   },
   "dependencies": {
