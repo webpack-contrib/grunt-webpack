@@ -50,8 +50,8 @@
     "webpack": "^4.17.1"
   },
   "dependencies": {
-    "deep-for-each": "^2.0.2",
-    "lodash": "^4.17.11"
+    "deep-for-each": "^3.0.0",
+    "lodash": "^4.17.19"
   },
   "jest": {
     "collectCoverageFrom": [
