@@ -1,0 +1,14 @@
+{
+  "extends": ["eslint:recommended", "webpack", "prettier"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 2019,
+    "sourceType": "script"
+  },
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
