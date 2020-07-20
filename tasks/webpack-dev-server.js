@@ -1,7 +1,8 @@
-'use strict';
-const webpack = require('webpack');
-const OptionHelper = require('../src/options/WebpackDevServerOptionHelper');
-const ProgressPluginFactory = require('../src/plugins/ProgressPluginFactory');
+"use strict";
+
+const webpack = require("webpack");
+const OptionHelper = require("../src/options/WebpackDevServerOptionHelper");
+const ProgressPluginFactory = require("../src/plugins/ProgressPluginFactory");
 
 function colorInfo(useColor, msg) {
   // Make text blue and bold, so it *pops*
@@ -14,40 +15,43 @@ function reportReadiness(uri, options, grunt) {
   const useColor = !options.stats || options.stats.colors;
 
   grunt.log.writeln(
-    (options.progress ? '\n' : '') +
-      `Project is running at ${colorInfo(useColor, uri)}`
+    `${options.progress ? "\n" : ""}Project is running at ${colorInfo(
+      useColor,
+      uri,
+    )}`,
   );
 
   grunt.log.writeln(
-    `webpack output is served from ${colorInfo(useColor, options.publicPath)}`
+    `webpack output is served from ${colorInfo(useColor, options.publicPath)}`,
   );
   const contentBase = Array.isArray(options.contentBase)
-    ? options.contentBase.join(', ')
+    ? options.contentBase.join(", ")
     : options.contentBase;
   if (contentBase)
     grunt.log.writeln(
       `Content not from webpack is served from ${colorInfo(
         useColor,
-        contentBase
-      )}`
+        contentBase,
+      )}`,
     );
   if (options.historyApiFallback)
     grunt.log.writeln(
       `404s will fallback to ${colorInfo(
         useColor,
-        options.historyApiFallback.index || '/index.html'
-      )}`
+        options.historyApiFallback.index || "/index.html",
+      )}`,
     );
 }
 
 module.exports = (grunt) => {
   let WebpackDevServer;
   try {
-    WebpackDevServer = require('webpack-dev-server');
+    // eslint-disable-next-line import/no-unresolved
+    WebpackDevServer = require("webpack-dev-server");
   } catch (err) {
     grunt.registerTask(
-      'webpack-dev-server',
-      'webpack-dev-server not installed.',
+      "webpack-dev-server",
+      "webpack-dev-server not installed.",
       () => {
         grunt.fail.fatal(
           `webpack-dev-server is currently not installed, this task will do nothing.
@@ -56,31 +60,33 @@ To fix this problem install webpack-dev-server by doing either
 yarn add webpack-dev-server --dev
 or
 npm install --save-dev webpack-dev-server
-`
+`,
         );
-      }
+      },
     );
     return;
   }
 
-  if (typeof WebpackDevServer.addDevServerEntrypoints !== 'function') {
+  if (typeof WebpackDevServer.addDevServerEntrypoints !== "function") {
     grunt.fail.fatal(
-      'webpack-dev-server is outdated. Please ensure you have at least version 2.4.0 installed.'
+      "webpack-dev-server is outdated. Please ensure you have at least version 2.4.0 installed.",
     );
   }
 
   let createDomain;
   try {
-    createDomain = require('webpack-dev-server/lib/utils/createDomain');
+    // eslint-disable-next-line import/no-unresolved
+    createDomain = require("webpack-dev-server/lib/utils/createDomain");
   } catch (err) {
-    createDomain = require('webpack-dev-server/lib/util/createDomain');
+    // eslint-disable-next-line import/no-unresolved
+    createDomain = require("webpack-dev-server/lib/util/createDomain");
   }
 
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
   grunt.registerTask(
-    'webpack-dev-server',
-    'Start a webpack-dev-server.',
+    "webpack-dev-server",
+    "Start a webpack-dev-server.",
     function webpackDevServerTask(cliTarget) {
       const done = this.async();
 
@@ -98,14 +104,14 @@ npm install --save-dev webpack-dev-server
       if (runningTargetCount === 0) {
         done(
           new Error(
-            'No configuration was found for webpack-dev-server. For further assistance on how to create the config refer to https://github.com/webpack-contrib/grunt-webpack/blob/master/README.md#grunt-webpack'
-          )
+            "No configuration was found for webpack-dev-server. For further assistance on how to create the config refer to https://github.com/webpack-contrib/grunt-webpack/blob/master/README.md#grunt-webpack",
+          ),
         );
         return;
       }
 
       targets.forEach((target) => {
-        if (target === 'options') {
+        if (target === "options") {
           runningTargetCount--;
           return;
         }
@@ -123,7 +129,7 @@ npm install --save-dev webpack-dev-server
 
         new WebpackDevServer(
           compiler,
-          optionHelper.getWebpackDevServerOptions()
+          optionHelper.getWebpackDevServerOptions(),
         ).listen(opts.port, opts.host, () => {
           const app = {
             address() {
@@ -133,14 +139,14 @@ npm install --save-dev webpack-dev-server
 
           const suffix =
             opts.inline !== false || opts.lazy === true
-              ? '/'
-              : '/webpack-dev-server/';
+              ? "/"
+              : "/webpack-dev-server/";
           const uri = createDomain(opts, app) + suffix;
           reportReadiness(uri, opts, grunt);
           keepalive = keepalive || opts.keepalive;
           if (--runningTargetCount === 0 && !keepalive) done();
         });
       });
-    }
+    },
   );
 };

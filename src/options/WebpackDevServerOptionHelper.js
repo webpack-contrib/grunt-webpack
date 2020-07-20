@@ -1,13 +1,14 @@
-'use strict';
-const defaults = require('./default');
-const OptionHelper = require('./OptionHelper');
+"use strict";
+
+const defaults = require("./default");
+const OptionHelper = require("./OptionHelper");
 
 class WebpackOptionHelper extends OptionHelper {
   getDefaultOptions() {
     return Object.assign(
       {},
       defaults.gruntOptions,
-      defaults.webpackDevServerOptions
+      defaults.webpackDevServerOptions,
     );
   }
 

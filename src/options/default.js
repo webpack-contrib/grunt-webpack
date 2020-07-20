@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const mergeWith = require('lodash/mergeWith');
+const mergeWith = require("lodash/mergeWith");
 
 const gruntOptions = {
   failOnError: (options) => {
@@ -35,10 +35,10 @@ const webpackOptions = {
 
 const webpackDevServerOptions = {
   port: 8080,
-  host: 'localhost',
+  host: "localhost",
   inline: true,
   keepalive: true,
-  publicPath: '/',
+  publicPath: "/",
   stats: {
     colors: true,
     cached: false,
@@ -46,6 +46,7 @@ const webpackDevServerOptions = {
   },
 };
 
+// eslint-disable-next-line consistent-return
 function mergeCustomize(a, b) {
   if (Array.isArray(a) && Array.isArray(b)) {
     return a.concat(b);
@@ -56,7 +57,7 @@ function mergeOptions(defaultOptions, options, targetOptions) {
   let result;
   if (Array.isArray(targetOptions)) {
     result = targetOptions.map((opt) =>
-      mergeWith({}, defaultOptions, options, opt, mergeCustomize)
+      mergeWith({}, defaultOptions, options, opt, mergeCustomize),
     );
   } else {
     result = mergeWith(
@@ -64,7 +65,7 @@ function mergeOptions(defaultOptions, options, targetOptions) {
       defaultOptions,
       options,
       targetOptions,
-      mergeCustomize
+      mergeCustomize,
     );
   }
 

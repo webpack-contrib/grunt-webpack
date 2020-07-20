@@ -1,5 +1,6 @@
-'use strict';
-const CachePlugin = require('webpack/lib/CachePlugin');
+"use strict";
+
+const CachePlugin = require("webpack/lib/CachePlugin");
 
 class CachePluginFactory {
   constructor() {
