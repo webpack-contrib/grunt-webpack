@@ -1,5 +1,6 @@
-'use strict';
-const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+"use strict";
+
+const ProgressPlugin = require("webpack/lib/ProgressPlugin");
 
 class ProgressPluginFactory {
   constructor(grunt) {
