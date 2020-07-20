@@ -46,6 +46,7 @@
     "grunt": "^1.2.1",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
+    "semantic-release": "^17.1.1",
     "webpack": "^4.17.1"
   },
   "dependencies": {
