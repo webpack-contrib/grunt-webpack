@@ -65,9 +65,6 @@ module.exports = (grunt) => {
       }
 
       const handler = (err, stats) => {
-        if (opts.cache) {
-          cachePluginFactory.updateDependencies(target, compiler);
-        }
         if (err) {
           done(err);
           return;

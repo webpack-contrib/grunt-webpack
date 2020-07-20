@@ -12,6 +12,7 @@ module.exports = function (grunt) {
     },
     webpack: {
       test: (config) =>({
+        mode: "none",
         entry: path.join(__dirname, "entry"),
         output: {
           path: __dirname,

@@ -6,6 +6,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
       test: {
+        mode: "none",
         cache: true,
         entry: path.join(__dirname, "entry"),
         output: {
