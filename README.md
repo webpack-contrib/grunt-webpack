@@ -17,8 +17,8 @@
 
 <h2 align="center">Requirements</h2>
 
-Version 4 of `grunt-webpack` supports webpack 4 as well as version 5 beta.
-Version 3.2.0  of `webpack-dev-server` is needed if used (optional).
+- Version 4 of `grunt-webpack` supports webpack 4 as well as version 5 beta.
+- Version 3.2.0  of `webpack-dev-server` is needed if used (optional).
 
 <h2 align="center">Install</h2>
 
