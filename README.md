@@ -1,7 +1,6 @@
 [![npm][npm]][npm-url]
 [![deps][deps]][deps-url]
 [![test][test]][test-url]
-[![coverage][cover]][cover-url]
 [![chat][chat]][chat-url]
 
 <div align="center">
@@ -15,6 +14,11 @@
   <h1>Grunt Webpack</h1>
   <p>Use Webpack with Grunt.<p>
 </div>
+
+<h2 align="center">Requirements</h2>
+
+Version 4 of `grunt-webpack` supports webpack 4 as well as version 5 beta.
+Version 3.2.0  of `webpack-dev-server` is needed if used (optional).
 
 <h2 align="center">Install</h2>
 
@@ -324,6 +328,3 @@ module.exports = function(grunt) {
 
 [test]: https://travis-ci.org/webpack-contrib/grunt-webpack.svg?branch=master
 [test-url]: https://travis-ci.org/webpack-contrib/grunt-webpack
-
-[cover]: https://codecov.io/gh/webpack-contrib/grunt-webpack/branch/master/graph/badge.svg
-[cover-url]: https://codecov.io/gh/webpack-contrib/grunt-webpack
