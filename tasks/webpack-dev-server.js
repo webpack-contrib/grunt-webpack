@@ -66,13 +66,6 @@ npm install --save-dev webpack-dev-server
     );
     return;
   }
-  if (WebpackDevServer.sockPath === undefined) {
-    // sockPath was introduced in version 3.2.0
-    grunt.fail.fatal(
-      `webpack-dev-server is outdated. Please ensure you have at least version 3.2.0 installed.`,
-    );
-    return;
-  }
 
   let createDomain;
   try {
