@@ -1,14 +1,12 @@
-module.exports = function (t, returnCode, stdout) {
+module.exports = function (returnCode, stdout) {
   return {
     success: function assertGruntSuccess() {
-      t.is(returnCode, 0, `Grunt exited with an error code. stdout: "${stdout}"`);
-
-      t.notRegex(stdout, /ERROR/i, `Webpack seems to run into an error. stdout: "${stdout}"`);
+      expect(returnCode).toBe(0);
+      expect(stdout).not.toMatch(/ERROR/i);
     },
     failed: function assertGruntSuccess() {
-      t.true(returnCode > 0, `Grunt did not error as expected: "${stdout}"`);
-
-      t.regex(stdout, /ERROR/i);
+      expect(returnCode).toBeGreaterThan(0);
+      expect(stdout).toMatch(/ERROR/i);
     }
   };
 };

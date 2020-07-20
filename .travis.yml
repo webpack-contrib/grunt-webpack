@@ -9,7 +9,4 @@ matrix:
   include:
     - node_js: "lts/*"
       script: yarn lint
-    - node_js: "lts/*"
-      script: yarn test-coverage
-      after_success: bash <(curl -s https://codecov.io/bash)
-script: yarn test-only
+script: yarn test
