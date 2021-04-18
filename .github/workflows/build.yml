@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  DEFAULT_NODE_VERSION: 14
+
+jobs:
+  tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+        webpack-version: [default, ^5.0.0]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      id: cache-nodemodules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      if: ${{ steps.cache-nodemodules.outputs.cache-hit != 'true' }}
+      run: yarn install --frozen-lockfile --non-interactive
+
+    - name: Install webpack
+      if: ${{ matrix.webpack-version != 'default' && steps.cache-nodemodules.outputs.cache-hit != 'true' }}
+      run: yarn add --dev webpack@${{ matrix.webpack-version }}
+
+    - name: Unit tests
+      run: yarn test --ci
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+    - name: Cache node_modules
+      uses: actions/cache@v2
+      id: cache-nodemodules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-${{ env.DEFAULT_NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install dependencies
+      if: ${{ steps.cache-nodemodules.outputs.cache-hit != 'true' }}
+      run: yarn install --frozen-lockfile --non-interactive
+
+    - name: Lint
+      run: yarn lint
+
+  release:
+    needs: [tests, lint]
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Release
+        run: npx semantic-release --branches main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

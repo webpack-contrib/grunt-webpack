@@ -1,7 +1,4 @@
 [![npm][npm]][npm-url]
-[![deps][deps]][deps-url]
-[![test][test]][test-url]
-[![chat][chat]][chat-url]
 
 <div align="center">
   <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
@@ -17,7 +14,7 @@
 
 <h2 align="center">Requirements</h2>
 
-- Version 4 of `grunt-webpack` supports webpack 4 as well as version 5 beta.
+- Version 4 of `grunt-webpack` supports webpack version 4 and 5.
 - Version 3.2.0  of `webpack-dev-server` is needed if used (optional).
 
 <h2 align="center">Install</h2>
@@ -319,12 +316,3 @@ module.exports = function(grunt) {
 
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
-
-[deps]: https://david-dm.org/webpack-contrib/grunt-webpack.svg
-[deps-url]: https://david-dm.org/webpack-contrib/grunt-webpack
-
-[chat]: https://img.shields.io/badge/gitter-webpack%2Fwebpack-brightgreen.svg
-[chat-url]: https://gitter.im/webpack/webpack
-
-[test]: https://travis-ci.org/webpack-contrib/grunt-webpack.svg?branch=master
-[test-url]: https://travis-ci.org/webpack-contrib/grunt-webpack
