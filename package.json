@@ -28,7 +28,7 @@
     "gruntplugin"
   ],
   "scripts": {
-    "lint": "eslint src tasks",
+    "lint": "eslint src tasks --report-unused-disable-directives",
     "prebump": "yarn test",
     "test": "jest"
   },
@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.10.4",
     "babel-loader": "^8.1.0",
     "eslint": "^7.5.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-config-webpack": "^1.2.5",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
