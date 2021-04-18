@@ -1,6 +1,6 @@
 {
-  "extends": ["eslint:recommended", "webpack", "prettier"],
   "plugins": ["prettier"],
+  "extends": ["eslint:recommended", "webpack", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "script"
@@ -9,7 +9,6 @@
     "node": true
   },
   "rules": {
-    "prettier/prettier": "error",
     "no-plusplus": "off",
     "global-require": "off",
     "class-methods-use-this": "off",
