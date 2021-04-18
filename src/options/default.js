@@ -17,6 +17,7 @@ const gruntOptions = {
       ? options.some((option) => option.watch)
       : !!options.watch;
   },
+  watch: null,
 };
 
 const webpackOptions = {

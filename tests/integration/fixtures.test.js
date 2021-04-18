@@ -20,7 +20,11 @@ function runExec(code, opts) {
     {
       fs,
       path,
-      assertGrunt: assertGruntFactory(opts.returnCode, opts.stdout),
+      assertGrunt: assertGruntFactory(
+        opts.returnCode,
+        opts.stdout,
+        opts.timeout,
+      ),
     },
     opts,
   );
@@ -51,7 +55,11 @@ files.forEach((file) => {
 describe("Fixture Tests", () => {
   let cwd;
   beforeEach(async () => {
-    cwd = path.join(TMP_DIRECTORY, "integration", crypto.randomBytes(20).toString("hex"));
+    cwd = path.join(
+      TMP_DIRECTORY,
+      "integration",
+      crypto.randomBytes(20).toString("hex"),
+    );
     await fs.ensureDir(cwd);
   });
   afterEach(async () => {
@@ -66,42 +74,58 @@ describe("Fixture Tests", () => {
     const directoryParts = relativeDirectory.split("/");
     const testFunc = directoryParts.pop().startsWith(".") ? test.skip : test;
 
-    testFunc(name, async () => {
-      await fs.copy(directory, cwd);
-      let optionsLoc = path.join(cwd, "options.json");
-      let options;
-      if (await fs.exists(optionsLoc)) {
-        options = require(optionsLoc);
-      } else {
-        options = {
-          args: [directoryParts.shift()],
-        };
-      }
+    testFunc(
+      name,
+      async () => {
+        await fs.copy(directory, cwd);
+        let optionsLoc = path.join(cwd, "options.json");
+        let options;
+        if (await fs.exists(optionsLoc)) {
+          options = require(optionsLoc);
+        } else {
+          options = {
+            args: [directoryParts.shift()],
+          };
+        }
 
-      options.args.unshift("--stack");
+        options.args.unshift("--stack");
 
-      const execLoc = path.join(cwd, "exec.js");
-      let execCode;
-      if (await fs.exists(execLoc)) {
-        execCode = await fs.readFile(execLoc, "utf-8");
-      }
-      const grunt = spawn(GRUNT_BIN, options.args, { cwd });
+        const execLoc = path.join(cwd, "exec.js");
+        let execCode;
+        if (await fs.exists(execLoc)) {
+          execCode = await fs.readFile(execLoc, "utf-8");
+        }
+        const grunt = spawn(GRUNT_BIN, options.args, { cwd });
 
-      let stdout = "";
-      let stderr = "";
-      grunt.stdout.on("data", (data) => {
-        stdout += data.toString();
-      });
-      grunt.stderr.on("data", (data) => {
-        stderr += data.toString();
-      });
-
-      return new Promise((resolve) => {
-        grunt.on("close", (returnCode) => {
-          if (execCode) runExec(execCode, { returnCode, cwd, stderr, stdout });
-          resolve();
+        let stdout = "";
+        let stderr = "";
+        grunt.stdout.on("data", (data) => {
+          stdout += data.toString();
         });
-      });
-    });
+        grunt.stderr.on("data", (data) => {
+          stderr += data.toString();
+        });
+
+        return new Promise((resolve) => {
+          const timeout = setTimeout(() => {
+            grunt.removeAllListeners();
+            const killed = grunt.kill();
+            if (!killed) console.error("cannot kill grunt");
+            finish({ timeout: true });
+          }, 5000);
+
+          const finish = (result) => {
+            clearTimeout(timeout);
+            if (execCode) runExec(execCode, { cwd, stderr, stdout, ...result });
+            resolve();
+          };
+
+          grunt.on("close", (returnCode) => {
+            finish({ returnCode, timeout: false });
+          });
+        });
+      },
+      10000,
+    );
   });
 });
