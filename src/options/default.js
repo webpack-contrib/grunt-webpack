@@ -53,22 +53,29 @@ function mergeCustomize(a, b) {
 }
 
 function mergeOptions(defaultOptions, options, targetOptions) {
-  let result;
-  if (Array.isArray(targetOptions)) {
-    result = targetOptions.map((opt) =>
-      mergeWith({}, defaultOptions, options, opt, mergeCustomize),
-    );
-  } else {
-    result = mergeWith(
-      {},
-      defaultOptions,
-      options,
-      targetOptions,
-      mergeCustomize,
+  if (Array.isArray(targetOptions) && Array.isArray(options)) {
+    if (targetOptions.length !== options.length) {
+      throw new Error(
+        "Cannot have both `options` and `target` be an array with different length. " +
+          "If using arrays for both please ensure they are the same size.",
+      );
+    }
+    return targetOptions.map((opt, index) =>
+      mergeWith({}, defaultOptions, options[index], opt, mergeCustomize),
     );
   }
 
-  return result;
+  if (Array.isArray(targetOptions)) {
+    return targetOptions.map((opt) =>
+      mergeWith({}, defaultOptions, options, opt, mergeCustomize),
+    );
+  } else if (Array.isArray(options)) {
+    return options.map((opt) =>
+      mergeWith({}, defaultOptions, opt, targetOptions, mergeCustomize),
+    );
+  }
+
+  return mergeWith({}, defaultOptions, options, targetOptions, mergeCustomize);
 }
 
 exports.gruntOptions = gruntOptions;

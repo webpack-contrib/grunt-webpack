@@ -29,12 +29,6 @@ class OptionHelper {
 
   async generateOptions() {
     const baseOptions = await this.readRawConfig([this.taskName, "options"]);
-    if (Array.isArray(baseOptions)) {
-      throw new Error(
-        "webpack.options must be an object, but array was provided",
-      );
-    }
-
     const targetOptions = await this.readRawConfig([
       this.taskName,
       this.target,
