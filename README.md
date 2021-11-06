@@ -171,8 +171,6 @@ On the command line you can then do the following.
 In some cases you might want to load the webpack config lazy. This can be done by specifying a function as the config value. The first paramter to this function will be the complete grunt config, which can be used in cases where grunt templates do not work (see below).
 
 ```js
-const webpackConfig = require("./webpack.config.js");
-
 module.exports = function (grunt) {
   grunt.initConfig({
     webpack: {
@@ -190,6 +188,22 @@ module.exports = function (grunt) {
 };
 ```
 
+You could also use a promise
+
+```js
+const webpackConfig = require("./webpack.config.js");
+
+module.exports = function (grunt) {
+  grunt.initConfig({
+    webpack: {
+      myconfig: Promise.resolve(webpackConfig),
+    },
+  });
+
+  grunt.loadNpmTasks("grunt-webpack");
+};
+```
+
 #### Grunt templates
 
 grunt-webpack supports grunt templates in all string values in it's configuration.
@@ -197,8 +211,6 @@ grunt-webpack supports grunt templates in all string values in it's configuratio
 In the next example we use a template for `output.filename`.
 
 ```js
-const webpackConfig = require("./webpack.config.js");
-
 module.exports = function (grunt) {
   grunt.initConfig({
     outputFileName: "output.js",
@@ -220,8 +232,6 @@ module.exports = function (grunt) {
 For plugins we cannot support grunt template interpolation, as plugins are class instances which we cannot modify during runtime without breaking them. If you need to use template in a string option to a plugin, you can use lazy config loading and use the supplied config. You can also use grunt inside directly to access utility methods:
 
 ```js
-const webpackConfig = require("./webpack.config.js");
-
 module.exports = function (grunt) {
   grunt.initConfig({
     name: "Webpack",

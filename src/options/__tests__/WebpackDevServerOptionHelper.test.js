@@ -5,10 +5,12 @@ describe("WebpackDevServerOptionHelper", () => {
     const options = {};
     const helper = new WebpackDevServerOptionHelper();
 
-    helper.getRawConfig = () => options;
+    helper.readRawConfig = () => options;
 
-    expect(helper.getWebpackOptions()).toMatchSnapshot();
-    expect(helper.getWebpackDevServerOptions()).toMatchSnapshot();
+    helper.preloadOptions(() => {
+      expect(helper.getWebpackOptions()).toMatchSnapshot();
+      expect(helper.getWebpackDevServerOptions()).toMatchSnapshot();
+    });
   });
 
   test("supports array config for webpack", () => {
