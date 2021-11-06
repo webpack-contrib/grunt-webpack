@@ -4,7 +4,7 @@ const mergeWith = require("lodash/mergeWith");
 
 const gruntOptions = {
   failOnError: (options) => {
-    // if watch enabled also default to failOnError false
+    // if watch enabled default to failOnError false
     return Array.isArray(options)
       ? options.every((option) => !option.watch)
       : !options.watch;
@@ -12,7 +12,7 @@ const gruntOptions = {
   progress: process.stdout.isTTY,
   storeStatsTo: null,
   keepalive: (options) => {
-    // if watch enabled also default to keepalive true
+    // if watch enabled default to keepalive true
     return Array.isArray(options)
       ? options.some((option) => option.watch)
       : !!options.watch;
@@ -35,15 +35,13 @@ const webpackOptions = {
 };
 
 const webpackDevServerOptions = {
-  port: 8080,
-  host: "localhost",
-  inline: true,
-  keepalive: true,
-  publicPath: "/",
+  devServer: {
+    host: "localhost",
+  },
   stats: {
-    colors: true,
     cached: false,
     cachedAssets: false,
+    colors: true,
   },
 };
 

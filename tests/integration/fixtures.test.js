@@ -112,7 +112,7 @@ describe("Fixture Tests", () => {
             const killed = grunt.kill();
             if (!killed) console.error("cannot kill grunt");
             finish({ timeout: true });
-          }, 5000);
+          }, 3000);
 
           const finish = (result) => {
             clearTimeout(timeout);
