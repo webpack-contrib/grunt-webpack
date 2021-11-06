@@ -266,8 +266,7 @@ module.exports = function (grunt) {
 
 #### imported config
 
-This is a simple example that requires the webpack config from the config file.
-It also disables stats in non 'development' environments and enables watch in development.
+This is a simple example that requires the webpack config from the config file. Read how to configure webpack-dev-server in the [webpack-dev-server documentation][webpack-dev-server-config].
 
 ```javascript
 const webpackConfig = require("./webpack.config.js");
@@ -362,6 +361,7 @@ module.exports = function (grunt) {
 
 [grunt-template]: http://gruntjs.com/api/grunt.template
 [webpack-config]: https://webpack.js.org/configuration/
+[webpack-dev-server-config]: https://webpack.js.org/configuration/dev-server/
 [grunt-targets]: https://gruntjs.com/configuring-tasks#task-configuration-and-targets
 [webpack-start]: https://webpack.js.org/guides/get-started/
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
