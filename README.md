@@ -78,9 +78,9 @@ Will terminate the grunt process when an error happens if set to `true`. If set 
 #### keepalive
 
 Type: `bool`
-Default: `false` (`true` if watch mode is used and for `webpack-dev-server` task)
+Default: `false` (`true` if watch mode is used)
 
-When set to true the grunt process/task will be kept alive after webpack task is finished. This is especially useful for `watch` and `webpack-dev-server` as these usually need to run as long as not manually killed.
+When set to true the grunt process/task will be kept alive after webpack task is finished. This is especially useful for `watch` as this usually needs to run as long as not manually killed.
 
 #### storeStatsTo
 
