@@ -12,6 +12,7 @@ module.exports = function (returnCode, stdout, timeout) {
     },
     timeout: function assertGruntTimeout() {
       expect(timeout).toBe(true);
+      expect(stdout).not.toMatch(/ERROR/i);
     },
   };
 };
