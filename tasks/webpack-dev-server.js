@@ -62,20 +62,22 @@ npm install --save-dev webpack-dev-server
         }
 
         const optionHelper = new OptionHelper(grunt, this.name, target);
-        const opts = optionHelper.getOptions();
-        const webpackOptions = optionHelper.getWebpackOptions();
+        optionHelper.preloadOptions(() => {
+          const opts = optionHelper.getOptions();
+          const webpackOptions = optionHelper.getWebpackOptions();
 
-        const compiler = webpack(webpackOptions);
-        if (opts.progress) {
-          processPluginFactory.addPlugin(compiler, webpackOptions);
-        }
+          const compiler = webpack(webpackOptions);
+          if (opts.progress) {
+            processPluginFactory.addPlugin(compiler, webpackOptions);
+          }
 
-        const server = new WebpackDevServer(
-          optionHelper.getWebpackDevServerOptions(),
-          compiler,
-        );
+          const server = new WebpackDevServer(
+            optionHelper.getWebpackDevServerOptions(),
+            compiler,
+          );
 
-        server.startCallback(() => {});
+          server.startCallback(() => {});
+        });
       });
     },
   );

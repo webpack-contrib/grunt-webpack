@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionHelper supports Promise as options 1`] = `
+Object {
+  "mode": "production",
+}
+`;
+
+exports[`OptionHelper supports functions as options 1`] = `
+Object {
+  "mode": "production",
+}
+`;
