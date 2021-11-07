@@ -43,6 +43,7 @@ jobs:
         run: yarn install --frozen-lockfile --non-interactive
 
       - name: Install webpack
+        if: ${{ matrix.webpack-version != 'default' }}
         run: yarn add --dev webpack@${{ matrix.webpack-version }}
 
       - name: Unit tests
