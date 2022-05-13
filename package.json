@@ -14,7 +14,7 @@
     "url": "https://github.com/webpack-contrib/grunt-webpack/issues"
   },
   "engines": {
-    "node": ">=14.19.2"
+    "node": ">=12.13.0"
   },
   "files": [
     "src",
@@ -33,21 +33,21 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "babel-loader": "^8.2.5",
-    "eslint": "^8.15.0",
-    "eslint-config-prettier": "^8.5.0",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-config-webpack": "^1.2.5",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "fast-glob": "^3.2.11",
-    "fs-extra": "^10.1.0",
-    "grunt": "^1.5.3",
+    "fast-glob": "^3.2.4",
+    "fs-extra": "^10.0.0",
+    "grunt": "^1.2.1",
     "jest": "^27.3.1",
-    "prettier": "^2.6.2",
-    "webpack": "^5.72.1",
-    "webpack-dev-server": "^4.9.0"
+    "prettier": "^2.0.5",
+    "webpack": "^5.62.1",
+    "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
     "deep-for-each": "^3.0.0",
