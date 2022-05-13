@@ -15,6 +15,19 @@ const files = glob.sync(path.join(__dirname, "fixtures/**/Gruntfile.js"), {
 });
 const tests = new Map();
 
+async function fileExists(filename) {
+  try {
+      await fs.promises.access(filename);
+      return true;
+  } catch (err) {
+      if (err.code === 'ENOENT') {
+          return false;
+      } else {
+          throw err;
+      }
+  }
+}
+
 function runExec(code, opts) {
   const sandbox = Object.assign(
     {
@@ -80,7 +93,7 @@ describe("Fixture Tests", () => {
         await fs.copy(directory, cwd);
         let optionsLoc = path.join(cwd, "options.json");
         let options;
-        if (await fs.exists(optionsLoc)) {
+        if (await fileExists(optionsLoc)) {
           options = require(optionsLoc);
         } else {
           options = {
@@ -92,7 +105,7 @@ describe("Fixture Tests", () => {
 
         const execLoc = path.join(cwd, "exec.js");
         let execCode;
-        if (await fs.exists(execLoc)) {
+        if (await fileExists(execLoc)) {
           execCode = await fs.readFile(execLoc, "utf-8");
         }
         const grunt = spawn(GRUNT_BIN, options.args, { cwd });
