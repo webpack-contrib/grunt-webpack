@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WebpackDevServerOptionHelper host is localhost by default 1`] = `
-Object {
-  "devServer": Object {
+{
+  "devServer": {
     "host": "localhost",
   },
-  "stats": Object {
+  "stats": {
     "cached": false,
     "cachedAssets": false,
     "colors": true,
@@ -14,20 +14,20 @@ Object {
 `;
 
 exports[`WebpackDevServerOptionHelper host is localhost by default 2`] = `
-Object {
+{
   "host": "localhost",
 }
 `;
 
 exports[`WebpackDevServerOptionHelper supports array config for webpack 1`] = `
-Array [
-  Object {
-    "devServer": Object {
+[
+  {
+    "devServer": {
       "port": 8080,
     },
   },
-  Object {
-    "devServer": Object {
+  {
+    "devServer": {
       "port": 9090,
     },
   },
@@ -35,7 +35,7 @@ Array [
 `;
 
 exports[`WebpackDevServerOptionHelper supports array config for webpack 2`] = `
-Object {
+{
   "port": 9090,
 }
 `;

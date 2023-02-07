@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`default options mergeOptions all single objects 1`] = `
-Object {
+{
   "default": 1,
   "options": 1,
   "target": 1,
@@ -9,8 +9,8 @@ Object {
 `;
 
 exports[`default options mergeOptions merges sub arrays 1`] = `
-Object {
-  "array": Array [
+{
+  "array": [
     1,
     2,
     3,
@@ -19,13 +19,13 @@ Object {
 `;
 
 exports[`default options mergeOptions options and target as array 1`] = `
-Array [
-  Object {
+[
+  {
     "default": 1,
     "options1": 1,
     "target1": 1,
   },
-  Object {
+  {
     "default": 1,
     "options2": 1,
     "target2": 1,
@@ -34,13 +34,13 @@ Array [
 `;
 
 exports[`default options mergeOptions options as array 1`] = `
-Array [
-  Object {
+[
+  {
     "default": 1,
     "options1": 1,
     "target": 1,
   },
-  Object {
+  {
     "default": 1,
     "options2": 1,
     "target": 1,
@@ -49,13 +49,13 @@ Array [
 `;
 
 exports[`default options mergeOptions target as array 1`] = `
-Array [
-  Object {
+[
+  {
     "default": 1,
     "options": 1,
     "target1": 1,
   },
-  Object {
+  {
     "default": 1,
     "options": 1,
     "target2": 1,
