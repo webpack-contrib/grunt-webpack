@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  DEFAULT_NODE_VERSION: 16
+  DEFAULT_NODE_VERSION: 18
 
 jobs:
   tests:
