@@ -1,4 +1,3 @@
-[![npm][npm]][npm-url]
 
 <div align="center">
   <!-- replace with accurate logo e.g from https://worldvectorlogo.com/ -->
@@ -8,29 +7,59 @@
     <img width="200" height="200" vspace="" hspace="25"
       src="https://cdn.rawgit.com/webpack/media/e7485eb2/logo/icon.svg">
   </a>
-  <h1>Grunt Webpack</h1>
-  <p>Use Webpack with Grunt.<p>
 </div>
 
-<h2 align="center">Requirements</h2>
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![size][size]][size-url]
 
-- Version 5 of `grunt-webpack` supports webpack version 4 and 5 and (optional) `webpack-dev-server` version 4.
+# Grunt Webpack
 
-<h2 align="center">Install</h2>
+Use Webpack with Grunt.
+
+## Requirements
+
+Version 5 of `grunt-webpack` supports webpack version 4 and 5 and (optional) `webpack-dev-server` version 4.
+
+## Install
 
 Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started). You also need to install webpack yourself, this grunt plugin does not install webpack itself.
 
-```bash
+```console
 yarn add webpack grunt-webpack --dev
-// or
-// npm i webpack grunt-webpack --save-dev
 ```
+
+or
+
+```console
+npm i webpack grunt-webpack --save-dev
+```
+
+or
+
+```console
+pnpm add webpack grunt-webpack -D
+```
+
 
 If you also want to use the webpack-dev-server task you also need to install `webpack-dev-server`
 
-```bash
+```console
 yarn add webpack-dev-server --dev
 ```
+
+or
+
+```console
+npm i webpack-dev-server --save-dev
+```
+
+or
+
+```console
+pnpm add webpack-dev-server -D
+```
+
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
 
@@ -52,7 +81,7 @@ module.exports = function(grunt) {
 };
 ```
 
-<h2 align="center">Configuration</h2>
+## Configuration
 
 `webpack-grunt` offers two different tasks `webpack` and `webpack-dev-server`. Both support all webpack options as
 can be seen in the [webpack documentation][webpack-config]. For exceptions and additions see this list.
@@ -122,7 +151,7 @@ There are no special options for this task. Some changed defaults for WebpackDev
 | -------------- | ------------- |
 | devServer.host | localhost     |
 
-<h2 align="center">Examples</h2>
+## Examples
 
 ### Webpack
 
@@ -297,7 +326,7 @@ On the command line you can then do the following.
 
 > For more examples and information have a look at the [webpack documentation]5] which mostly also applies here besides the noted differences above.
 
-<h2 align="center">Troubleshooting</h2>
+## Troubleshooting
 
 ### Circular reference detected (.plugins)
 
@@ -327,3 +356,5 @@ module.exports = function (grunt) {
 [webpack-start]: https://webpack.js.org/guides/get-started/
 [npm]: https://img.shields.io/npm/v/grunt-webpack.svg
 [npm-url]: https://npmjs.com/package/grunt-webpack
+[node-url]: https://nodejs.org
+[size]: https://packagephobia.now.sh/badge?p=grunt-webpack
