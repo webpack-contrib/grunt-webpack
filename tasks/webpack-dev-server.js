@@ -17,10 +17,9 @@ module.exports = (grunt) => {
         grunt.fail.fatal(
           `webpack-dev-server is currently not installed, this task will do nothing.
 
-To fix this problem install webpack-dev-server by doing either
-yarn add webpack-dev-server --dev
-or
+To fix this problem install webpack-dev-server by doing
 npm install --save-dev webpack-dev-server
+or similar with you favorite package manager.
 `,
         );
       },

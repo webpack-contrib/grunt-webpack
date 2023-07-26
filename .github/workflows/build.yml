@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
       - main
   pull_request:
 
-env:
-  DEFAULT_NODE_VERSION: 20
+permissions: {}
 
 jobs:
   tests:
@@ -22,24 +21,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          cache: pnpm
 
       - name: Install dependencies
-        if: ${{ steps.cache-nodemodules.outputs.cache-hit != 'true' }}
-        run: yarn install --frozen-lockfile --non-interactive
+        run: pnpm install --frozen-lockfile
 
-      - name: Unit tests
-        run: yarn test --ci
+      - name: Tests
+        run: pnpm test
 
   lint:
     name: Lint
@@ -49,44 +44,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.DEFAULT_NODE_VERSION }}
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        id: cache-nodemodules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ env.DEFAULT_NODE_VERSION }}-nodemodules-${{ hashFiles('**/yarn.lock') }}
+          node-version: "lts/*"
+          cache: pnpm
 
       - name: Install dependencies
-        if: ${{ steps.cache-nodemodules.outputs.cache-hit != 'true' }}
-        run: yarn install --frozen-lockfile --non-interactive
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: yarn lint
-
-  release:
-    needs: [tests, lint]
-    if: ${{ github.ref == 'refs/heads/main' }}
-    name: Release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.DEFAULT_NODE_VERSION }}
-
-      - name: Release
-        run: npx semantic-release --branches main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm lint

@@ -22,15 +22,13 @@
 Install this grunt plugin next to your project's [Gruntfile.js](http://gruntjs.com/getting-started). You also need to install webpack yourself, this grunt plugin does not install webpack itself.
 
 ```bash
-yarn add webpack grunt-webpack --dev
-// or
-// npm i webpack grunt-webpack --save-dev
+npm install webpack grunt-webpack --save-dev
 ```
 
 If you also want to use the webpack-dev-server task you also need to install `webpack-dev-server`
 
 ```bash
-yarn add webpack-dev-server --dev
+npm install webpack-dev-server --save-dev
 ```
 
 Then add this line to your project's `Gruntfile.js` gruntfile:
