@@ -1,14 +1,6 @@
 "use strict";
 
-let CachePlugin;
-try {
-  // webpack 5
-  CachePlugin = require("webpack/lib/cache/MemoryCachePlugin");
-} catch (e) {
-  // webpack 4
-  // eslint-disable-next-line import/no-unresolved,import/extensions
-  CachePlugin = require("webpack/lib/CachePlugin");
-}
+const CachePlugin = require("webpack/lib/cache/MemoryCachePlugin");
 
 class CachePluginFactory {
   constructor() {

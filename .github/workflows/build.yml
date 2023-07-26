@@ -17,10 +17,6 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x, 18.x]
-        webpack-version: [default, ^4.0.0]
-        exclude:
-          - node-version: 18.x
-            webpack-version: ^4.0.0
 
     steps:
       - name: Checkout
@@ -41,10 +37,6 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.cache-nodemodules.outputs.cache-hit != 'true' }}
         run: yarn install --frozen-lockfile --non-interactive
-
-      - name: Install webpack
-        if: ${{ matrix.webpack-version != 'default' }}
-        run: yarn add --dev webpack@${{ matrix.webpack-version }}
 
       - name: Unit tests
         run: yarn test --ci
