@@ -15,7 +15,7 @@
     "url": "https://opencollective.com/webpack"
   },
   "engines": {
-    "node": ">=12.13.0"
+    "node": ">=16.13.0"
   },
   "files": [
     "src",
