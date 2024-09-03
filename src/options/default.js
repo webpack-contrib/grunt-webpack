@@ -26,12 +26,6 @@ const webpackOptions = {
     cachedAssets: false,
     colors: true,
   },
-  cache: (options) => {
-    // if watch enabled also default to cache true
-    return Array.isArray(options)
-      ? options.some((option) => option.watch)
-      : !!options.watch;
-  },
 };
 
 const webpackDevServerOptions = {
