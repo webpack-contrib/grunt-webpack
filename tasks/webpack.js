@@ -3,11 +3,9 @@
 const webpack = require("webpack");
 const pkg = require("../package.json");
 const OptionHelper = require("../src/options/WebpackOptionHelper");
-const CachePluginFactory = require("../src/plugins/CachePluginFactory");
 const ProgressPluginFactory = require("../src/plugins/ProgressPluginFactory");
 
 module.exports = (grunt) => {
-  const cachePluginFactory = new CachePluginFactory();
   const processPluginFactory = new ProgressPluginFactory(grunt);
 
   grunt.registerTask(
@@ -59,9 +57,6 @@ module.exports = (grunt) => {
 
           const compiler = webpack(webpackOptions);
 
-          if (opts.cache) {
-            cachePluginFactory.addPlugin(target, compiler);
-          }
           if (opts.progress) {
             processPluginFactory.addPlugin(compiler, webpackOptions);
           }
