@@ -13,9 +13,8 @@
 
 <h2 align="center">Requirements</h2>
 
-- Version 6 of `grunt-webpack` supports webpack 5 and (optional) `webpack-dev-server` version 4.
-  - For webpack 4 use version 5 of `grunt-webpack`
-- Node.js 16.13.0 or newer
+- Version 6 of `grunt-webpack` supports webpack 5 and (optional) `webpack-dev-server` version 5.
+- Node.js 18.19.0 or newer
 
 <h2 align="center">Install</h2>
 
